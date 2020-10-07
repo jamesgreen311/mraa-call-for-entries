@@ -1,0 +1,14 @@
+{
+  "name": "call-for-entries",
+  "version": "1.0.0",
+  "description": "This application provides an easy to use front end for the creation, submission and tracking of MRAA members to submit work for a gallery exhibit.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Green",
+  "license": "ISC",
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.16"
+  }
+}
