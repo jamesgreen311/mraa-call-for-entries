@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <label for="shartDate">Start Date</label>
-                <input type="datetime-local" class="form-control" id="shartDate" />
+                <input type="datetime-local" class="form-control" id="startDate" />
             </div>
 
             <div class="form-group">
@@ -42,28 +42,24 @@
                 <input type="number" class="form-control" id="maxEntriesPerShow" min=1 />
             </div>
 
-            <button type="button" class="btn btn-primary" id="addNewRowButton">
+            <button type="button" class="btn btn-primary" id="btnSave">
                 Save
             </button>
         </form>
     </div>
     <script>
-        function addRowClicked() {
-            let exhibitName = document.getElementById("exhibitName");
-            let startDate = document.getElementById("startDate");
-            let closeDate = document.getElementById("closeDate");
-            let maxEntriesPerArtist = document.getElementById("maxEntriesPerArtist");
-            let maxEntriesPerShow = document.getElementById("maxEntriesPerShow");
+        document.getElementById("btnSave").addEventListener("click", saveShow);
 
-            let rowData = {
-                showId: 'tbd',
-                exhibitName: exhibitName.value,
-                startDate: startDate.value,
-                closeDate: closeDate.value,
-                maxEntriesPerArtist: maxEntriesPerArtist.value,
-                maxEntriesPerShow: maxEntriesPerShow.value
+        function saveShow() {
+            let show = {
+                showId: 'generated',
+                exhibitName: document.getElementById("exhibitName").value,
+                startDate: document.getElementById("startDate").value,
+                closeDate: document.getElementById("closeDate").value,
+                maxEntriesPerArtist: document.getElementById("maxEntriesPerArtist").value,
+                maxEntriesPerShow: document.getElementById("maxEntriesPerShow").value
             };
-            google.script.run.withSuccessHandler(formSubmitted).addNewRow(rowData);
+            google.script.run.withSuccessHandler(formSubmitted).addShowToSheet(show);
         }
 
         function formSubmitted(e) {
@@ -73,10 +69,6 @@
             document.getElementById("maxEntriesPerArtist").value = "";
             document.getElementById("maxEntriesPerShow").value = "";
         }
-
-        document
-            .getElementById("addNewRowButton")
-            .addEventListener("click", addRowClicked);
     </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

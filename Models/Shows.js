@@ -1,4 +1,4 @@
-const config = ds.getSheetByName("Config");
+const config = connect().getSheetByName("Config");
 
 // Defines the structure of the config array
 const Config = {
@@ -56,16 +56,4 @@ function getShow(id) {
         } 
     }
     return show;
-}
-
-/*
-Retrieve a show from the Config tab
-* @param {object} show
-* @return {array} row
-*/
-function addShowToSheet(show) {
-    let row = Object.keys(show).map((key) => show[key]);
-    config.appendRow(row);
-
-    return row;
 }

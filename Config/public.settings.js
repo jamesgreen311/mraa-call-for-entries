@@ -3,8 +3,9 @@ const publishMode = "test";
 const ownerName = "James Green";
 const pageRoot = "Pages";
 const supportEmail = "tech@metrorichmondart.org";
+const dataTemplateName = "Data Template";
 
-const imageUploadLimit = 2; // move to config sheet
+//const imageUploadLimit = 2; // moved to config sheet, Max Entries Per Artist
 
 const pageName = `${pageRoot}/Form`; // this will become dynamic
 

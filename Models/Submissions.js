@@ -1,7 +1,7 @@
 // show name will change, must get frome config based on show id
 //const sheetName = getShowName(id);
 //const data = ds.getSheetByName(sheetName); 
-const data = ds.getSheetByName("Data")
+const data = connect().getSheetByName("Data");
 
 // map field names to column position
 const DataMap = {
