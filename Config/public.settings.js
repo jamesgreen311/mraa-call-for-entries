@@ -9,4 +9,4 @@ const imageUploadLimit = 2; // move to config sheet
 const pageName = `${pageRoot}/Form`; // this will become dynamic
 
 // UI
-const formTitle = "Critique Sign Up"; // move to config sheet
+const formTitle = "Show Creator"; // move to config sheet

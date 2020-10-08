@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+
+    <title>Create a Show Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h4>New Show</h4>
+        <form>
+            <div class="form-group">
+                <label for="exhibitName">Exhibit Name *</label>
+                <input type="text" class="form-control" id="exhibitName"></input>
+            </div>
+
+            <div class="form-group">
+                <label for="shartDate">Start Date</label>
+                <input type="datetime-local" class="form-control" id="shartDate" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-check-label" for="closeDate">Close Date</label>
+                <input type="datetime-local" class="form-control" id="closeDate" />
+            </div>
+
+            <div class="form-group">
+                <label for="maxEntriesPerArtist">Max Entries per Artist</label>
+                <input type="number" class="form-control" id="maxEntriesPerArtist" min=1 />
+            </div>
+
+            <div class="form-group">
+                <label for="maxEntriesPerShow">Max Entries per Show</label>
+                <input type="number" class="form-control" id="maxEntriesPerShow" min=1 />
+            </div>
+
+            <button type="button" class="btn btn-primary" id="addNewRowButton">
+                Save
+            </button>
+        </form>
+    </div>
+    <script>
+        function addRowClicked() {
+            let exhibitName = document.getElementById("exhibitName");
+            let startDate = document.getElementById("startDate");
+            let closeDate = document.getElementById("closeDate");
+            let maxEntriesPerArtist = document.getElementById("maxEntriesPerArtist");
+            let maxEntriesPerShow = document.getElementById("maxEntriesPerShow");
+
+            let rowData = {
+                showId: 'tbd',
+                exhibitName: exhibitName.value,
+                startDate: startDate.value,
+                closeDate: closeDate.value,
+                maxEntriesPerArtist: maxEntriesPerArtist.value,
+                maxEntriesPerShow: maxEntriesPerShow.value
+            };
+            google.script.run.withSuccessHandler(formSubmitted).addNewRow(rowData);
+        }
+
+        function formSubmitted(e) {
+            document.getElementById("exhibitName").value = "";
+            document.getElementById("startDate").value = "";
+            document.getElementById("closeDate").value = "";
+            document.getElementById("maxEntriesPerArtist").value = "";
+            document.getElementById("maxEntriesPerShow").value = "";
+        }
+
+        document
+            .getElementById("addNewRowButton")
+            .addEventListener("click", addRowClicked);
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
