@@ -16,10 +16,10 @@
 <body>
     <div class="container">
         <h4>New Show</h4>
-        <form>
+        <form id="frmMain">
             <div class="form-group">
                 <label for="exhibitName">Exhibit Name *</label>
-                <input type="text" class="form-control" id="exhibitName"></input>
+                <input type="text" class="form-control" id="exhibitName" required></input>
             </div>
 
             <div class="form-group">
@@ -33,8 +33,8 @@
             </div>
 
             <div class="form-group">
-                <label for="maxEntriesPerArtist">Max Entries per Artist</label>
-                <input type="number" class="form-control" id="maxEntriesPerArtist" min=1 />
+                <label for="maxEntriesPerArtist">Max Entries per Artist *</label>
+                <input type="number" class="form-control" id="maxEntriesPerArtist" min=1 required />
             </div>
 
             <div class="form-group">
@@ -46,11 +46,41 @@
                 Save
             </button>
         </form>
+
+        <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
+            <h4 class="alert-heading">Save Successful</h4>
+            <p id="messageContent"></p>
+            <hr>
+            <p class="mb-0" id="messageFooter"></p>
+        </div>
     </div>
     <script>
         document.getElementById("btnSave").addEventListener("click", saveShow);
+        document.getElementById("frmMain").addEventListener("submit", stopSubmit);
+
+        function saveFormSuccess(e) {
+            let title = document.getElementById('titleOfWork').value;
+            let footerMessage = `You can submit ${--uploadsLeft} more works for this exhibition.`;
+            let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
+
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("messageContent").innerHTML = messageContent;
+            document.getElementById("messageFooter").innerHTML = footerMessage;
+
+            /* reset field values here */
+
+            container.style.display = "none";
+        }
 
         function saveShow() {
+            if (allFieldsValid()) {
+                document.getElementById('messageAlert').style.display = "none";
+                document.getElementById("loading").style.display = "block";
+                google.script.run.withSuccessHandler(saveFormSuccess).saveFile(obj, data);
+            } else {
+                return false;
+            }
+
             let show = {
                 showId: 'generated',
                 exhibitName: document.getElementById("exhibitName").value,
@@ -63,24 +93,27 @@
         }
 
         function formSubmitted(e) {
+            //let title = document.getElementById('titleOfWork').value;
+            //let footerMessage = `You can submit ${--uploadsLeft} more works for this exhibition.`;
+            //let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
+
+            let footerMessage = "Footer Content Message here";
+            let messageContent = "Save successful message here";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("messageContent").innerHTML = messageContent;
+            document.getElementById("messageFooter").innerHTML = footerMessage;
+
+            /* reset field values here */
             document.getElementById("exhibitName").value = "";
             document.getElementById("startDate").value = "";
             document.getElementById("closeDate").value = "";
             document.getElementById("maxEntriesPerArtist").value = "";
             document.getElementById("maxEntriesPerShow").value = "";
+
+            container.style.display = "none";
         }
     </script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-    </script>
+    <?!= include("Includes/global.script.inc"); ?>
 </body>
 
 </html>
