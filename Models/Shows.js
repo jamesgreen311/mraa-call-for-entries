@@ -57,3 +57,7 @@ function getShow(id) {
     }
     return show;
 }
+
+function getShowName(id) {
+    return getShow(id).name;
+}

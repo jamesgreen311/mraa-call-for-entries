@@ -11,6 +11,7 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
 
     <title>Create a Show Form</title>
+    <?!= include("Includes/css/global.inc"); ?>
 </head>
 
 <body>
@@ -56,7 +57,6 @@
     </div>
     <script>
         document.getElementById("btnSave").addEventListener("click", saveShow);
-        document.getElementById("frmMain").addEventListener("submit", stopSubmit);
 
         function saveFormSuccess(e) {
             let title = document.getElementById('titleOfWork').value;
@@ -113,7 +113,7 @@
             container.style.display = "none";
         }
     </script>
-    <?!= include("Includes/global.script.inc"); ?>
+    <?!= include("Includes/scripts/global.script.inc"); ?>
 </body>
 
 </html>
