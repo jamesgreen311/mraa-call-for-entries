@@ -1,0 +1,106 @@
+<h5>* All Fields <span class="badge badge-secondary">Required</span></h5>
+<form id="frmMain">
+    <div class="form-group">
+        <label for="artistName">Artist Name</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">First Name</span>
+            </div>
+            <input type="text" class="form-control" id="firstName" aria-label="First Name" required />
+            <div class="invalid-feedback">First name is required</div>
+            <div class="input-group-prepend ml-3">
+                <span class="input-group-text">Last Name</span>
+            </div>
+            <input type="text" class="form-control" id="lastName" aria-label="Last Name" required />
+            <div class="invalid-feedback">Last name is required</div>
+        </div>
+    </div>
+
+    <label for="contactInfo">Contact Information *</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Email</span>
+        </div>
+        <input type="email" class="form-control" id="emailAddress" aria-label="Email"
+            placeholder="Enter a valid email address" required />
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text">Phone</span>
+        </div>
+        <input type="tel" class="form-control" id="phoneNumber" aria-label="Phone" pattern="[0-9]{10}"
+            placeholder="Requested format 999 999-9999" required />
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="mraa-callout mraa-callout-info">
+                <label for="imageFile">Upload Your Art - (Limit of <span id="limit"><?= imageUploadLimit ?></span>
+                    Total)
+                    All fields required *</label>
+                <div class="form-group mb-3">
+                    <input accept="image/jpeg, image/png" type="file" id="imageFile" class="form-control-file" required
+                        onchange="showThumbnail(event)">
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Title of Work</span>
+                </div>
+                <input type="text" class="form-control" id="titleOfWork" aria-label="Title of Work" required />
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Width (in)</span>
+                </div>
+                <input type="number" class="form-control" id="sizeWidth" aria-label="Size: Width (in)" min="1" max="999"
+                    required />
+                <div class="input-group-prepend ml-3">
+                    <span class="input-group-text">Height (in)</span>
+                </div>
+                <input type="number" class="form-control" id="sizeHeight" aria-label="Size: Height (in)" min="1"
+                    max="999" required />
+            </div>
+            <!-- Medium -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Medium</span>
+                </div>
+                <input type="text" class="form-control" id="medium" aria-label="Medium" required />
+            </div>
+            <!-- Price -->
+            <div>
+                <label for="price">Price *</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <div>
+                        <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="price"
+                            size="10" required />
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <!-- Thumbnail -->
+            <h2 class="badge badge-secondary">Thumbnail</h2>
+            <div class="mraa-thumbnail-container" id="thumbnail-container" style="display: none;">
+                <img class="mraa-thumbnail" id="thumbnail" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Buttons -->
+            <hr>
+            <div>
+                <button class="btn btn-primary mraa-button-primary" id="btnSave">Save</button>
+                <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" class="btn btn-secondary"
+                    target="_top">Done</a>
+            </div>
+        </div>
+    </div>
+
+</form>

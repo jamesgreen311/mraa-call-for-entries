@@ -1,3 +1,4 @@
+/* Bound spreadsheet UI */
 function onOpen(e) {
     SpreadsheetApp.getUi()
     .createMenu('Options')
@@ -13,3 +14,4 @@ function createShowForm() {
     .setTitle('Create a New Show');
     SpreadsheetApp.getUi().showSidebar(html);
 }
+
