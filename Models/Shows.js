@@ -23,7 +23,11 @@ const ConfigColMap = {
 
 }
 
-const Show = class {
+/* const Show = {
+    id: generateUniqueId()
+} */
+
+/* const Show = class {
     constructor(name, openDate, closeDate, artistMax, showMax, folderId) {
         this.id = generateUniqueId();
         this.name = name;
@@ -34,7 +38,7 @@ const Show = class {
         this.imageFolderId = folderId;
     }
 }
-
+ */
 /*
 Retrieve a show from the Config tab
 * @param {string} id

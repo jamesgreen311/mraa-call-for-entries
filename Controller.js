@@ -52,7 +52,7 @@ function addShowToSheet(show) {
         createImageFolder(show.exhibitName)
     ]
     config.appendRow(row);
-    createDataSheet(show.exhibitName);
+    createDataSheet(show.exhibitName).showSheet();
     return row;
 }
 
