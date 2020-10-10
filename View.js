@@ -8,7 +8,8 @@ function onOpen(e) {
 
 function createShowForm() {
     let html = HtmlService
-    .createHtmlOutputFromFile('Pages/CreateShowForm')
+    .createTemplateFromFile('Pages/CreateShowForm')
+    .evaluate()
     .setTitle('Create a New Show');
     SpreadsheetApp.getUi().showSidebar(html);
 }

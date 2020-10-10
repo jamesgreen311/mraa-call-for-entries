@@ -1,21 +1,3 @@
-<script>
-    function stopSubmit(e) {
-        e.preventDefault();
-        return false;
-    }
-
-    function allFieldsValid() {
-        let inputs = document.querySelectorAll('input');
-        let invalidCount = 0;
-
-        inputs.forEach(function (input) {
-            if (!input.validity.valid) {
-                invalidCount++;
-            }
-        })
-        return invalidCount == 0;
-    }
-</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
