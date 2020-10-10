@@ -81,6 +81,7 @@
     </div>
     <script>
         document.getElementById("btnSave").addEventListener("click", saveShow);
+        document.getElementById("frmMain").addEventListener("submit", stopSubmit);
 
         function saveShow() {
             let newShow = {};
@@ -122,6 +123,7 @@
                     invalidCount++;
                 }
             })
+            //console.log(invalidCount);
             return invalidCount == 0;
         }
     </script>

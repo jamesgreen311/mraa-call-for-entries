@@ -4,8 +4,6 @@ function onOpen(e) {
     .createMenu('Options')
     .addItem('Create a New Show', 'createShowForm')
     .addToUi();
-
-    console.log(e);
 }
 
 function createShowForm() {
