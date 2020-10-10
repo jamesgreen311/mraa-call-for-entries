@@ -8,10 +8,41 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+        .banner {
+            background-color: #f8f9fa;
+            border: solid 2px black;
+        }
+
+        .mraa-button-primary {
+            background-color: #32CD32;
+            border-color: #28a745;
+            color: #343a40;
+        }
+
+        .mraa-button-primary:hover,
+        .mraa-button-primary:focus,
+        .mraa-button-primary:active {
+            background-color: #25c149;
+            border-color: #2ca046;
+            color: #343a40;
+        }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: .5rem;
+            background-color: #c68614;
+            color: antiquewhite;
+        }
+    </style>
 
     <title>Create a Show Form</title>
-    <?!= include("Includes/css/global.inc"); ?>
+
 </head>
 
 <body>
@@ -34,74 +65,35 @@
             </div>
 
             <div class="form-group">
-                <label for="maxEntriesPerArtist">Max Entries per Artist *</label>
-                <input type="number" class="form-control" id="maxEntriesPerArtist" min=1 required />
+                <label for="maxEntriesPerArtist">Max Entries per Artist</label>
+                <input type="number" class="form-control" id="maxEntriesPerArtist" min=1 />
             </div>
 
             <div class="form-group">
                 <label for="maxEntriesPerShow">Max Entries per Show</label>
-                <input type="number" class="form-control" id="maxEntriesPerShow" min=1 />
+                <input type="number" class="form-control" id="maxEntriesPerShow" />
             </div>
 
             <button type="button" class="btn btn-primary" id="btnSave">
                 Save
             </button>
         </form>
-
-        <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
-            <h4 class="alert-heading">Save Successful</h4>
-            <p id="messageContent"></p>
-            <hr>
-            <p class="mb-0" id="messageFooter"></p>
-        </div>
     </div>
     <script>
         document.getElementById("btnSave").addEventListener("click", saveShow);
 
-        function saveFormSuccess(e) {
-            let title = document.getElementById('titleOfWork').value;
-            let footerMessage = `You can submit ${--uploadsLeft} more works for this exhibition.`;
-            let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
-
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("messageContent").innerHTML = messageContent;
-            document.getElementById("messageFooter").innerHTML = footerMessage;
-
-            /* reset field values here */
-
-            container.style.display = "none";
-        }
-
         function saveShow() {
-            if (allFieldsValid()) {
-                document.getElementById('messageAlert').style.display = "none";
-                document.getElementById("loading").style.display = "block";
-                google.script.run.withSuccessHandler(saveFormSuccess).saveFile(obj, data);
-            } else {
-                return false;
-            }
+            let newShow = new Show();
+            newShow.showId = 'generated';
+            newShow.exhibitName = document.getElementById("exhibitName").value;
+            newShow.startDate = document.getElementById("startDate").value;
+            newShow.closeDate = document.getElementById("closeDate").value;
+            newShow.maxEntriesPerArtist = document.getElementById("maxEntriesPerArtist").value;
+            newShow.maxEntriesPerShow = document.getElementById("maxEntriesPerShow").value;
 
-            let show = {
-                showId: 'generated',
-                exhibitName: document.getElementById("exhibitName").value,
-                startDate: document.getElementById("startDate").value,
-                closeDate: document.getElementById("closeDate").value,
-                maxEntriesPerArtist: document.getElementById("maxEntriesPerArtist").value,
-                maxEntriesPerShow: document.getElementById("maxEntriesPerShow").value
-            };
-            google.script.run.withSuccessHandler(formSubmitted).addShowToSheet(show);
+            google.script.run.withSuccessHandler(formSubmitted).addShowToSheet(newShow);
         }
-
         function formSubmitted(e) {
-            //let title = document.getElementById('titleOfWork').value;
-            //let footerMessage = `You can submit ${--uploadsLeft} more works for this exhibition.`;
-            //let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
-
-            let footerMessage = "Footer Content Message here";
-            let messageContent = "Save successful message here";
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("messageContent").innerHTML = messageContent;
-            document.getElementById("messageFooter").innerHTML = footerMessage;
 
             /* reset field values here */
             document.getElementById("exhibitName").value = "";
@@ -109,11 +101,25 @@
             document.getElementById("closeDate").value = "";
             document.getElementById("maxEntriesPerArtist").value = "";
             document.getElementById("maxEntriesPerShow").value = "";
+        }
 
-            container.style.display = "none";
+        function stopSubmit(e) {
+            e.preventDefault();
+            return false;
+        }
+
+        function allFieldsValid() {
+            let inputs = document.querySelectorAll('input');
+            let invalidCount = 0;
+
+            inputs.forEach(function (input) {
+                if (!input.validity.valid) {
+                    invalidCount++;
+                }
+            })
+            return invalidCount == 0;
         }
     </script>
-    <?!= include("Includes/scripts/global.script.inc"); ?>
 </body>
 
 </html>
