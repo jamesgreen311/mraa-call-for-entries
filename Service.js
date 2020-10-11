@@ -40,3 +40,9 @@ function render(f, opt) {
 function include(file) {
   return HtmlService.createHtmlOutputFromFile(file).getContent();
 }
+
+function getCurrentYear() {
+  y = new Date().getFullYear();
+  console.log(`Get current year: ${y}`);
+  return y;
+}
