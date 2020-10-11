@@ -25,7 +25,7 @@ function doGet(e) {
     if (Route[e.parameter.v]) {
         r = Route[e.parameter.v](e.parameter.v);
     } else {
-        loadError();
+        r = loadError();
     }
     return r;
 }
@@ -61,9 +61,9 @@ function loadCFE(showId) {
 }
 
 function loadThankYou() {
-    render(`${pageRoot}/ThankYou`);
+    return render(`${pageRoot}/ThankYou`);
 }
 
 function loadError() {
-    render(`${pageRoot}/Error`);
+    return render(`${pageRoot}/Error`);
 }
