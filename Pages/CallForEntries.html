@@ -52,9 +52,8 @@
         <div class="row">
           <div class="col-6">
             <div class="mraa-callout mraa-callout-info">
-              <label for="imageFile">Upload Your Art - (Limit of <span id="limit"><?= maxEntriesPerArtist ?></span>
-                Total)
-                All fields required *</label>
+              <label for="imageFile">Upload Your Art <small class="smaller">(Limit of <span id="limit"><?= maxEntriesPerArtist ?></span> Total)
+              All fields required *</small></label>
               <div class="form-group mb-3">
                 <input accept="image/jpeg, image/png" type="file" id="imageFile" class="form-control-file" required
                   onchange="showThumbnail(event)">
