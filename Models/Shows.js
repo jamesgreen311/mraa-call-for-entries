@@ -46,7 +46,7 @@ Retrieve a show from the Config tab
 */
 function getShow(id) {
     let data = config.getRange(2, 1, config.getLastRow() - 1, config.getLastColumn()).getDisplayValues();
-    let show = new Show();
+    let show = {};
 
     for (let d of data) {
         if (d[Config.showId] === id) {
@@ -64,4 +64,17 @@ function getShow(id) {
 
 function getShowName(id) {
     return getShow(id).name;
+}
+
+/*
+
+@Return {array} strings id of all shows 
+*/
+function getAllShowIds() {
+    let shows = new Array();
+    let allShows = config.getRange(2, 1, config.getLastRow() - 1, 1).getDisplayValues();
+
+    shows = allShows.map(s => s[0]);
+
+    return shows;
 }

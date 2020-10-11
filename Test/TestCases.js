@@ -25,3 +25,7 @@ function testAddShowToSheet() {
     let row = addShowToSheet(show);
     console.log(row);
 }
+
+function testGetAllShowIds() {
+    console.log(getAllShowIds());
+}

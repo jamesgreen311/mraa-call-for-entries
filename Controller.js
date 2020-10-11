@@ -7,30 +7,25 @@
 var Route = {};
 Route.path = function (r, callback) {
     Route[r] = callback;
+    //Route[Options] = r;
 }
 
 function doGet(e) {
-    //Route.path("done", showDone);
+    var r;
+    //var s = "";
+    Route.path("done", loadThankYou);
     Route.path("test", loadSamplePage);
 
-    var r;
-    var s = "";
-    if (Route[e.parameter.v]) {
-        r = Route[e.parameter.v]();
+    // Add all current show ids as Routes
+    let shows = getAllShowIds();
+    for (let s of shows) {
+        Route.path(s, loadCFE);
+    }
 
+    if (Route[e.parameter.v]) {
+        r = Route[e.parameter.v](e.parameter.v);
     } else {
-        // default to main page
-        if (e.parameter.s) {
-            // get show id if passed
-            s = e.parameter.s;
-            let opt = {
-                name: getShowName(s)
-            };
-            console.log(opt);
-            r = render(`${pageRoot}/CallForEnties`, opt);
-        } else {
-            r = render(`${pageRoot}/Error`);
-        }
+        loadError();
     }
     return r;
 }
@@ -58,4 +53,17 @@ function addShowToSheet(show) {
 
 function loadSamplePage() {
     return render(`${pageRoot}/CallForEntries`);
+}
+
+function loadCFE(showId) {
+    let s = getShow(showId);
+    return render(`${pageRoot}/CallForEntries`, s);
+}
+
+function loadThankYou() {
+    render(`${pageRoot}/ThankYou`);
+}
+
+function loadError() {
+    render(`${pageRoot}/Error`);
 }
