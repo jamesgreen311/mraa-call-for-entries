@@ -52,8 +52,9 @@
         <div class="row">
           <div class="col-6">
             <div class="mraa-callout mraa-callout-info">
-              <label for="imageFile">Upload Your Art <small class="smaller">(Limit of <span id="limit"><?= maxEntriesPerArtist ?></span> Total)
-              All fields required *</small></label>
+              <label for="imageFile">Upload Your Art <small class="smaller">(Limit of <span
+                    id="limit"><?= maxEntriesPerArtist ?></span> Total)
+                  All fields required *</small></label>
               <div class="form-group mb-3">
                 <input accept="image/jpeg, image/png" type="file" id="imageFile" class="form-control-file" required
                   onchange="showThumbnail(event)">
@@ -115,20 +116,127 @@
             <!-- Buttons -->
             <hr>
             <div>
-              <button class="btn btn-primary mraa-button-primary" id="btnSave">Save</button>
+              <!-- <div id="showDataContainer" data-folder=""></div> -->
+              <button class="btn btn-primary mraa-button-primary" data-id="<?= id ?>" data-folder="<?= imageFolderId ?>"
+                data-name="<?= name ?>" id="btnSave">Save</button>
               <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" class="btn btn-secondary"
                 target="_top">Done</a>
             </div>
           </div>
         </div>
       </form>
+
+      <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
+        <h4 class="alert-heading">Save Successful</h4>
+        <p id="messageContent"></p>
+        <hr>
+        <p class="mb-0" id="messageFooter"></p>
+      </div>
     </div>
-  </div>
+    <div id="loading" class="loading pt-5" style="display: none;">
+      <div class="d-flex justify-content-center">
+        <div>
+          <div class="spinner-border mt-5" role="status" style="width: 4rem; height: 4rem;">
+            <span class="sr-only">Saving...</span>
+          </div>
+          <div class="pt-3">Saving...</div>
+        </div>
+      </div>
+    </div>
 
-  <?!= include("Includes/html/footer.inc"); ?>
-  <?!= include("Includes/scripts/bootstrap.inc"); ?>
-  <?!= include("Includes/scripts/global.inc"); ?>
+    <?!= include("Includes/html/footer.inc"); ?>
+    <?!= include("Includes/scripts/bootstrap.inc"); ?>
+    <?!= include("Includes/scripts/global.inc"); ?>
+    <script>
+      function serializeAndSave() {
+        const showData = document.querySelector('#btnSave');
 
+        let d = new Date();
+        let f = document.getElementById('imageFile');
+        const file = f.files[0];
+        const fr = new FileReader();
+        let ln = document.getElementById('lastName');
+        let fn = document.getElementById('firstName');
+        let e = document.getElementById('emailAddress');
+        let ph = document.getElementById('phoneNumber');
+        let t = document.getElementById('titleOfWork');
+        let w = document.getElementById('sizeWidth');
+        let h = document.getElementById('sizeHeight');
+        let p = document.getElementById('price');
+        let m = document.getElementById('medium');
+        let fileNameFormatted = `${ln.value}-${fn.value}-${t.value}-${m.value}-${w.value}x${h.value}-${p.value}`;
+        let data = [fn.value, ln.value, e.value, ph.value, t.value, w.value, h.value, m.value, p.value,
+          fileNameFormatted
+        ];
+
+        if (allFieldsValid()) {
+
+          document.getElementById('messageAlert').style.display = "none";
+          document.getElementById("loading").style.display = "block";
+          fr.onload = function (e) {
+            const obj = {
+              filename: fileNameFormatted,
+              mimeType: file.type,
+              bytes: [...new Int8Array(e.target.result)]
+            };
+            google.script.run
+              .withSuccessHandler(saveFormSuccess)
+              .saveFile(obj, data, showData.dataset.folder, showData.dataset.name);
+          };
+          fr.readAsArrayBuffer(file);
+        } else {
+          return false;
+        }
+
+      }
+
+      function saveFormSuccess(e) {
+        let title = document.getElementById('titleOfWork').value;
+        let footerMessage = `You can submit ${--uploadsLeft} more works for this exhibition.`;
+        let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
+        let container = document.getElementById("thumbnail-container");
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("messageContent").innerHTML = messageContent;
+        document.getElementById("messageFooter").innerHTML = footerMessage;
+        document.getElementById('titleOfWork').value = "";
+        document.getElementById('sizeWidth').value = "";
+        document.getElementById('sizeHeight').value = "";
+        document.getElementById('medium').value = "";
+        document.getElementById('price').value = "";
+        document.getElementById('imageFile').value = "";
+        document.getElementById('messageAlert').style.display = "block";
+        document.getElementById('thumbnail').src = "";
+        container.style.display = "none";
+      }
+
+      function showThumbnail(e) {
+        let thumbnail = document.getElementById('thumbnail');
+        let container = document.getElementById('thumbnail-container');
+        thumbnail.src = URL.createObjectURL(e.target.files[0]);
+        container.style.display = "block";
+      }
+
+      function allFieldsValid() {
+        let inputs = document.querySelectorAll('input');
+        let invalidCount = 0;
+
+        inputs.forEach(function (input) {
+          if (!input.validity.valid) {
+            invalidCount++;
+          }
+        })
+        return invalidCount == 0;
+      }
+
+      function stopSubmit(e) {
+        e.preventDefault();
+        return false;
+      }
+
+      document.getElementById('btnSave').addEventListener('click', serializeAndSave);
+      document.getElementById('frmMain').addEventListener('submit', stopSubmit);
+    </script>
 </body>
 
 </html>

@@ -43,6 +43,6 @@ function include(file) {
 
 function getCurrentYear() {
   y = new Date().getFullYear();
-  console.log(`Get current year: ${y}`);
+/*   console.log(`Get current year: ${y}`); */
   return y;
 }

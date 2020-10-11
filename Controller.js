@@ -30,6 +30,35 @@ function doGet(e) {
     return r;
 }
 
+function saveFile(f,d,imgfolder,sheet) {
+    let blob = Utilities.newBlob(f.bytes, f.mimeType, f.filename);
+    let targetFolderId = imgfolder == undefined?imageFolderId:imgfolder;
+    let uploadFolder = DriveApp.getFolderById(targetFolderId);
+    let today = new Date();
+
+    let newFile = uploadFolder.createFile(blob).getId();
+    d.push(newFile);
+    d.push(""); // placeholder for availability
+    d.push(""); // placeholder for hidden
+    d.push(today.toString());
+    
+    console.log(d);
+    console.log(sheet);
+
+    let done = saveToSheet(d,sheet);
+    return done;
+}
+
+function saveToSheet(data,sheet) {
+    let ss = SpreadsheetApp.getActiveSpreadsheet();
+    console.log(ss.getId());
+    // validate the sheet still exists, it could have been deleted or renamed and config record never changed.
+    let ws = ss.getSheetByName(sheet);
+    console.log(ws.getName());
+
+    ws.appendRow(data);
+    return true;
+}
 
 /*
 Add a new show to the Config tab

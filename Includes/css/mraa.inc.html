@@ -6,18 +6,12 @@
     }
 
     body {
-        font-family: Roboto, sans-serif;
         /* Font from main website */
+        font-family: Roboto, sans-serif;
         font-size: 1.5rem;
         display: flex;
         flex-direction: column;
     }
-
-/*    footer {
-         position: fixed;
-        left: 0;
-        bottom: 0; 
-    }*/
 
     .content {
         flex: 1 0 auto;
@@ -56,5 +50,19 @@
 
     .smaller {
         font-size: 60%;
+    }
+
+    .mraa-thumbnail-container {
+        width: 100%;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mraa-thumbnail {
+        width: 100%;
+        object-fit: contain;
+        position: absolute;
+        /* clip-path: inset(0 0 50% 0); */
     }
 </style>
