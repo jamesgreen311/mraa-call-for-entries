@@ -1,7 +1,7 @@
 /* Bound spreadsheet UI */
 function onOpen(e) {
     SpreadsheetApp.getUi()
-    .createMenu('Options')
+    .createMenu('MRAA')
     .addItem('Create a New Show', 'createShowForm')
     .addToUi();
 }

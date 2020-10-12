@@ -64,7 +64,7 @@ Add a new show to the Config tab
 */
 function addShowToSheet(show) {
     let row = [
-        generateUniqueId(),
+        generateUniqueId().toString(),
         show.exhibitName,
         show.startDate,
         show.closeDate,
@@ -73,6 +73,7 @@ function addShowToSheet(show) {
         createImageFolder(show.exhibitName)
     ]
     config.appendRow(row);
+    config.getRange("c2:d").setNumberFormat("MM/dd/yyyy h:mm am/pm");
     createDataSheet(show.exhibitName).showSheet();
     return row;
 }
