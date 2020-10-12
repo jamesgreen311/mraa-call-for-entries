@@ -3,8 +3,11 @@
 
     function pageLoaded() {
       let showId = document.getElementById("btnSave").dataset.id;
+      let showName = document.getElementById("btnSave").dataset.name;
       google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
       google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(showId);
+      google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(showId);
+      google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(showName);
     }
 
     function setCopyrightYear(yr) {
@@ -13,5 +16,13 @@
 
     function setMaxEntries(max) {
       document.getElementById("maxEntries").innerText = max;
+    }
+
+    function setMaxPerArtist(max) {
+      document.getElementById("maxPerArtist").innerText = max;
+    }
+
+    function setEntriesSubmitted(count) {
+      document.getElementById("entriesSubmitted").innerText = count;
     }
   </script>

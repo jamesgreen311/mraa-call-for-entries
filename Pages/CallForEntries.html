@@ -18,7 +18,8 @@
     <div class="container mt-4">
       <h1 class="text-center"><?= name ?></h1>
       <h2 class="text-center">Call For Entries</h2>
-      <h3 class="small text-center">Space is limited to <span id="maxEntries">Loading...</span> entries</h3>
+      <h3 class="small text-center">Space is limited to <span class="badge badge-info" id="maxEntries">Loading...</span>
+        entries, <span class="badge badge-info" id="entriesSubmitted">Loading...</span> entries have been submitted</h3>
       <h5 class="text-right">* All Fields <span class="badge badge-secondary">Required</span></h5>
       <form id="frmMain">
         <div class="form-group">
@@ -52,8 +53,8 @@
         <div class="row">
           <div class="col-6">
             <div class="mraa-callout mraa-callout-info">
-              <label for="imageFile">Upload Your Art <small class="smaller">(Limit of <span
-                    id="limit"><?= maxEntriesPerArtist ?></span> Total)
+              <label for="imageFile">Upload Your Art <small class="smaller">(Limit of <span class="badge badge-info"
+                    id="maxPerArtist">Loading...</span> per artist)
                   All fields required *</small></label>
               <div class="form-group mb-3">
                 <input accept="image/jpeg, image/png" type="file" id="imageFile" class="form-control-file" required

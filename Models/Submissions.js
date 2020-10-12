@@ -4,7 +4,7 @@
 const data = connect().getSheetByName("Data");
 
 // map field names to column position
-const DataMap = {
+const DataColMap = {
     firstName: 1,
     lastName: 2,
     email: 3,
@@ -18,5 +18,23 @@ const DataMap = {
     fileId: 11,
     availability: 12,
     hidden: 13,
-    timestamp: 14
+    timestamp: 14,
+
+    // calculated fields
+    emailCount: 16,
+    artistCount: 17,
+    totalSubmitted: 18
+}
+
+const DataRangeMap = {
+    emailCount: "p2:p",
+    artistCount: "q2:q",
+    totalSubmitted: "r2"
+}
+
+function getTotalArtistSubmitted(sheet) {
+    let ws = connect().getSheetByName(sheet);
+    let count = ws.getRange(DataRangeMap.totalSubmitted).getValue();
+    console.log(count);
+    return count;
 }
