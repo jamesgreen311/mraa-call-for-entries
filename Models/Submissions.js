@@ -35,6 +35,5 @@ const DataRangeMap = {
 function getTotalArtistSubmitted(sheet) {
     let ws = connect().getSheetByName(sheet);
     let count = ws.getRange(DataRangeMap.totalSubmitted).getValue();
-    console.log(count);
     return count;
 }

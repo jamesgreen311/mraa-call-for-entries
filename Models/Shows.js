@@ -87,6 +87,5 @@ function getMaxEntriesPerShow(id) {
 
 function getMaxEntriesPerArtist(id) {
     let max = getShow(id).maxEntriesPerArtist;
-    console.log(`Show Id: ${id}, Max Entries Per Artist: ${max}`);
     return max;
 }
