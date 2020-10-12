@@ -2,10 +2,16 @@
     document.addEventListener("DOMContentLoaded", pageLoaded);
 
     function pageLoaded() {
+      let showId = document.getElementById("btnSave").dataset.id;
       google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
+      google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(showId);
     }
 
     function setCopyrightYear(yr) {
       document.getElementById("copyrightYear").innerHTML = `Copyright &copy; ${yr}`;
+    }
+
+    function setMaxEntries(max) {
+      document.getElementById("maxEntries").innerText = max;
     }
   </script>
