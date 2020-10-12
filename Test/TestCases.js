@@ -29,3 +29,7 @@ function testAddShowToSheet() {
 function testGetAllShowIds() {
     console.log(getAllShowIds());
 }
+
+function testGetTotalSubmittedByArtist() {
+    console.log(`Total submits by artist: ${getTotalSubmittedByArtist("Make It So", "jamesgreen.311@gmail.com")}`);
+}
