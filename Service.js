@@ -17,9 +17,6 @@ function createImageFolder(name) {
 }
 
 function createDataSheet(name) {
-    // get the data template sheet
-    // make a copy of the data template sheet with name of new sheet
-    // 
     let tmpl = connect().getSheetByName(dataTemplateName);
     return tmpl.copyTo(connect()).setName(name);
 }
@@ -43,6 +40,5 @@ function include(file) {
 
 function getCurrentYear() {
   y = new Date().getFullYear();
-/*   console.log(`Get current year: ${y}`); */
   return y;
 }

@@ -7,12 +7,10 @@
 var Route = {};
 Route.path = function (r, callback) {
     Route[r] = callback;
-    //Route[Options] = r;
 }
 
 function doGet(e) {
-    var r;
-    //var s = "";
+    let r;
     Route.path("done", loadThankYou);
     Route.path("test", loadSamplePage);
 
@@ -31,7 +29,7 @@ function doGet(e) {
 }
 
 function saveFile(f,d,imgfolder,sheet) {
-    console.log("saveFile start");
+    /* console.log("saveFile start"); */
     let blob = Utilities.newBlob(f.bytes, f.mimeType, f.filename);
     let targetFolderId = imgfolder == undefined?imageFolderId:imgfolder;
     let uploadFolder = DriveApp.getFolderById(targetFolderId);
@@ -44,18 +42,18 @@ function saveFile(f,d,imgfolder,sheet) {
     d.push(today.toString());
 
     let done = saveToSheet(d,sheet);
-    console.log("saveFile end");
+    /* console.log("saveFile end"); */
     return done;
 }
 
 function saveToSheet(data,sheet) {
-    console.log("saveToSheet start");
+    /* console.log("saveToSheet start"); */
     let ss = SpreadsheetApp.getActiveSpreadsheet();
     // validate the sheet still exists, it could have been deleted or renamed and config record never changed.
     let ws = ss.getSheetByName(sheet);
 
     ws.appendRow(data);
-    console.log("saveToSheet end");
+    /* console.log("saveToSheet end"); */
     return true;
 }
 
