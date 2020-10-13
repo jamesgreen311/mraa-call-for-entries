@@ -261,10 +261,12 @@
       if (good) {
         let el = document.getElementById('memberStatus')
         el.innerText = "Welcome MRAA Exhibiting Member";
+        el.classList.remove("badge-danger");
         el.classList.add("badge-success");
       } else {
         let el = document.getElementById('memberStatus')
         el.innerText = "Not a recognized MRAA Exhibiting Member Email Address";
+        el.classList.remove("badge-success");
         el.classList.add("badge-danger");
       }
 

@@ -46,6 +46,20 @@
         flex: 1 0 auto;
     }
 
+    .badge-success {
+        /* override bootstrap */
+        background-color: var(--mraa-letter-m);
+        color: #fafafa;
+        font-weight: 400;
+    }
+
+    .badge-danger {
+        /* override bootstrap */
+        background-color: #b51f1f;
+        color: #fafafa;
+        font-weight: 400;
+    }
+
     .form-control-file {
         /* override bootstrap */
         font-size: 75%;
@@ -70,24 +84,10 @@
     .mraa-button-primary:focus,
     .mraa-button-primary:active,
     .mraa-button-primary:not(:disabled):active {
-        /* 
-        background-color: #32CD32; 
-        border-color: #28a745;
-        color: #343a40;
-        */
         background-color: var(--mraa-button-primary);
         border: 2px solid var(--mraa-button-primary-border);
         color: antiquewhite;
     }
-
-/*     .mraa-button-primary:hover,
-    .mraa-button-primary:focus,
-    .mraa-button-primary:active,
-    .mraa-button-primary:not(:disabled):active {
-        background-color: #25c149;
-        border-color: #2ca046;
-        color: #343a40;
-    } */
 
     .smaller {
         font-size: 60%;
