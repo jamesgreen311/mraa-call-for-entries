@@ -174,6 +174,7 @@
       let h = document.getElementById('sizeHeight');
       let p = document.getElementById('price');
       let m = document.getElementById('medium');
+      let showId = showData.dataset.id;
       let fileNameFormatted = `${ln.value}-${fn.value}-${t.value}-${m.value}-${w.value}x${h.value}-${p.value}`;
       let data = [fn.value, ln.value, e.value, ph.value, t.value, w.value, h.value, m.value, p.value,
         fileNameFormatted
@@ -190,7 +191,7 @@
             bytes: [...new Int8Array(e.target.result)]
           };
           google.script.run.withSuccessHandler(saveFormSuccess).saveFile(obj, data, showData.dataset.folder, showData
-            .dataset.name);
+            .dataset.name, showId);
         };
         fr.readAsArrayBuffer(file);
       } else {

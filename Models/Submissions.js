@@ -1,36 +1,38 @@
-// show name will change, must get frome config based on show id
+// show name will change, must get from config based on show id
 //const sheetName = getShowName(id);
 //const data = ds.getSheetByName(sheetName); 
-const data = connect().getSheetByName("Data");
+// const data = connect().getSheetByName("Data");
 
 // map field names to column position
 const DataColMap = {
-    firstName: 1,
-    lastName: 2,
-    email: 3,
-    phone: 4,
-    workTitle: 5,
-    width: 6,
-    height: 7,
-    medium: 8,
-    price: 9,
-    fileName: 10,
-    fileId: 11,
-    availability: 12,
-    hidden: 13,
-    timestamp: 14,
+    firstName: 1,       // A
+    lastName: 2,        // B
+    email: 3,           // C
+    phone: 4,           // D
+    workTitle: 5,       // E
+    width: 6,           // F
+    height: 7,          // G
+    medium: 8,          // H
+    price: 9,           // I
+    fileName: 10,       // J
+    fileId: 11,         // K
+    showId: 12,         // L
+    member: 13,         // M
+    availability: 14,   // N
+    hidden: 15,         // O
+    timestamp: 16,      // P
 
     // calculated fields
-    emailCount: 16,
-    artistCount: 17,
-    totalSubmitted: 18
+    emailCount: 18,     // R
+    artistCount: 19,    // S   
+    totalSubmitted: 20  // T
 }
 
 const DataRangeMap = {
-    emailCount: "p3:p",
-    artistCount: "q3:q",
-    totalSubmitted: "r3",
-    countsByArtist: "p2:q"
+    emailCount: "r3:r",
+    artistCount: "s3:s",
+    totalSubmitted: "t3",
+    countsByArtist: "r2:s"
 }
 
 function getTotalArtistSubmitted(sheet) {

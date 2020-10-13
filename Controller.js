@@ -28,15 +28,17 @@ function doGet(e) {
     return r;
 }
 
-function saveFile(f,d,imgfolder,sheet) {
+function saveFile(f,d,imgfolder,sheet,showId) {
     /* console.log("saveFile start"); */
     let blob = Utilities.newBlob(f.bytes, f.mimeType, f.filename);
     let targetFolderId = imgfolder == undefined?imageFolderId:imgfolder;
     let uploadFolder = DriveApp.getFolderById(targetFolderId);
     let today = new Date();
-
+    let member = isMember(d[2])?"YES":"NO";
     let newFile = uploadFolder.createFile(blob).getId();
     d.push(newFile);
+    d.push(showId);
+    d.push(member);
     d.push(""); // placeholder for availability
     d.push(""); // placeholder for hidden
     d.push(today.toString());
