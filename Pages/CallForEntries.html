@@ -19,8 +19,9 @@
     <div class="container mt-4">
       <h1 class="mraa-header text-center show-name"><?= name ?></h1>
       <h2 class="mraa-sub-header text-center">Call For Entries</h2>
-      <h3 class="small text-center mraa-info"><span class="badge badge-info" id="entriesSubmitted">Loading...</span> entries have been submitted
-       with <span class="badge badge-info" id="maxEntries">Loading...</span> total spots available.</h3>
+      <h3 class="small text-center mraa-info"><span class="badge badge-info" id="entriesSubmitted">Loading...</span>
+        entries have been submitted
+        with <span class="badge badge-info" id="maxEntries">Loading...</span> total spots available.</h3>
       <h5 class="text-right">* All Fields <span class="badge badge-secondary">Required</span></h5>
       <form id="frmMain">
         <div class="form-group">
@@ -39,7 +40,7 @@
           </div>
         </div>
 
-        <label for="contactInfo">Contact Information *</label>
+        <label for="contactInfo">Contact Information *</label> <span id="memberStatus" class="badge"></span>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Email</span>
@@ -51,6 +52,7 @@
           </div>
           <input type="tel" class="form-control" id="phoneNumber" aria-label="Phone" required />
         </div>
+
         <div class="row">
           <div class="col-6">
             <div class="mraa-callout mraa-callout-info">
@@ -121,8 +123,8 @@
             <!-- Buttons -->
             <hr>
             <div>
-              <button class="btn btn-primary mraa-button-primary mr-3" data-id="<?= id ?>" data-folder="<?= imageFolderId ?>"
-                data-name="<?= name ?>" id="btnSave">Save</button>
+              <button class="btn btn-primary mraa-button-primary mr-3" data-id="<?= id ?>"
+                data-folder="<?= imageFolderId ?>" data-name="<?= name ?>" id="btnSave">Save</button>
               <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" class="btn btn-secondary"
                 target="_top">Done</a>
             </div>
@@ -133,7 +135,7 @@
       <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
         <h4 class="alert-heading">Save Successful</h4>
         <p id="messageContent"></p>
-<!--         <hr>
+        <!--         <hr>
         <p class="mb-0" id="messageFooter"></p> -->
       </div>
     </div>
@@ -250,8 +252,22 @@
     }
 
     function setSubmitsByArtist(count) {
-      document.getElementById('submitsByArtist').innerHTML = `You have uploaded <span class='badge badge-light'>${count}</span> works to date.`;
+      document.getElementById('submitsByArtist').innerHTML =
+        `You have uploaded <span class='badge badge-light'>${count}</span> works to date.`;
       document.getElementById('artistCountContainer').style.display = "block";
+    }
+
+    function showMemberSuccess(good) {
+      if (good) {
+        let el = document.getElementById('memberStatus')
+        el.innerText = "Welcome MRAA Exhibiting Member";
+        el.classList.add("badge-success");
+      } else {
+        let el = document.getElementById('memberStatus')
+        el.innerText = "Not a recognized MRAA Exhibiting Member Email Address";
+        el.classList.add("badge-danger");
+      }
+
     }
 
     document.getElementById('btnSave').addEventListener('click', serializeAndSave);

@@ -42,3 +42,7 @@ function getCurrentYear() {
   y = new Date().getFullYear();
   return y;
 }
+ 
+function isMember(email) {
+  return exhibtingMembersEmail.includes(email);
+}

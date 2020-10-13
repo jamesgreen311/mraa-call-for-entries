@@ -33,3 +33,8 @@ function testGetAllShowIds() {
 function testGetTotalSubmittedByArtist() {
     console.log(`Total submits by artist: ${getTotalSubmittedByArtist("Make It So", "jamesgreen.311@gmail.com")}`);
 }
+
+function testIsMember() {
+    let member = isMember("jamesgreen.311@gmail.com")?"Yes":"No";
+    console.log(`Member: ${member}`);
+}

@@ -1,28 +1,36 @@
 <script>
-    document.addEventListener("DOMContentLoaded", pageLoaded);
+  document.addEventListener("DOMContentLoaded", pageLoaded);
 
-    function pageLoaded() {
-      let showId = document.getElementById("btnSave").dataset.id;
-      let showName = document.getElementById("btnSave").dataset.name;
-      google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
-      google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(showId);
-      google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(showId);
-      google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(showName);
-    }
+  function pageLoaded() {
+    let showId = document.getElementById("btnSave").dataset.id;
+    let showName = document.getElementById("btnSave").dataset.name;
+    google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
+    google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(showId);
+    google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(showId);
+    google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(showName);
+    document.getElementById('emailAddress').addEventListener('change', checkMemberEmail)
+  }
 
-    function setCopyrightYear(yr) {
-      document.getElementById("copyrightYear").innerHTML = `Copyright &copy; ${yr}`;
-    }
+  function setCopyrightYear(yr) {
+    document.getElementById("copyrightYear").innerHTML = `Copyright &copy; ${yr}`;
+  }
 
-    function setMaxEntries(max) {
-      document.getElementById("maxEntries").innerText = max;
-    }
+  function setMaxEntries(max) {
+    document.getElementById("maxEntries").innerText = max;
+  }
 
-    function setMaxPerArtist(max) {
-      document.getElementById("maxPerArtist").innerText = max;
-    }
+  function setMaxPerArtist(max) {
+    document.getElementById("maxPerArtist").innerText = max;
+  }
 
-    function setEntriesSubmitted(count) {
-      document.getElementById("entriesSubmitted").innerText = count;
-    }
-  </script>
+  function setEntriesSubmitted(count) {
+    document.getElementById("entriesSubmitted").innerText = count;
+  }
+
+  function checkMemberEmail(el) {
+    email = this.value;
+
+    google.script.run.withSuccessHandler(showMemberSuccess).isMember(email);
+  }
+
+</script>
