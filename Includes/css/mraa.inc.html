@@ -3,15 +3,38 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Raleway:wght@900&display=swap');
 
-    html, body {
+    :root {
+        --mraa-letter-m: hsl(170, 100%, 33%);
+        --mraa-letter-r: #792592;
+        --mraa-letter-a1: #0387ad;
+        --mraa-letter-a2: #c68614;
+        --mraa-button-primary: var(--mraa-letter-m);
+        --mraa-button-primary-border: hsl(170, 100%, 16.5%);
+    }
+
+    html,
+    body {
         height: 100%;
     }
 
-    h1 {
+    h1.mraa-header {
+        /* override bootstrap */
         font-family: 'Patua One', cursive;
     }
 
+    h2.mraa-sub-header {
+        background-color: #c68614;
+        color: antiquewhite;
+        padding: 8px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+
+        /* override bootstrap */
+        font-size: 90%;
+    }
+
     body {
+        /* override bootstrap */
         /* Font from main website */
         font-family: Roboto, sans-serif;
         font-size: 1.5rem;
@@ -21,6 +44,11 @@
 
     .content {
         flex: 1 0 auto;
+    }
+
+    .form-control-file {
+        /* override bootstrap */
+        font-size: 75%;
     }
 
     .footer {
@@ -37,19 +65,29 @@
         border: solid 2px #d5d5d5;
     }
 
-    .mraa-button-primary {
-        background-color: #32CD32;
-        border-color: #28a745;
-        color: #343a40;
-    }
-
+    .mraa-button-primary,
     .mraa-button-primary:hover,
     .mraa-button-primary:focus,
-    .mraa-button-primary:active {
+    .mraa-button-primary:active,
+    .mraa-button-primary:not(:disabled):active {
+        /* 
+        background-color: #32CD32; 
+        border-color: #28a745;
+        color: #343a40;
+        */
+        background-color: var(--mraa-button-primary);
+        border-color: var(--mraa-button-primary-border);
+        color: antiquewhite;
+    }
+
+/*     .mraa-button-primary:hover,
+    .mraa-button-primary:focus,
+    .mraa-button-primary:active,
+    .mraa-button-primary:not(:disabled):active {
         background-color: #25c149;
         border-color: #2ca046;
         color: #343a40;
-    }
+    } */
 
     .smaller {
         font-size: 60%;
@@ -69,14 +107,14 @@
     }
 
     .loading {
-      background-color: lightsteelblue;
-      width: 100vw;
-      height: 100vw;
-      z-index: 1000;
-      position: fixed;
-      top: 0;
-      left: 0;
-      opacity: .9;
+        background-color: lightsteelblue;
+        width: 100vw;
+        height: 100vw;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        opacity: .9;
     }
 
     .w-100 {
