@@ -27,9 +27,9 @@ const DataColMap = {
 }
 
 const DataRangeMap = {
-    emailCount: "p2:p",
-    artistCount: "q2:q",
-    totalSubmitted: "r2",
+    emailCount: "p3:p",
+    artistCount: "q3:q",
+    totalSubmitted: "r3",
     countsByArtist: "p2:q"
 }
 
