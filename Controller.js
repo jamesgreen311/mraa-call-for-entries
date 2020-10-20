@@ -41,7 +41,7 @@ function saveFile(f,d,imgfolder,sheet,showId) {
     d.push(member);
     d.push(""); // placeholder for availability
     d.push(""); // placeholder for hidden
-    d.push(today.toString());
+    d.push(today);
 
     let done = saveToSheet(d,sheet);
     /* console.log("saveFile end"); */
