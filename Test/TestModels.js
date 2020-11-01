@@ -11,15 +11,11 @@ function testGetEventCounts() {
 }
 
 function testGetEventArtistCounts() {
-    let sheetCounts = connect().getSheetByName("Exhibitor Upload Counts");
-    let dataCounts = sheetCounts.getRange(CountsRangeMap.eventArtistCounts+sheetCounts.getLastRow()).getValues();
+    let evtTitle = "MAKE IT SO";
+    let artist = "Webb2@tester.com";
 
-    // get current event count 
-    let evtCount = dataCounts.filter(function(r) {
-        return r[1] === "Art Works" && r[0] === "webb2@tester.com";
-    })
-
-    return evtCount[0][2];
+    let count = getTotalByEventArtist(evtTitle, artist);
+    return count;
 }
 
 function testGetTotalByEvent() {
