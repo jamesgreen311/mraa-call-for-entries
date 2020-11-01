@@ -1,12 +1,12 @@
 <script>
-  document.addEventListener("DOMContentLoaded", pageLoaded);
+  document.addEventListener('DOMContentLoaded', pageLoaded);
 
   function pageLoaded() {
-    let evtId = document.getElementById("btnSave").dataset.id;
-    let evtName = document.getElementById("btnSave").dataset.name;
+    let evtId = document.getElementById('btnSave').dataset.id;
+    let evtName = document.getElementById('btnSave').dataset.name;
     google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
-     google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
-/*    google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(showId);*/
+    google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
+    google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(evtId);
     google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName); 
     document.getElementById('emailAddress').addEventListener('change', checkMemberEmail);
     document.getElementById('imageFile').addEventListener("change", showThumbnail);
