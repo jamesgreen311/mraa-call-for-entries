@@ -18,10 +18,19 @@
   <div class="content">
     <div class="container mraa-container pt-4">
       <h1 class="mraa-header text-center show-name"><?= name ?></h1>
-      <h2 class="mraa-sub-header text-center">Call For Entries</h2>
-      <h3 class="small text-center mraa-info"><span class="badge badge-info" id="entriesSubmitted">Loading...</span>
-        entries have been submitted
-        with <span class="badge badge-info" id="maxEntries">Loading...</span> total spots available.</h3>
+
+      <div class="header-wrapper mraa-sub-header">
+        <div class="row">
+          <div class="col-3">
+            <h2 class="mraa-sub-header bigger">Call For Entries</h2>
+          </div>
+          <div class="col-9 text-right">
+            <h2 class="mraa-sub-header"><span id="entriesSubmitted" class="badge badge-primary badge-bigger">Loading ...</span> entries have been submitted 
+              with <span id="maxEntries"
+                class="badge badge-primary badge-bigger">Loading ...</span> total spots available.</h2>
+          </div>
+        </div>
+      </div>
       <h5 class="text-right">* All Fields <span class="badge badge-secondary">Required</span></h5>
       <form id="frmMain">
         <div class="form-group">
@@ -112,7 +121,7 @@
           </div>
           <div class="col-6">
             <!-- Thumbnail -->
-            <h2 class="badge badge-secondary">Thumbnail</h2>
+            <h2 class="badge badge-secondary">Preview</h2>
             <div class="mraa-thumbnail-container" id="thumbnail-container" style="display: none;">
               <img class="mraa-thumbnail" id="thumbnail" />
             </div>
@@ -203,9 +212,9 @@
 
     function saveFormSuccess(e) {
       let email = document.getElementById('emailAddress').value;
-      let sheetName = document.querySelector('#btnSave').dataset.name;
+      let evtName = document.querySelector('#btnSave').dataset.name;
       //google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalSubmittedByArtist(sheetName, email);
-      //google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(sheetName);
+      google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName);
 
       let title = document.getElementById('titleOfWork').value;
       /* let footerMessage = `Sheet name: ${sheetName}, Email: ${email}`; */

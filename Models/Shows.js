@@ -80,9 +80,7 @@ function getAllShowIds() {
 }
 
 function getMaxEntriesPerShow(id) {
-    let max = getShow(id).maxEntriesPerShow;
-    /* console.log(`Show Id: ${id}, Max Entries: ${max}`); */
-    return max;
+    return getShow(id).maxEntriesPerShow;
 }
 
 function getMaxEntriesPerArtist(id) {

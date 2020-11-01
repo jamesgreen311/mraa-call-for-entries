@@ -17,22 +17,6 @@
         height: 100%;
     }
 
-    h1.mraa-header {
-        /* override bootstrap */
-        font-family: 'Patua One', cursive;
-    }
-
-    h2.mraa-sub-header {
-        background-color: #c68614;
-        color: antiquewhite;
-        padding: 8px;
-        border-radius: 4px;
-        margin-bottom: 8px;
-
-        /* override bootstrap */
-        font-size: 90%;
-    }
-
     body {
         /* override bootstrap */
         /* Font from main website */
@@ -41,6 +25,38 @@
         display: flex;
         flex-direction: column;
         background: url(https://metrorichmondart.org/wp-content/themes/ares/inc/images/crossword.png);
+    }
+
+    label, 
+    p {
+        font-size: 1.25rem;
+    }
+
+    .badge-primary {
+        color: #c68614;
+        background-color: white;
+    }
+
+    h1.mraa-header,
+    h3 {
+        /* override bootstrap */
+        font-family: 'Patua One', cursive;
+    }
+
+    .mraa-header {
+        /* override bootstrap */
+        font-size: 2rem;
+    }
+
+    .mraa-sub-header {
+        background-color: #c68614;
+        color: antiquewhite;
+        padding: 4px 8px 0 8px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+
+        /* override bootstrap */
+        font-size: 90%;
     }
 
     .content {
@@ -80,6 +96,13 @@
         border: solid 2px #d5d5d5;
     }
 
+    .btn-primary.disabled,
+    .btn-primary:disabled {
+        background-color: var(--mraa-button-primary);
+        border: 2px solid var(--mraa-button-primary-border);
+        opacity: .65;
+    }
+
     .mraa-button-primary,
     .mraa-button-primary:hover,
     .mraa-button-primary:focus,
@@ -90,8 +113,25 @@
         color: antiquewhite;
     }
 
+    .mraa-highlight {
+        background-color: #fcf8e3;
+        height: 100%;
+    }
+
+    .mraa-important {
+        color: crimson;
+    }
+
     .smaller {
         font-size: 60%;
+    }
+
+    .bigger {
+        font-size: 115%;
+    }
+
+    .badge-bigger {
+        font-size: 100%;
     }
 
     .mraa-thumbnail-container {
@@ -103,12 +143,14 @@
 
     .mraa-thumbnail {
         width: 100%;
+        height: 100%;
         object-fit: contain;
         position: absolute;
     }
 
     .mraa-container {
         background-color: white;
+        height: 100%;
     }
 
     .loading {
