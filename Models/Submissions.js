@@ -2,30 +2,39 @@
 //const sheetName = getShowName(id);
 //const data = ds.getSheetByName(sheetName); 
 // const data = connect().getSheetByName("Data");
+const dataExhibitSheet = connect().getSheetByName("Exhibits");
+const dataCountsSheet = connect().getSheetByName("Exhibitor Upload Counts");
 
 // map field names to column position
 const DataColMap = {
-    firstName: 1,       // A
-    lastName: 2,        // B
-    email: 3,           // C
-    phone: 4,           // D
-    workTitle: 5,       // E
-    width: 6,           // F
-    height: 7,          // G
-    medium: 8,          // H
-    price: 9,           // I
-    fileName: 10,       // J
-    fileId: 11,         // K
-    showId: 12,         // L
-    member: 13,         // M
-    availability: 14,   // N
-    hidden: 15,         // O
-    timestamp: 16,      // P
+    event_id: 1,
+    event_title: 2,
+    firstName: 3,       // A
+    lastName: 4,        // B
+    email: 5,           // C
+    phone: 6,           // D
+    workTitle: 7,       // E
+    width: 8,           // F
+    height: 9,          // G
+    medium: 10,          // H
+    price: 11,           // I
+    fileName: 12,       // J
+    fileId: 13,         // K
+    showId: 14,         // L
+    member: 15,         // M
+    availability: 16,   // N
+    hidden: 17,         // O
+    timestamp: 18,      // P
 
-    // calculated fields
+    // calculated fields - this has been moved to pivot table Exhibitor Upload Count
     emailCount: 18,     // R
     artistCount: 19,    // S   
     totalSubmitted: 20  // T
+}
+
+const CountsRangeMap = {
+    eventCounts: "a2:b",
+    eventArtistCounts: "c2:e"
 }
 
 const DataRangeMap = {
@@ -35,14 +44,13 @@ const DataRangeMap = {
     countsByArtist: "r2:s"
 }
 
-function getTotalArtistSubmitted(sheet) {
+function getTotalArtistSubmitted(evtTitle) {
     let ws = connect().getSheetByName(sheet);
     let count = ws.getRange(DataRangeMap.totalSubmitted).getValue();
     return count;
 }
 
-function getTotalSubmittedByArtist(sheet, email) {
-    /* console.log('getTotalSubmittedByArtist start.'); */
+function getTotalSubmittedByArtist(evtTitle, email) {
     let ws = connect().getSheetByName(sheet);
     let data = ws.getRange(DataRangeMap.countsByArtist).getValues();
     let count = 0;
@@ -57,6 +65,10 @@ function getTotalSubmittedByArtist(sheet, email) {
             break;
         }
     }
-    /* console.log(`getTotalSubmittedByArtist end. Count ${count}`); */
     return count;
+}
+
+function getTotalByEvent(evtTitle) {
+    let data = dataCountsSheet.getRange(CountsRangeMap.eventCounts+dataCountsSheet.getLastRow()).getValues();
+    return data.filter(r => r[0].toLowerCase() === evtTitle.toLowerCase())[0][1];
 }
