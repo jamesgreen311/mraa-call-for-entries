@@ -71,9 +71,6 @@
                 <div class="col-8"><strong>Limit of <span id="maxPerArtist">Loading...</span> uploads per Artist</strong></div>
                 <div class="col-4 text-right">All fields required *</div>
               </div>
-<!--               <div class="btn btn-info mb-2 w-100" id="artistCountContainer" style="display: none;">
-                <small id="submitsByArtist"></small>
-              </div> -->
               <div class="form-group mb-3">
                 <input accept="image/jpeg, image/png" type="file" id="imageFile" class="form-control-file" required
                   onchange="showThumbnail(event)">
@@ -162,8 +159,6 @@
       <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
         <h4 class="alert-heading">Save Successful</h4>
         <p id="messageContent"></p>
-        <!--         <hr>
-        <p class="mb-0" id="messageFooter"></p> -->
       </div>
     </div>
 
@@ -231,12 +226,10 @@
     function saveFormSuccess(e) {
       let email = document.getElementById('emailAddress').value;
       let evtName = document.querySelector('#btnSave').dataset.name;
-      /* let email = document.getElementById('email').value; */
       google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email) ;
       google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName);
 
       let title = document.getElementById('titleOfWork').value;
-      /* let footerMessage = `Sheet name: ${sheetName}, Email: ${email}`; */
       let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
       let container = document.getElementById("thumbnail-container");
       let outerBox = document.getElementById('thumbnail-outer-box');
@@ -244,7 +237,6 @@
 
       document.getElementById("loading").style.display = "none";
       document.getElementById("messageContent").innerHTML = messageContent;
-      /* document.getElementById("messageFooter").innerHTML = footerMessage; */
       document.getElementById('titleOfWork').value = "";
       document.getElementById('sizeWidth').value = "";
       document.getElementById('sizeHeight').value = "";
@@ -291,7 +283,6 @@
 
     function setSubmitsByArtist(count) {
       document.getElementById('submitsByArtist').innerText = count;
-      //document.getElementById('artistCountContainer').style.display = "block";
     }
 
     function showMemberSuccess(good) {
