@@ -25,9 +25,10 @@
             <h2 class="mraa-sub-header bigger">Call For Entries</h2>
           </div>
           <div class="col-9 text-right">
-            <h2 class="mraa-sub-header"><span id="entriesSubmitted" class="badge badge-primary badge-bigger">Loading ...</span> entries have been submitted 
-              with <span id="maxEntries"
-                class="badge badge-primary badge-bigger">Loading ...</span> total spots available.</h2>
+            <h2 class="mraa-sub-header"><span id="entriesSubmitted" class="badge badge-primary badge-bigger">Loading
+                ...</span> entries have been submitted
+              with <span id="maxEntries" class="badge badge-primary badge-bigger">Loading ...</span> total spots
+              available.</h2>
           </div>
         </div>
       </div>
@@ -121,21 +122,35 @@
           </div>
           <div class="col-6">
             <!-- Thumbnail -->
-            <h2 class="badge badge-secondary">Preview</h2>
-            <div class="mraa-thumbnail-container" id="thumbnail-container" style="display: none;">
-              <img class="mraa-thumbnail" id="thumbnail" />
+            <div id="thumbnail-outer-box" class="mraa-highlight p-3 mt-2">
+              <h2 class="badge badge-secondary">Preview</h2>
+              <div id="thumbnail-message" class="text-muted small m-3">
+                <p>Once you have chosen an image to upload, it
+                  will appear here for you to preview before sending to MRAA.</p>
+                <p>
+                  <strong class="mraa-important">IMPORTANT</strong>
+                </p>
+                <p>
+                  Your registration is NOT saved until you fill out all required fields and press the <strong>SEND to
+                    MRAA</strong> button.
+                </p>
+              </div>
+              <div class="mraa-thumbnail-container" id="thumbnail-container" style="display: none;">
+                <img class="mraa-thumbnail" id="thumbnail" />
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <div class="row mb-3">
           <div class="col-12">
             <!-- Buttons -->
             <hr>
             <div>
               <button class="btn btn-primary mraa-button-primary mr-3" data-id="<?= id ?>"
-                data-folder="<?= imageFolderId ?>" data-name="<?= name ?>" id="btnSave">Save</button>
-              <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" class="btn btn-secondary"
-                target="_top">Done</a>
+                data-folder="<?= imageFolderId ?>" data-name="<?= name ?>" id="btnSave">SEND to MRAA</button>
+              <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" target="_top">When Finished Go
+                Here</a>
             </div>
           </div>
         </div>
@@ -220,6 +235,8 @@
       /* let footerMessage = `Sheet name: ${sheetName}, Email: ${email}`; */
       let messageContent = `Your submission: [${title}] has been saved. Would you like to submit another work?`;
       let container = document.getElementById("thumbnail-container");
+      let outerBox = document.getElementById('thumbnail-outer-box');
+      let messageBox = document.getElementById('thumbnail-message');
 
       document.getElementById("loading").style.display = "none";
       document.getElementById("messageContent").innerHTML = messageContent;
@@ -233,16 +250,22 @@
       document.getElementById('messageAlert').style.display = "block";
       document.getElementById('thumbnail').src = "";
       container.style.display = "none";
-
+      messageBox.style.display = "block";
+      outerBox.classList.add("mraa-highlight");
       return true;
     }
 
     function showThumbnail(e) {
       let thumbnail = document.getElementById('thumbnail');
       let container = document.getElementById('thumbnail-container');
+      let message = document.getElementById('thumbnail-message');
+      let outerBox = document.getElementById('thumbnail-outer-box');
+
+      outerBox.classList.remove('mraa-highlight');
+      message.style.display = "none";
+
       thumbnail.src = URL.createObjectURL(e.target.files[0]);
       container.style.display = "block";
-      return true;
     }
 
     function allFieldsValid() {

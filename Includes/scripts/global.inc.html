@@ -8,7 +8,8 @@
      google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
 /*    google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(showId);*/
     google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName); 
-    document.getElementById('emailAddress').addEventListener('change', checkMemberEmail)
+    document.getElementById('emailAddress').addEventListener('change', checkMemberEmail);
+    document.getElementById('imageFile').addEventListener("change", showThumbnail);
   }
 
   function setCopyrightYear(yr) {
