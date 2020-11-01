@@ -282,7 +282,12 @@
     }
 
     function setSubmitsByArtist(count) {
-      document.getElementById('submitsByArtist').innerText = count;
+      let countEl = document.getElementById('submitsByArtist');
+      if (submitsExceedLimit(count)) {
+        countEl.classList.add("badge-danger");
+        countEl.classList.remove("badge-warning");
+      } 
+      countEl.innerText = count;  
     }
 
     function showMemberSuccess(good) {
@@ -298,6 +303,15 @@
         el.classList.add("badge-danger");
       }
 
+    }
+
+    function submitsExceedLimit(submitCount) {
+      let limit = document.getElementById('maxPerArtist').innerText;
+      return submitCount >= limit;
+    }
+
+    function getEventTitle() {
+      return document.getElementById('btnSave').dataset.name;
     }
 
     document.getElementById('btnSave').addEventListener('click', serializeAndSave);
