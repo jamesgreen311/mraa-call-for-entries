@@ -175,8 +175,9 @@
       let p = document.getElementById('price');
       let m = document.getElementById('medium');
       let showId = showData.dataset.id;
+      let showName = showData.dataset.name;
       let fileNameFormatted = `${ln.value}-${fn.value}-${t.value}-${m.value}-${w.value}x${h.value}-${p.value}`;
-      let data = [fn.value, ln.value, e.value, ph.value, t.value, w.value, h.value, m.value, p.value,
+      let data = [showId, showName, fn.value, ln.value, e.value, ph.value, t.value, w.value, h.value, m.value, p.value,
         fileNameFormatted
       ];
 
@@ -203,8 +204,8 @@
     function saveFormSuccess(e) {
       let email = document.getElementById('emailAddress').value;
       let sheetName = document.querySelector('#btnSave').dataset.name;
-      google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalSubmittedByArtist(sheetName, email);
-      google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(sheetName);
+      //google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalSubmittedByArtist(sheetName, email);
+      //google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalArtistSubmitted(sheetName);
 
       let title = document.getElementById('titleOfWork').value;
       /* let footerMessage = `Sheet name: ${sheetName}, Email: ${email}`; */

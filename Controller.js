@@ -34,11 +34,12 @@ function saveFile(f,d,imgfolder,sheet,showId) {
     let targetFolderId = imgfolder == undefined?imageFolderId:imgfolder;
     let uploadFolder = DriveApp.getFolderById(targetFolderId);
     let today = new Date();
-    let member = isMember(d[2])?"YES":"NO";
-    let newFile = uploadFolder.createFile(blob).getId();
-    d.push(newFile);
-    d.push(showId);
-    d.push(member);
+    let member = isMember(d[DataColMap.email-1])?"YES":"NO";
+    let newFileId = uploadFolder.createFile(blob).getId();
+    d.push(newFileId);
+    d.push(member);   
+    /* d.push(showId); */
+
     d.push(""); // placeholder for availability
     d.push(""); // placeholder for hidden
     d.push(today);
@@ -50,9 +51,9 @@ function saveFile(f,d,imgfolder,sheet,showId) {
 
 function saveToSheet(data,sheet) {
     /* console.log("saveToSheet start"); */
-    let ss = SpreadsheetApp.getActiveSpreadsheet();
+    //let ss = SpreadsheetApp.getActiveSpreadsheet();
     // validate the sheet still exists, it could have been deleted or renamed and config record never changed.
-    let ws = ss.getSheetByName(sheet);
+    let ws = connect().getSheetByName(targetSheet);
 
     ws.appendRow(data);
     /* console.log("saveToSheet end"); */
