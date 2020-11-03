@@ -67,7 +67,7 @@ function addShowToSheet(show) {
     ]
     config.appendRow(row);
     config.getRange("c2:d").setNumberFormat("MM/dd/yyyy h:mm am/pm");
-    createDataSheet(show.exhibitName).showSheet();
+    //createDataSheet(show.exhibitName).showSheet();
     return row;
 }
 

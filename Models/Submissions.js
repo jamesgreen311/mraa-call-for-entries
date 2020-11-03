@@ -28,16 +28,24 @@ const CountsRangeMap = {
 }
 
 function getTotalByEvent(evtTitle) {
+    let totalByEvent = 0;
     let data = dataCountsSheet.getRange(CountsRangeMap.eventCounts+dataCountsSheet.getLastRow()).getValues();
-    return data.filter(r => r[0].toLowerCase() === evtTitle.toLowerCase())[0][1];
+    let filteredData = data.filter(r => r[0].toLowerCase() === evtTitle.toLowerCase());
+    if (filteredData.length > 0) {
+        totalByEvent = filteredData[0][1];
+    }
+    return totalByEvent;
 }
 
 function getTotalByEventArtist(evtTitle, email) {
+    let totalByEventArtist = 0;
     let data = dataCountsSheet.getRange(CountsRangeMap.eventArtistCounts+dataCountsSheet.getLastRow()).getValues();
     let evtCount = data.filter(function(r) {
         return r[1].toLowerCase() === evtTitle.toLowerCase() && r[0].toLowerCase() === email.toLowerCase();
     })
 
-    let count = evtCount[0][2];
-    return count;
+    if (evtCount.length > 0) {
+        totalByEventArtist = evtCount[0][2];
+    }
+    return totalByEventArtist;
 }

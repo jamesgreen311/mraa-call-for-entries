@@ -80,7 +80,12 @@ function getAllShowIds() {
 }
 
 function getMaxEntriesPerShow(id) {
-    return getShow(id).maxEntriesPerShow;
+    let max = 0;
+    let maxEntriesPerShow = getShow(id).maxEntriesPerShow;
+    if (maxEntriesPerShow) {
+        max = maxEntriesPerShow;
+    }
+    return max;
 }
 
 function getMaxEntriesPerArtist(id) {
