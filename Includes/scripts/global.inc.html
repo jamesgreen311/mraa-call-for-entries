@@ -7,7 +7,7 @@
     google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
     google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
     google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(evtId);
-    google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName); 
+    google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName);
     document.getElementById('emailAddress').addEventListener('change', checkMemberEmail);
     document.getElementById('imageFile').addEventListener("change", showThumbnail);
   }
@@ -17,11 +17,20 @@
   }
 
   function setMaxEntries(max) {
-    document.getElementById("maxEntries").innerText = max;
+    if (max===0) {
+      document.getElementById("maxEntries").innerText = "Unknown";
+    } else {
+      document.getElementById("maxEntries").innerText = max;      
+    }
+
   }
 
   function setMaxPerArtist(max) {
-    document.getElementById("maxPerArtist").innerText = max;
+    if (max === 0) {
+      document.getElementById("maxPerArtist").innerText = "Unknown";
+    } else {
+      document.getElementById("maxPerArtist").innerText = max;
+    }
   }
 
   function setEntriesSubmitted(count) {
@@ -34,5 +43,4 @@
     google.script.run.withSuccessHandler(showMemberSuccess).isMember(email);
     google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email)
   }
-
 </script>
