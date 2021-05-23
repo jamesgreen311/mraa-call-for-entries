@@ -6,10 +6,12 @@
     :root {
         --mraa-letter-m: hsl(170, 100%, 33%);
         --mraa-letter-r: #792592;
-        --mraa-letter-a1: #0387ad;
+        --mraa-letter-a1: hsl(193, 97%, 35%);
         --mraa-letter-a2: #c68614;
-        --mraa-button-primary: var(--mraa-letter-m);
-        --mraa-button-primary-border: hsl(170, 100%, 16.5%);
+        --mraa-button-primary: var(--mraa-letter-a1);
+        --mraa-button-primary-border: hsl(193, 62%, 16%);
+        --mraa-button-secondary: var(--mraa-letter-m);
+        --mraa-button-secondary-border: hsl(170, 62%, 16%);
     }
 
     html,
@@ -56,7 +58,7 @@
         margin-bottom: 8px;
 
         /* override bootstrap */
-        font-size: 90%;
+        font-size: 85%;
     }
 
     .mraa-callout {
@@ -123,7 +125,17 @@
     .mraa-button-primary:not(:disabled):active {
         background-color: var(--mraa-button-primary);
         border: 2px solid var(--mraa-button-primary-border);
-        color: antiquewhite;
+        color: white;
+    }
+
+    .mraa-button-secondary,
+    .mraa-button-secondary:hover,
+    .mraa-button-secondary:focus,
+    .mraa-button-secondary:active,
+    .mraa-button-secondary:not(:disabled):active {
+        background-color: var(--mraa-button-secondary);
+        border: 2px solid var(--mraa-button-secondary-border);
+        color: white;
     }
 
     .mraa-highlight {

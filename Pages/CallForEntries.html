@@ -25,9 +25,9 @@
             <h2 class="mraa-sub-header bigger">Call For Entries</h2>
           </div>
           <div class="col-9 text-right">
-            <h2 class="mraa-sub-header"><span id="entriesSubmitted" class="badge badge-primary badge-bigger">Loading
-                ...</span> entries have been submitted. 
-                Total spots available are <span id="maxEntries" class="badge badge-primary badge-bigger">Loading ...</span> </h2>
+            <h2 class="mraa-sub-header">Entries submitted to date are <span id="entriesSubmitted" class="badge badge-primary">Loading
+                ...</span>  
+                Total entries for this exhibit are <span id="maxEntries" class="badge badge-primary">Loading ...</span> </h2>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@
           <div class="col-6">
             <!-- Thumbnail -->
             <div id="thumbnail-outer-box" class="mraa-highlight p-3 mt-2">
-              <h2 class="badge badge-secondary">Preview</h2>
+              <h2 class="badge badge-secondary">Preview Area</h2>
               <div id="thumbnail-message" class="text-muted small m-3">
                 <p>Once you have chosen an image to upload, it
                   will appear here for you to preview before sending to MRAA.</p>
@@ -130,9 +130,9 @@
                   <strong class="mraa-important">IMPORTANT</strong>
                 </p>
                 <p>
-                  Your registration is NOT saved until you fill out all required fields and press the <strong>SEND to
-                    MRAA</strong> button.
+                  Your registration is <span class="mraa-important">NOT</span> saved until you fill out all required fields and press the <strong>Upload Image</strong> button.
                 </p>
+                <p>Click the <strong>Finish and Exit</strong> button after all images have been uploaded.</p>
               </div>
               <div class="mraa-thumbnail-container" id="thumbnail-container" style="display: none;">
                 <img class="mraa-thumbnail" id="thumbnail" />
@@ -147,9 +147,8 @@
             <hr>
             <div>
               <button class="btn btn-primary mraa-button-primary mr-3" data-id="<?= id ?>"
-                data-folder="<?= imageFolderId ?>" data-name="<?= name ?>" id="btnSave">SEND to MRAA</button>
-              <a href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" target="_top">When Finished Go
-                Here</a>
+                data-folder="<?= imageFolderId ?>" data-name="<?= name ?>" id="btnSave">Upload Image</button>
+              <a class="btn btn-secondary mraa-button-secondary ml-3" href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone" target="_top">Finish and Exit</a>
             </div>
           </div>
         </div>
@@ -292,12 +291,12 @@
     function showMemberSuccess(good) {
       if (good) {
         let el = document.getElementById('memberStatus')
-        el.innerText = "Welcome MRAA Exhibiting Member";
+        el.innerText = "Welcome Exhibiting MRAA Member";
         el.classList.remove("badge-danger");
         el.classList.add("badge-success");
       } else {
         let el = document.getElementById('memberStatus')
-        el.innerText = "Not a recognized MRAA Exhibiting Member Email Address";
+        el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
         el.classList.remove("badge-success");
         el.classList.add("badge-danger");
       }
