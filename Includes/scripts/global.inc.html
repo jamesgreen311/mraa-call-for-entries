@@ -40,7 +40,7 @@
   function checkMemberEmail(el) {
     let email = this.value;
     let evtName = document.getElementById('btnSave').dataset.name;
-    google.script.run.withSuccessHandler(showMemberSuccess).isMember(email);
+    google.script.run.withSuccessHandler(showMemberSuccess).isMember(email.toLowerCase());
     google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email)
   }
 </script>

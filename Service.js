@@ -44,5 +44,5 @@ function getCurrentYear() {
 }
  
 function isMember(email) {
-  return exhibtingMembersEmail.includes(email);
+  return exhibtingMembersEmail.includes(email.toLowerCase());
 }
