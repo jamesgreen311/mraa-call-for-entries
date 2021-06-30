@@ -1,6 +1,9 @@
 const wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory");
 const exhibtingMembersEmail = getExhibitingMembers(wsMembers);
-
+/**
+ * @param  {} wsMembers
+ * @returns 
+ */
 function getExhibitingMembers(wsMembers) {
     //const membersDirectory = SpreadsheetApp.openById(membersDirectoryId).getSheetByName("Member Directory");
     //const membersDirectory = SpreadsheetApp.openById(membersDirectoryId).getSheetByName("Member Directory");

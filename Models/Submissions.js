@@ -27,6 +27,11 @@ const CountsRangeMap = {
     eventArtistCounts: "c2:e"
 }
 
+/**
+ * Get total entries for the event from the pivot table
+ * @param {string} evtTitle Event Title
+ * @returns {number} Total
+ */
 function getTotalByEvent(evtTitle) {
     let totalByEvent = 0;
     let data = dataCountsSheet.getRange(CountsRangeMap.eventCounts+dataCountsSheet.getLastRow()).getValues();
@@ -37,6 +42,12 @@ function getTotalByEvent(evtTitle) {
     return totalByEvent;
 }
 
+/**
+ * Get total number of entries for an event for each artist
+ * @param {string} evtTitle Event Title
+ * @param {string} email Artist unique identifier
+ * @returns {number} Total
+ */
 function getTotalByEventArtist(evtTitle, email) {
     let totalByEventArtist = 0;
     let data = dataCountsSheet.getRange(CountsRangeMap.eventArtistCounts+dataCountsSheet.getLastRow()).getValues();

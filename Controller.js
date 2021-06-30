@@ -51,10 +51,15 @@ function saveToSheet(data) {
 }
 
 /*
-Add a new show to the Config tab
+
 * @param {object} show
 * @return {array} row
 */
+/**
+ * Add a new show to the Config tab
+ * @param {object} show 
+ * @returns {array} Row added to sheet
+ */
 function addShowToSheet(show) {
     let row = [
         generateUniqueId().toString(),
@@ -71,19 +76,36 @@ function addShowToSheet(show) {
     return row;
 }
 
+/**
+ * 
+ * @returns 
+ */
 function loadSamplePage() {
     return render(`${pageRoot}/CallForEntries`);
 }
 
+/**
+ * Creates the Call For Entries form 
+ * @param {string} showId Unique show identifier
+ * @returns {HTMLTemplate} Call for entries form page
+ */
 function loadCFE(showId) {
     let s = getShow(showId);
     return render(`${pageRoot}/CallForEntries`, s);
 }
 
+/**
+ * Creates the Thank You page to the browser
+ * @returns {HTMLTemplate} Thank You page
+ */
 function loadThankYou() {
     return render(`${pageRoot}/ThankYou`);
 }
 
+/**
+ * Creates the Error page to the browser
+ * @returns {HTMLTemplate} Error page
+ */
 function loadError() {
     return render(`${pageRoot}/Error`);
 }

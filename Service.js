@@ -16,12 +16,22 @@ function createImageFolder(name) {
     return parentFolder.createFolder(name).getId();
 }
 
+/**
+ * Creates a new spreadsheet tab using an existing tab as a template
+ * @param {string} name New spreadsheet tab name
+ * @returns {string} name of new tab
+ */
 function createDataSheet(name) {
     let tmpl = connect().getSheetByName(dataTemplateName);
     return tmpl.copyTo(connect()).setName(name);
 }
 
-/* */
+/**
+ * Sends html to the browser
+ * @param {File} f File object 
+ * @param {object} opt text to replace page variables
+ * @returns 
+ */
 function render(f, opt) {
     let templ = HtmlService.createTemplateFromFile(f);
     if (opt) {
@@ -34,15 +44,29 @@ function render(f, opt) {
     return templ.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
+/**
+ * HTML fragments to include in HTML sent to browser
+ * @param {File} file File object
+ * @returns {HTMLTemplate} html fragment
+ */
 function include(file) {
   return HtmlService.createHtmlOutputFromFile(file).getContent();
 }
 
+/**
+ * Gets current year in four digit format (yyyy)
+ * @returns {number} year
+ */
 function getCurrentYear() {
   y = new Date().getFullYear();
   return y;
 }
- 
+
+/**
+ * Checks if email address is a valid exhibiting member 
+ * @param {string} email Email address
+ * @returns {boolean} 
+ */
 function isMember(email) {
   return exhibtingMembersEmail.includes(email.toLowerCase());
 }

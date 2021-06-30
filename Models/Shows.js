@@ -8,7 +8,9 @@ const Config = {
     callForEntriesCloseDate: 3,
     maxEntriesPerArtist: 4,
     maxEntriesPerShow: 5,
-    imageFolderId: 6
+    imageFolderId: 6,
+    allowNFS: 7,
+    registrationLink: 8
 }
 
 // Map field names to column position
@@ -20,30 +22,15 @@ const ConfigColMap = {
     maxEntriesPerArtist: 5,
     maxEntriesPerShow: 6,
     imageFolderId: 7,
-
+    allowNFS: 8,
+    registrationLink: 9
 }
 
-/* const Show = {
-    id: generateUniqueId()
-} */
-
-/* const Show = class {
-    constructor(name, openDate, closeDate, artistMax, showMax, folderId) {
-        this.id = generateUniqueId();
-        this.name = name;
-        this.openDate = openDate;
-        this.closeDate = closeDate;
-        this.maxEntriesPerArtist = artistMax;
-        this.maxEntriesPerShow = showMax;
-        this.imageFolderId = folderId;
-    }
-}
+/**
+ * Retrieve a show from the Config tab
+ * @param {string} id Unique show identifier 
+ * @returns {object} Show object
  */
-/*
-Retrieve a show from the Config tab
-* @param {string} id
-* @return {object} show
-*/
 function getShow(id) {
     let data = config.getRange(2, 1, config.getLastRow() - 1, config.getLastColumn()).getDisplayValues();
     let show = {};
@@ -57,19 +44,26 @@ function getShow(id) {
             show.maxEntriesPerArtist = d[Config.maxEntriesPerArtist]; // 4
             show.maxEntriesPerShow = d[Config.maxEntriesPerShow]; //5
             show.imageFolderId = d[Config.imageFolderId]; // 6
+            show.allowNFS = d[Config.allowNFS]; // 7
+            show.registrationLink = d[Config.registrationLink]; // 8
         } 
     }
     return show;
 }
 
+/**
+ * 
+ * @param {string} id Unique show identifier
+ * @returns {string} Show name
+ */
 function getShowName(id) {
     return getShow(id).name;
 }
 
-/*
-
-@Return {array} strings id of all shows 
-*/
+/**
+ * Get all current show identifiers
+ * @returns {array} All unique show identifiers
+ */
 function getAllShowIds() {
     let shows = new Array();
     let allShows = config.getRange(2, 1, config.getLastRow() - 1, 1).getDisplayValues();
@@ -79,6 +73,11 @@ function getAllShowIds() {
     return shows;
 }
 
+/**
+ * Get maximum entries allowed for a show
+ * @param {string} id Unique show identifier
+ * @returns {number} Max entries
+ */
 function getMaxEntriesPerShow(id) {
     let max = 0;
     let maxEntriesPerShow = getShow(id).maxEntriesPerShow;
@@ -88,6 +87,11 @@ function getMaxEntriesPerShow(id) {
     return max;
 }
 
+/**
+ * Get maximum entries allowed per artist
+ * @param {string} id Unique show identifier
+ * @returns {number} Max artist entries
+ */
 function getMaxEntriesPerArtist(id) {
     let max = getShow(id).maxEntriesPerArtist;
     return max;

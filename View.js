@@ -1,3 +1,8 @@
+/**
+ * Runs when file is opened.
+ * Adds a new menu and option to main sheet menu
+ * @param {eventObject} e event
+ */
 function onOpen(e) {
     console.log(e);
     SpreadsheetApp.getUi()
@@ -6,6 +11,9 @@ function onOpen(e) {
     .addToUi();
 }
 
+/**
+ * Displays a show entry form in a modal window in the spreadsheet
+ */
 function createShowForm() {
     let html = HtmlService
     .createTemplateFromFile('Pages/CreateShowForm')
