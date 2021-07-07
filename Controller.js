@@ -13,6 +13,7 @@ function doGet(e) {
     let r;
     Route.path("done", loadThankYou);
     Route.path("test", loadSamplePage);
+    Route.path("payment", loadPaymentPage)
 
     // Add all current show ids as Routes
     let shows = getAllShowIds();
@@ -95,7 +96,7 @@ function loadCFE(showId) {
 }
 
 /**
- * Creates the Thank You page to the browser
+ * Creates the Thank You page 
  * @returns {HTMLTemplate} Thank You page
  */
 function loadThankYou() {
@@ -103,7 +104,15 @@ function loadThankYou() {
 }
 
 /**
- * Creates the Error page to the browser
+ * Creates the Payment page
+ * @returns {HTMLTemplate} Payment page
+ */
+function loadPaymentPage() {
+    return render(`${pageRoot}/Payment`);
+}
+
+/**
+ * Creates the Error page 
  * @returns {HTMLTemplate} Error page
  */
 function loadError() {
