@@ -13,7 +13,8 @@ function doGet(e) {
     let r;
     Route.path("done", loadThankYou);
     Route.path("test", loadSamplePage);
-    Route.path("payment", loadPaymentPage)
+    Route.path("payment", loadPaymentPage);
+    Route.path("wizard", loadWizard);
 
     // Add all current show ids as Routes
     let shows = getAllShowIds();
@@ -109,6 +110,14 @@ function loadThankYou() {
  */
 function loadPaymentPage() {
     return render(`${pageRoot}/Payment`);
+}
+
+/**
+ * Creates the Call For Entries Wizard 
+ * @returns {HTMLTemplate} Wizard page
+ */
+function loadWizard() {
+    return render(`${pageRoot}/Wizard`);
 }
 
 /**
