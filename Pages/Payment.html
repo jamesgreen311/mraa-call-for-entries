@@ -57,7 +57,7 @@
     </form> -->
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="POST" target="_top">
-        <input name="cmd" type="hidden" value="_s-xclick" />
+        <!-- <input name="cmd" type="hidden" value="_s-xclick" />
         <input name="hosted_button_id" type="hidden" value="ZBLAWK9R368KN" />
         <div class="content">
             <div class="container mt-4 mb-2">
@@ -86,31 +86,37 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
+        <div class="content">
+            <div class="container mt-4 mb-2">
+                <div class="row text-center">
 
-            <div class="row text-center">
+                    <div id="smart-button-container">
+                        <div class="col"></div>
+                        <div class="col">
+                            <header class="h1">
+                                Pay with PayPal
+                            </header>
+                            <div style="margin-bottom: 1.25rem;">
+                                <p>Select Number of Works to Exhibit</p>
 
-                <div id="smart-button-container">
-                    <div style="text-align: center;">
-                        <div style="margin-bottom: 1.25rem;">
-                            <p>Select Number of Works to Exhibit</p>
-                            <select id="item-options">
-                                <option value="Per Item" price="10">Per Item - 10 USD</option>
-                            </select>
-                            <select style="visibility: hidden" id="quantitySelect">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
+                                <select style="visibility: hidden" id="quantitySelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <select id="item-options">
+                                    <option value="Per Item" price="10">Each Item $10</option>
+                                </select>
+                            </div>
+                            <div id="paypal-button-container"></div>
                         </div>
-                        <div id="paypal-button-container"></div>
                     </div>
+                    <div class="col"></div>
+
                 </div>
 
 
             </div>
-
-
-        </div>
         </div>
     </form>
 
@@ -133,7 +139,7 @@
             paypal.Buttons({
                 style: {
                     shape: 'rect',
-                    color: 'blue',
+                    color: 'gold',
                     layout: 'vertical',
                     label: 'pay',
 
