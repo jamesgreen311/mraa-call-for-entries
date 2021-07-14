@@ -7,8 +7,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <?!= include("Includes/css/mraa.inc"); ?>
     <?!= include("Includes/css/bootstrap-5.inc"); ?>
+    <?!= include("Includes/css/mraa.inc"); ?>
     <style>
         .progress-line {
             position: absolute;
@@ -59,12 +59,12 @@
                             <div>
                                 <h2 class="fs-4">Artist Name *</h2>
                                 <div class="input-group mb-3">
-<span class="input-group-text" id="firstNameLabel">First Name</span>
-<input type="text" class="form-control" id="firstName" aria-label="firstNameLabel"
+                                    <span class="input-group-text" id="firstNameLabel">First Name</span>
+                                    <input type="text" class="form-control" id="firstName" aria-label="firstNameLabel"
                                         required />
                                     <div class="invalid-feedback">First name is required</div>
-<span class="input-group-text" id="lastNameLabel">Last Name</span>
-<input type="text" class="form-control" id="lastName" aria-label="lastNameLabel"
+                                    <span class="input-group-text" id="lastNameLabel">Last Name</span>
+                                    <input type="text" class="form-control" id="lastName" aria-label="lastNameLabel"
                                         required />
                                     <div class="invalid-feedback">Last name is required</div>
                                 </div>
@@ -81,17 +81,18 @@
                                     required />
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    <!-- Buttons -->
-                                    <hr>
-                                    <div>
-                                        <button class="btn btn-primary mraa-button-primary mr-3"
-                                            id="btnNextPay">Next</button>
-                                    </div>
+
+                        </form>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <!-- Buttons -->
+                                <hr>
+                                <div>
+                                    <button class="btn btn-primary mraa-button-primary me-3"
+                                        id="btnNextPay">Next</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-pay-fees" role="tabpanel" aria-labelledby="pills-pay-fees-tab">
@@ -138,22 +139,22 @@
                                             </form>
                                         </div>
                                     </div>
-</div>
-</div>
-</form>
+                                </div>
+                            </div>
+                        </form>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <!-- Buttons -->
                                 <hr>
                                 <div>
-                                    <button class="btn btn-primary mraa-button-primary mr-3"
-                                    id="btnPrevArtist">Previous</button>
-                                    <button class="btn btn-primary mraa-button-primary mr-3"
+                                    <button class="btn btn-primary mraa-button-primary me-3"
+                                        id="btnPrevArtist">Previous</button>
+                                    <button class="btn btn-primary mraa-button-primary me-3"
                                         id="btnNextUpload">Next</button>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Upload Images Tab Content -->
                     <div class="tab-pane fade" id="pills-upload-images" role="tabpanel"
@@ -238,7 +239,7 @@
                                             until you fill out all required fields and press the <strong>Upload
                                                 Image</strong> button.
                                         </p>
-                                        <p>Click the <strong>Finish and Exit</strong> button after all images
+                                        <p>Click the <strong>Finish</strong> button after all images
                                             have been uploaded.</p>
                                     </div>
                                     <div class="mraa-thumbnail-container" id="thumbnail-container"
@@ -253,11 +254,13 @@
                                 <!-- Buttons -->
                                 <hr>
                                 <div>
-                                    <button class="btn btn-primary mraa-button-primary mr-3" data-id="test"
+                                    <button class="btn btn-primary mraa-button-primary me-5" data-id="test"
                                         data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
                                         id="btnSave">Upload
                                         Image</button>
-                                    <a class="btn btn-secondary mraa-button-secondary ml-3"
+                                    <button class="btn btn-primary mraa-button-primary ms-5"
+                                        id="btnPrevPay">Previous</button>
+                                    <a class="btn btn-secondary mraa-button-secondary ms-3"
                                         href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
                                         target="_top">Finish</a>
                                 </div>
@@ -388,6 +391,13 @@
         artistTab.addEventListener("click", function (e) {
             let progressBar = document.getElementById("progressBar");
             progressBar.style.width = "33%";
+        });
+
+        let btnPrevPay = document.getElementById("btnPrevPay");
+        btnPrevPay.addEventListener("click", function (e) {
+            let thisTab = new bootstrap.Tab(payTab);
+            thisTab.show();
+            setProgressBar("67%");
         });
 
         let uploadTab = document.getElementById("pills-upload-images-tab");
