@@ -9,70 +9,76 @@
 
     <?!= include("Includes/css/mraa.inc"); ?>
     <?!= include("Includes/css/bootstrap-5.inc"); ?>
-
+    <style>
+        .progress-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1px;
+            background-color: rgb(63, 111, 243);
+        }
+    </style>
     <title>MRAA Exhibit Call For Entries Wizard</title>
 </head>
 
 <body>
     <?!= include("Includes/html/header.inc"); ?>
 
-    <div class="container">
+    <div class="container" style="background-color: white;">
+
         <div class="row mt-5">
             <div class="col">
-                <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-artist-info-tab" data-bs-toggle="pill"
+                        <button class="nav-link fs-4 active" id="pills-artist-info-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-artist-info" type="button" role="tab" aria-controls="pills-home"
                             aria-selected="true"><i class="bi bi-person-circle"></i>&nbsp;Artist Info</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-pay-fees-tab" data-bs-toggle="pill"
+                        <button class="nav-link fs-4" id="pills-pay-fees-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-pay-fees" type="button" role="tab" aria-controls="pills-pay-fees"
                             aria-selected="false"><i class="bi bi-credit-card"></i>
                             &nbsp;Pay Fees</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-upload-images-tab" data-bs-toggle="pill"
+                        <button class="nav-link fs-4" id="pills-upload-images-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-upload-images" type="button" role="tab"
                             aria-controls="pills-upload-images" aria-selected="false"><i
                                 class="bi bi-cloud-arrow-up"></i>
                             &nbsp;Upload Images</button>
                     </li>
                 </ul>
+                <div class="progress mb-3 gx-0">
+                    <div id="progressBar" class="progress-bar progress-bar-striped text-end" style="width: 33%;"
+                        role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-artist-info" role="tabpanel"
                         aria-labelledby="pills-artist-info-tab">
                         <form id="frmMain">
-                            <div class="form-group">
-                                <label for="artistName">Artist Name *</label>
+                            <div>
+                                <h2 class="fs-4">Artist Name *</h2>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">First Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="firstName" aria-label="First Name"
+<span class="input-group-text" id="firstNameLabel">First Name</span>
+<input type="text" class="form-control" id="firstName" aria-label="firstNameLabel"
                                         required />
                                     <div class="invalid-feedback">First name is required</div>
-                                    <div class="input-group-prepend ml-3">
-                                        <span class="input-group-text">Last Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="lastName" aria-label="Last Name"
+<span class="input-group-text" id="lastNameLabel">Last Name</span>
+<input type="text" class="form-control" id="lastName" aria-label="lastNameLabel"
                                         required />
                                     <div class="invalid-feedback">Last name is required</div>
                                 </div>
                             </div>
 
-                            <label for="contactInfo">Contact Information *</label> <span id="memberStatus"
-                                class="badge"></span>
+                            <h2 class="fs-4">Contact Information *</h2> <span id="memberStatus" class="badge"></span>
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Email</span>
-                                </div>
-                                <input type="email" class="form-control" id="emailAddress" aria-label="Email"
-                                    placeholder="Enter a valid email address" required />
-                                <div class="input-group-prepend ml-3">
-                                    <span class="input-group-text">Phone</span>
-                                </div>
-                                <input type="tel" class="form-control" id="phoneNumber" aria-label="Phone" required />
+                                <span class="input-group-text" id="emailAddressLabel">Email</span>
+                                <input type="email" class="form-control" id="emailAddress"
+                                    aria-label="emailAddressLabel" placeholder="Enter a valid email address" required />
+
+                                <span class="input-group-text" id="phoneLabel">Phone</span>
+                                <input type="tel" class="form-control" id="phoneNumber" aria-label="phoneLabel"
+                                    required />
                             </div>
 
                             <div class="row mb-3">
@@ -132,20 +138,22 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <!-- Buttons -->
-                                            <hr>
-                                            <div>
-                                                <button class="btn btn-primary mraa-button-primary mr-3"
-                                                    id="btnNextUpload">Next</button>
-                                            </div>
+</div>
+</div>
+</form>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <!-- Buttons -->
+                                <hr>
+                                <div>
+                                    <button class="btn btn-primary mraa-button-primary mr-3"
+                                    id="btnPrevArtist">Previous</button>
+                                    <button class="btn btn-primary mraa-button-primary mr-3"
+                                        id="btnNextUpload">Next</button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                                        </div>
+                                        </div>
+                                        </div>
 
                     <!-- Upload Images Tab Content -->
                     <div class="tab-pane fade" id="pills-upload-images" role="tabpanel"
@@ -153,7 +161,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mraa-callout mraa-callout-info">
-                                    <h4>Select Your Images to Upload</h4>
+                                    <h2 class="fs-4">Select Your Images to Upload</h2>
                                     <div class="row mb-2">
                                         <div class="col-8"><strong>Limit of <span id="maxPerArtist">Loading...</span>
                                                 uploads per
@@ -165,7 +173,7 @@
                                             class="form-control-file" required onchange="showThumbnail(event)">
                                     </div>
                                     <div class="bigger"><strong>You have uploaded <span id="submitsByArtist"
-                                                class="badge badge-warning badge-bigger">0</span>
+                                                class="badge bg-warning badge-bigger">0</span>
                                             images.</strong></div>
                                 </div>
                                 <!-- Title -->
@@ -188,7 +196,7 @@
                                     <input type="number" class="form-control" id="sizeHeight"
                                         aria-label="Size: Height (in)" min="1" max="999" required />
                                 </div>
-                                <div class="smaller mb-3"><strong>Size should include the frame if artwork is
+                                <div class="fs-6 mb-3"><strong>Size should include the frame if artwork is
                                         framed</strong></div>
                                 <!-- Medium -->
                                 <div class="input-group mb-3">
@@ -218,7 +226,7 @@
                             <div class="col-6">
                                 <!-- Thumbnail -->
                                 <div id="thumbnail-outer-box" class="mraa-highlight p-3 mt-2">
-                                    <h2 class="badge badge-secondary">Preview Area</h2>
+                                    <h2 class="fs-4">Preview Area</h2>
                                     <div id="thumbnail-message" class="text-muted small m-3">
                                         <p>Once you have chosen an image to upload, it
                                             will appear here for you to preview before sending to MRAA.</p>
@@ -245,7 +253,9 @@
                                 <!-- Buttons -->
                                 <hr>
                                 <div>
-                                    <button class="btn btn-primary mraa-button-primary mr-3" data-id="test" data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS" id="btnSave">Upload
+                                    <button class="btn btn-primary mraa-button-primary mr-3" data-id="test"
+                                        data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
+                                        id="btnSave">Upload
                                         Image</button>
                                     <a class="btn btn-secondary mraa-button-secondary ml-3"
                                         href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
@@ -354,6 +364,47 @@
             }).render('#paypal-button-container');
         }
         initPayPalButton();
+    </script>
+    <script>
+        let payTab = document.getElementById("pills-pay-fees-tab");
+        let btnNextPay = document.getElementById("btnNextPay");
+        payTab.addEventListener("click", function (e) {
+            setProgressBar("67%");
+        });
+        btnNextPay.addEventListener("click", function (e) {
+            let thisTab = new bootstrap.Tab(payTab);
+            thisTab.show();
+            setProgressBar("67%");
+        });
+
+        let btnPrevArtist = document.getElementById("btnPrevArtist");
+        btnPrevArtist.addEventListener("click", function (e) {
+            let thisTab = new bootstrap.Tab(artistTab);
+            thisTab.show();
+            setProgressBar("33%");
+        });
+
+        let artistTab = document.getElementById("pills-artist-info-tab");
+        artistTab.addEventListener("click", function (e) {
+            let progressBar = document.getElementById("progressBar");
+            progressBar.style.width = "33%";
+        });
+
+        let uploadTab = document.getElementById("pills-upload-images-tab");
+        let btnNextUpload = document.getElementById("btnNextUpload");
+        uploadTab.addEventListener("click", function (e) {
+            document.getElementById("progressBar").style.width = "100%";
+        });
+        btnNextUpload.addEventListener("click", function (e) {
+            let thisTab = new bootstrap.Tab(uploadTab);
+            thisTab.show();
+            setProgressBar("100%");
+        })
+
+        function setProgressBar(size) {
+            let progressBar = document.getElementById("progressBar");
+            progressBar.style.width = size;
+        }
     </script>
 </body>
 
