@@ -187,7 +187,7 @@
                                     <span class="input-group-text">Width (in)</span>
                                     <input type="number" class="form-control" id="sizeWidth"
                                         aria-label="Size: Width (in)" min="1" max="999" required />
-                                        <span class="input-group-text">Height (in)</span>
+                                    <span class="input-group-text">Height (in)</span>
                                     <input type="number" class="form-control" id="sizeHeight"
                                         aria-label="Size: Height (in)" min="1" max="999" required />
                                 </div>
@@ -204,13 +204,12 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
                                         <input type="number" class="form-control"
-                                            aria-label="Amount (to the nearest dollar)" id="price" size="10"
-                                            required />
+                                            aria-label="Amount (to the nearest dollar)" id="price" size="10" required />
                                         <span class="input-group-text">.00</span>
                                         <button class="btn btn-primary mraa-button-primary ms-5" data-id="test"
-                                        data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
-                                        id="btnSave" type="button">Upload
-                                        Image</button>
+                                            data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
+                                            id="btnSave" type="button">Upload
+                                            Image</button>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +268,7 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
+    <!-- <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
         data-sdk-integration-source="button-factory"></script>
     <script>
         function initPayPalButton() {
@@ -353,8 +352,11 @@
             }).render('#paypal-button-container');
         }
         initPayPalButton();
-    </script>
-    <script>
+    </script> -->
+
+    <?!= include("Includes/scripts/paypal.inc"); ?>
+    <?!= include("Includes/scripts/global.inc"); ?>
+    <!-- <script>
         let payTab = document.getElementById("pills-pay-fees-tab");
         let btnNextPay = document.getElementById("btnNextPay");
         payTab.addEventListener("click", function (e) {
@@ -401,7 +403,9 @@
             let progressBar = document.getElementById("progressBar");
             progressBar.style.width = size;
         }
-    </script>
+    </script> -->
+    <?!= include("Includes/scripts/tabs.inc"); ?>
+    <?!= include("Includes/scripts/image-upload.inc"); ?>
 </body>
 
 </html>
