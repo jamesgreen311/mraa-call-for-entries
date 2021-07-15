@@ -179,21 +179,15 @@
                                 </div>
                                 <!-- Title -->
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Title of Work</span>
-                                    </div>
+                                    <span class="input-group-text">Title of Work</span>
                                     <input type="text" class="form-control" id="titleOfWork" aria-label="Title of Work"
                                         required />
                                 </div>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Width (in)</span>
-                                    </div>
+                                    <span class="input-group-text">Width (in)</span>
                                     <input type="number" class="form-control" id="sizeWidth"
                                         aria-label="Size: Width (in)" min="1" max="999" required />
-                                    <div class="input-group-prepend ml-3">
                                         <span class="input-group-text">Height (in)</span>
-                                    </div>
                                     <input type="number" class="form-control" id="sizeHeight"
                                         aria-label="Size: Height (in)" min="1" max="999" required />
                                 </div>
@@ -201,26 +195,22 @@
                                         framed</strong></div>
                                 <!-- Medium -->
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Medium</span>
-                                    </div>
+                                    <span class="input-group-text">Medium</span>
                                     <input type="text" class="form-control" id="medium" aria-label="Medium" required />
                                 </div>
                                 <!-- Price -->
                                 <div>
                                     <label for="price">Price *</label>
                                     <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
-                                        </div>
-                                        <div>
-                                            <input type="number" class="form-control"
-                                                aria-label="Amount (to the nearest dollar)" id="price" size="10"
-                                                required />
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">.00</span>
-                                        </div>
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control"
+                                            aria-label="Amount (to the nearest dollar)" id="price" size="10"
+                                            required />
+                                        <span class="input-group-text">.00</span>
+                                        <button class="btn btn-primary mraa-button-primary ms-5" data-id="test"
+                                        data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
+                                        id="btnSave" type="button">Upload
+                                        Image</button>
                                     </div>
                                 </div>
                             </div>
@@ -254,11 +244,7 @@
                                 <!-- Buttons -->
                                 <hr>
                                 <div>
-                                    <button class="btn btn-primary mraa-button-primary me-5" data-id="test"
-                                        data-name="test" data-folder="18T43wf3JH0c4DAYxOAvNE7lEBfvjKfMS"
-                                        id="btnSave">Upload
-                                        Image</button>
-                                    <button class="btn btn-primary mraa-button-primary ms-5"
+                                    <button class="btn btn-primary mraa-button-primary"
                                         id="btnPrevPay">Previous</button>
                                     <a class="btn btn-secondary mraa-button-secondary ms-3"
                                         href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
