@@ -17,6 +17,9 @@
             height: 1px;
             background-color: rgb(63, 111, 243);
         }
+        .spotlight {
+            color: #ffc107;
+        }
     </style>
     <title>MRAA Exhibit Call For Entries Wizard</title>
 </head>
@@ -24,8 +27,12 @@
 <body>
     <?!= include("Includes/html/header.inc"); ?>
 
+    <h1 class="mraa-header text-center show-name"><?= name ?></h1>
+    <h2 class="text-center fs-5">Total entries for this exhibit are <span id="maxEntries" class="spotlight">Loading
+        ...</span></h2>
+    <h2 class="text-center fs-5">Entries submitted to date are <span id="entriesSubmitted" class="spotlight">Loading
+        ...</span></h2>
     <div class="container" style="background-color: white;">
-
         <div class="row mt-5">
             <div class="col">
                 <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
@@ -57,7 +64,7 @@
                         aria-labelledby="pills-artist-info-tab">
                         <form id="frmMain">
                             <div>
-                                <h2 class="fs-4">Artist Name *</h2>
+                                <h2 class="fs-5">Artist Name *</h2>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="firstNameLabel">First Name</span>
                                     <input type="text" class="form-control" id="firstName" aria-label="firstNameLabel"
@@ -70,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <h2 class="fs-4">Contact Information *</h2> <span id="memberStatus" class="badge"></span>
+                            <h2 class="fs-5">Contact Information *</h2> <span id="memberStatus" class="badge"></span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="emailAddressLabel">Email</span>
                                 <input type="email" class="form-control" id="emailAddress"
