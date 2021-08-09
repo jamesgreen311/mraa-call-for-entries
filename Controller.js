@@ -90,6 +90,8 @@ function loadSamplePage() {
  * @returns {HTMLTemplate} Call for entries form page
  */
 function loadCFE(showId) {
+    // s is an object that contains all show information
+    // s is passed to the page template where the key/value pairs are iterated through and sets page variables
     let s = getShow(showId);
     return render(`${pageRoot}/CallForEntries`, s);
 }
