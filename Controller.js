@@ -117,7 +117,8 @@ function loadPaymentPage() {
  * @returns {HTMLTemplate} Wizard page
  */
 function loadWizard() {
-    return render(`${pageRoot}/Wizard`);
+    let s = getShow(showId);
+    return render(`${pageRoot}/Wizard`, s);
 }
 
 /**
