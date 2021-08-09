@@ -116,7 +116,7 @@ function loadPaymentPage() {
  * Creates the Call For Entries Wizard 
  * @returns {HTMLTemplate} Wizard page
  */
-function loadWizard() {
+function loadWizard(showId) {
     let s = getShow(showId);
     return render(`${pageRoot}/Wizard`, s);
 }
