@@ -19,7 +19,7 @@ function doGet(e) {
     // Add all current show ids as Routes
     let shows = getAllShowIds();
     for (let s of shows) {
-        Route.path(s, loadCFE);
+        Route.path(s, loadWizard);
     }
 
     if (Route[e.parameter.v]) {
