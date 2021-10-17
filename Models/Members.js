@@ -2,7 +2,7 @@ const wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory")
 const exhibtingMembersEmail = getExhibitingMembers(wsMembers);
 /**
  * @param  {} wsMembers
- * @returns 
+ * @returns [] array of member emails
  */
 function getExhibitingMembers(wsMembers) {
     //const membersDirectory = SpreadsheetApp.openById(membersDirectoryId).getSheetByName("Member Directory");
@@ -12,4 +12,12 @@ function getExhibitingMembers(wsMembers) {
         return e[14].toLowerCase() === "exhibiting";
     })
     return exhibitingMembers.map(m => m[0]);
+}
+
+/**
+ * @param string member email
+ * @returns [] array of member first name, last name, phone
+ */
+function getMemberInfo(email) {
+    
 }
