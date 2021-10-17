@@ -1,4 +1,5 @@
-<script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
+<!-- client-id=sandbox account AcbPm-heZCDlqDwdLzPt6Y526oUGcWDNAa8EcFCnQL2-vEumXBq055iPMaXFbziEf6r-XDWoGKTM6q3q -->
+<script src="https://www.paypal.com/sdk/js?client-id=AcbPm-heZCDlqDwdLzPt6Y526oUGcWDNAa8EcFCnQL2-vEumXBq055iPMaXFbziEf6r-XDWoGKTM6q3q&disable-funding=credit,card&currency=USD"
 data-sdk-integration-source="button-factory"></script>
 <script>
 function initPayPalButton() {
@@ -32,9 +33,10 @@ function initPayPalButton() {
                 quantity = 1;
             }
 
-            tax *= quantity;
-            tax = Math.round(tax * 100) / 100;
-            var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+            //tax *= quantity;
+            //tax = Math.round(tax * 100) / 100;
+            //var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+            var priceTotal = quantity * selectedItemPrice;
             priceTotal = Math.round(priceTotal * 100) / 100;
             var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
 
@@ -48,14 +50,6 @@ function initPayPalButton() {
                             item_total: {
                                 currency_code: 'USD',
                                 value: itemTotalValue,
-                            },
-                            shipping: {
-                                currency_code: 'USD',
-                                value: shipping,
-                            },
-                            tax_total: {
-                                currency_code: 'USD',
-                                value: tax,
                             }
                         }
                     },
