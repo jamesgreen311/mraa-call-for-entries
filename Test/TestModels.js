@@ -23,3 +23,10 @@ function testGetTotalByEvent() {
     let count = getTotalByEvent(evtTitle);
     return count;
 }
+
+function testGetMemberInfo() {
+    let wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory");
+    let memberInfo = getMemberInfo(wsMembers);
+    console.log(memberInfo);
+    return memberInfo;
+}
