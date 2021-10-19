@@ -109,20 +109,20 @@ function setSubmitsByArtist(count) {
   countEl.innerText = count;  
 }
 
-function showMemberSuccess(good) {
-  if (good) {
-    let el = document.getElementById('memberStatus')
-    el.innerText = "Welcome Exhibiting MRAA Member";
-    el.classList.remove("badge-danger");
-    el.classList.add("badge-success");
-  } else {
-    let el = document.getElementById('memberStatus')
-    el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
-    el.classList.remove("badge-success");
-    el.classList.add("badge-danger");
-  }
+// function showMemberSuccess(good) {
+//   if (good) {
+//     let el = document.getElementById('memberStatus')
+//     el.innerText = "Welcome Exhibiting MRAA Member";
+//     el.classList.remove("badge-danger");
+//     el.classList.add("badge-success");
+//   } else {
+//     let el = document.getElementById('memberStatus')
+//     el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
+//     el.classList.remove("badge-success");
+//     el.classList.add("badge-danger");
+//   }
 
-}
+// }
 
 function submitsExceedLimit(submitCount) {
   let limit = document.getElementById('maxPerArtist').innerText;

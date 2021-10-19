@@ -4,12 +4,34 @@
   function pageLoaded() {
     let evtId = document.getElementById('btnSave').dataset.id;
     let evtName = document.getElementById('btnSave').dataset.name;
+    // disable artist info input until email validated
+    disableArtistInfoFields();
+    setArtistInfoPlaceholders("Will be auto filled with your MRAA email address");
     google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
     google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
     google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(evtId);
     google.script.run.withSuccessHandler(setEntriesSubmitted).getTotalByEvent(evtName);
     document.getElementById('emailAddress').addEventListener('change', checkMemberEmail);
     document.getElementById('imageFile').addEventListener("change", showThumbnail);
+  }
+
+  function setArtistInfoPlaceholders(placeholder) {
+    document.getElementById('firstName').placeholder = placeholder;
+    document.getElementById('lastName').placeholder = placeholder;
+    document.getElementById('phoneNumber').placeholder = placeholder;   
+  }
+
+  function disableArtistInfoFields() {
+    document.getElementById('firstName').disabled = true;
+    document.getElementById('lastName').disabled = true;
+    document.getElementById('phoneNumber').disabled = true;
+  }
+
+  function enableArtistInfoFields() {
+    document.getElementById('firstName').disabled = false;
+    document.getElementById('firstName').focus();
+    document.getElementById('lastName').disabled = false;
+    document.getElementById('phoneNumber').disabled = false;
   }
 
   function setCopyrightYear(yr) {
@@ -49,9 +71,27 @@
     document.getElementById("phoneNumber").value = phoneNumber;
   }
 
+  function showMemberSuccess(good) {
+    if (good) {
+      let el = document.getElementById('memberStatus')
+      el.innerText = "Welcome Exhibiting MRAA Member";
+      el.classList.remove("badge-danger");
+      el.classList.add("badge-success");
+    } else {
+      let el = document.getElementById('memberStatus')
+      el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
+      el.classList.remove("badge-success");
+      el.classList.add("badge-danger");
+      setArtistInfoPlaceholders("");
+    }
+
+    enableArtistInfoFields();
+  }
+
   function checkMemberEmail(el) {
     let email = this.value;
     let evtName = document.getElementById('btnSave').dataset.name;
+    setArtistInfoPlaceholders("Retrieving ...");
     google.script.run.withSuccessHandler(showMemberSuccess).isMember(email.toLowerCase());
     google.script.run.withSuccessHandler(showMemberFirstName).getMemberFirstName(email);
     google.script.run.withSuccessHandler(showMemberLastName).getMemberLastName(email);
