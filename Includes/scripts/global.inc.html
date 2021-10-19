@@ -37,10 +37,25 @@
     document.getElementById("entriesSubmitted").innerText = count;
   }
 
+  function showMemberFirstName(name) {
+    document.getElementById("firstName").value = name;
+  }
+
+  function showMemberLastName(name) {
+    document.getElementById("lastName").value = name;
+  }
+
+  function showMemberPhone(phoneNumber) {
+    document.getElementById("phoneNumber").value = phoneNumber;
+  }
+
   function checkMemberEmail(el) {
     let email = this.value;
     let evtName = document.getElementById('btnSave').dataset.name;
     google.script.run.withSuccessHandler(showMemberSuccess).isMember(email.toLowerCase());
+    google.script.run.withSuccessHandler(showMemberFirstName).getMemberFirstName(email);
+    google.script.run.withSuccessHandler(showMemberLastName).getMemberLastName(email);
+    google.script.run.withSuccessHandler(showMemberPhone).getMemberPhone(email);
     google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email)
   }
 </script>
