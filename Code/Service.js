@@ -62,11 +62,3 @@ function getCurrentYear() {
   return y;
 }
 
-/**
- * Checks if email address is a valid exhibiting member 
- * @param {string} email Email address
- * @returns {boolean} 
- */
-function isMember(email) {
-  return activeExhibtingMembers.includes(email.toLowerCase());
-}

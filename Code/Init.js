@@ -1,7 +1,3 @@
-const memberInfo = getMemberInfo();
-const exhibtingMembers = getExhibitingMembers();
-const activeExhibitingMembers = getActiveExhibitingMembers();
-
 /**
  * The init file is processed first by Google App script. 
  */

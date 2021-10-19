@@ -1,3 +1,8 @@
+const wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory");
+const memberInfo = getMemberInfo();
+const exhibtingMembers = getExhibitingMembers();
+const activeExhibitingMembers = getActiveExhibitingMembers();
+
 /**
  * Map Members spreadsheet column numbers to column headers
  */
@@ -9,7 +14,6 @@ const MembersColMap = {
     phone: 11,
     membership: 13
 }
-const wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory");
 
 /**
  * @param  none
@@ -71,4 +75,56 @@ function getMemberInfo() {
       colCombined.push([...colEmailName[x], ...colStatus[x], ...colPhone[x], ...colMembership[x]]);
     }
     return colCombined; 
+}
+
+/**
+ * Checks if email address is a valid active exhibiting member 
+ * @param {string} email Email address
+ * @returns {boolean} 
+ */
+function isMember(email) {
+    let memberInfo = findMember(email);
+
+    return memberInfo && memberInfo.length>0;
+}
+
+function findMember(email) {
+    let found = activeExhibitingMembers.filter(
+        member => member[0].trim().toLowerCase() === email.trim().toLowerCase()
+      );
+      
+    return found[0];
+}
+
+function getMemberFirstName(email) {
+    let memberInfo = findMember(email);
+    let firstName = "";
+
+    if (memberInfo && memberInfo.length>0) {
+        firstName = memberInfo[1];
+    }
+
+    return firstName;
+}
+
+function getMemberLastName(email) {
+    let memberInfo = findMember(email);
+    let lastName = "";
+
+    if (memberInfo && memberInfo.length>0) {
+        lastName = memberInfo[2];
+    }
+
+    return lastName;
+}
+
+function getMemberPhone(email) {
+    let memberInfo = findMember(email);
+    let phone = "";
+
+    if (memberInfo && memberInfo.length>0) {
+        phone = memberInfo[4];
+    }
+
+    return phone;
 }

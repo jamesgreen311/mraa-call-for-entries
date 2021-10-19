@@ -30,3 +30,24 @@ function testGetMemberInfo() {
     console.log(memberInfo);
     return memberInfo;
 }
+
+function testGetMemberFirstName() {
+    let email = "jamesgreen.311@gmail.com";
+    let firstName = getMemberFirstName(email);
+
+    console.log(firstName);
+}
+
+function testGetMemberLastName() {
+    let email = "jamesgreen.311@gmail.com";
+    let lastName = getMemberLastName(email);
+
+    console.log(lastName);
+}
+
+function testGetMemberPhone() {
+    let email = "jamesgreen.311@gmail.com";
+    let phone = getMemberPhone(email);
+
+    console.log(phone);
+}
