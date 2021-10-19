@@ -68,5 +68,5 @@ function getCurrentYear() {
  * @returns {boolean} 
  */
 function isMember(email) {
-  return exhibtingMembersEmail.includes(email.toLowerCase());
+  return activeExhibtingMembers.includes(email.toLowerCase());
 }

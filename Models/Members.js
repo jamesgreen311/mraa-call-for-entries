@@ -10,24 +10,39 @@ const MembersColMap = {
     membership: 13
 }
 const wsMembers = connect(membersDirectoryId).getSheetByName("Member Directory");
-const memberInfo = getMemberInfo();
-const exhibtingMembers = getExhibitingMembers();
-const activeExhibitingMembers = getActiveExhibitingMembers();
 
 /**
- * @param  {} wsMembers
- * @returns [] array of member emails
- */
+ * @param  none
+ * @returns [] array of all exhibiting members information
+ * 
+ * Member information array:
+ *  email
+ *  first name
+ *  last name
+ *  status
+ *  phone number
+ *  membership type 
+*/
 function getExhibitingMembers() {
-    //let allMembers = getMemberInfo();
     let exhibitingMembers = memberInfo.filter(function (e) {
         return e[5].toLowerCase() === "exhibiting";
     })
     return exhibitingMembers;
 }
 
+/**
+ * @param none
+ * @returns [] array of all active exhibiting members information
+ * 
+ * Member information array:
+ *  email
+ *  first name
+ *  last name
+ *  status
+ *  phone number
+ *  membership type
+ */
 function getActiveExhibitingMembers() {
-    //let allMembers = getMemberInfo();
     let activeExhibitingMembers = memberInfo.filter(function (e) {
         return e[5].toLowerCase() === "exhibiting" && e[3].toLowerCase() === "active";
     });
