@@ -54,6 +54,8 @@ function getActiveExhibitingMembers() {
 }
 
 /**
+ * Gets six columns from the membership spreadsheet. All columns are combined
+ * into one array for each member
  * @param string member email
  * @returns [] array of member first name, last name, status, phone, membership type
  */
@@ -88,6 +90,11 @@ function isMember(email) {
     return memberInfo && memberInfo.length>0;
 }
 
+/**
+ * Searches the array of active exhibiting members retreived from the Membership spreadsheet
+ * @param {string} email 
+ * @returns array of member info or empty array
+ */
 function findMember(email) {
     let found = activeExhibitingMembers.filter(
         member => member[0].trim().toLowerCase() === email.trim().toLowerCase()
@@ -96,6 +103,11 @@ function findMember(email) {
     return found[0];
 }
 
+/**
+ * Gets the members first name from array if found
+ * @param {string} email 
+ * @returns string
+ */
 function getMemberFirstName(email) {
     let memberInfo = findMember(email);
     let firstName = "";
@@ -107,6 +119,11 @@ function getMemberFirstName(email) {
     return firstName;
 }
 
+/**
+ * Gets the members last name from array if found
+ * @param {string} email 
+ * @returns string
+ */
 function getMemberLastName(email) {
     let memberInfo = findMember(email);
     let lastName = "";
@@ -118,6 +135,11 @@ function getMemberLastName(email) {
     return lastName;
 }
 
+/**
+ * Gets the members phone number from array if found
+ * @param {string} email 
+ * @returns string
+ */
 function getMemberPhone(email) {
     let memberInfo = findMember(email);
     let phone = "";

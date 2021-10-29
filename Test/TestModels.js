@@ -51,3 +51,12 @@ function testGetMemberPhone() {
 
     console.log(phone);
 }
+
+function testGetTotalByEventArtist() {
+    let email = "jamesgreen.311@gmail.com";
+    let eventTitle = "MRAA Annual Show 2021";
+  
+    let total = getTotalByEventArtist(eventTitle, email);
+  
+    console.log(`Upload total: ${total}`);
+  }

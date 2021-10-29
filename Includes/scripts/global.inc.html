@@ -6,7 +6,10 @@
     let evtName = document.getElementById('btnSave').dataset.name;
     // disable artist info input until email validated
     disableArtistInfoFields();
-    setArtistInfoPlaceholders("Will be auto filled with your MRAA email address");
+    disableNextButton();
+    disablePayFeesTab();
+    disableUploadImagesTab();
+    setArtistInfoPlaceholders("Will be auto filled with a valid MRAA email address");
     google.script.run.withSuccessHandler(setCopyrightYear).getCurrentYear();
     google.script.run.withSuccessHandler(setMaxEntries).getMaxEntriesPerShow(evtId);
     google.script.run.withSuccessHandler(setMaxPerArtist).getMaxEntriesPerArtist(evtId);
@@ -27,6 +30,30 @@
     document.getElementById('phoneNumber').disabled = true;
   }
 
+  function disableNextButton() {
+    document.getElementById('btnNextPay').disabled = true;
+  }
+
+  function disablePayFeesTab() {
+    document.getElementById('pills-pay-fees-tab').disabled = true;
+  }
+
+  function enablePayFeesTab() {
+    document.getElementById('pills-pay-fees-tab').disabled = false;
+  }
+  
+  function disableUploadImagesTab() {
+    document.getElementById('pills-upload-images-tab').disabled = true;
+  }
+
+  function enableUploadImagesTab() {
+    document.getElementById('pills-upload-images-tab').disabled = false;
+  }
+  
+  function enableNextButton() {
+    document.getElementById('btnNextPay').disabled = false;
+  }
+
   function enableArtistInfoFields() {
     document.getElementById('firstName').disabled = false;
     document.getElementById('firstName').focus();
@@ -44,7 +71,6 @@
     } else {
       document.getElementById("maxEntries").innerText = max;      
     }
-
   }
 
   function setMaxPerArtist(max) {
@@ -77,15 +103,17 @@
       el.innerText = "Welcome Exhibiting MRAA Member";
       el.classList.remove("badge-danger");
       el.classList.add("badge-success");
-    } else {
+      enableArtistInfoFields();
+      enableNextButton();
+      enablePayFeesTab()
+      enableUploadImagesTab();    
+  } else {
       let el = document.getElementById('memberStatus')
       el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
       el.classList.remove("badge-success");
       el.classList.add("badge-danger");
-      setArtistInfoPlaceholders("");
+      setArtistInfoPlaceholders("Please enter your MRAA registered email address");
     }
-
-    enableArtistInfoFields();
   }
 
   function checkMemberEmail(el) {
