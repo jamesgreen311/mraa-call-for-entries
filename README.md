@@ -3,9 +3,11 @@
 
 This application provides an easy to use front end for the creation, submission and tracking of MRAA members to submit work for a gallery exhibit.
 
-Local path: projects/mraa/cfe/call for entries (gas)
+Local path: Projects - Dev/mraa/cfe/call for entries (GAS) (Version 1)
 
 #PayPal Integration
 Important Links
 https://developer.paypal.com/docs/checkout/integrate/
 https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/
+
+Attached to spreadsheet - 
