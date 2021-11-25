@@ -47,17 +47,17 @@
                             aria-selected="true"><i class="bi bi-person-circle"></i>&nbsp;Artist Info</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-4" id="pills-pay-fees-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-pay-fees" type="button" role="tab" aria-controls="pills-pay-fees"
-                            aria-selected="false"><i class="bi bi-credit-card"></i>
-                            &nbsp;Pay Fees</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
                         <button class="nav-link fs-4" id="pills-upload-images-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-upload-images" type="button" role="tab"
                             aria-controls="pills-upload-images" aria-selected="false"><i
                                 class="bi bi-cloud-arrow-up"></i>
                             &nbsp;Upload Images</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fs-4" id="pills-pay-fees-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-pay-fees" type="button" role="tab" aria-controls="pills-pay-fees"
+                            aria-selected="false"><i class="bi bi-credit-card"></i>
+                            &nbsp;Pay Fees</button>
                     </li>
                 </ul>
                 <div class="progress mb-3 gx-0">
@@ -86,8 +86,8 @@
                                 <div class="col">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="firstNameLabel">First Name</span>
-                                        <input type="text" class="form-control" id="firstName" aria-label="firstNameLabel"
-                                            required />
+                                        <input type="text" class="form-control" id="firstName"
+                                            aria-label="firstNameLabel" required />
                                         <div class="invalid-feedback">First name is required</div>
                                     </div>
                                     <div class="input-group mb-3">
@@ -111,7 +111,7 @@
                                 <hr>
                                 <div>
                                     <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnNextPay">Next</button>
+                                        id="btnNextUpload">Next</button>
                                 </div>
                             </div>
                         </div>
@@ -123,10 +123,10 @@
                                 <div class="container mt-4 mb-2">
                                     <div class="row text-center">
                                         <div class="tab-content" id="payFee">
-                                            <h3>Coming Soon</h3>
-                                            <p>We are working to bring PayPal payment integration to the Call For Entries process. Thank you for your patience.
+                                            <a rel="noopener noreferrer" href="https://metrorichmondart.org/pay-entry-fees" class="h3" target="_blank">Pay Now</a>
+                                            <p>When you have completed payment, close the payment window and return to this screen, then click Finish
                                             </p>
-                                            <p>Select the Next button to upload your images</p>
+                                            
                                             <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="POST"
                                                 target="_top">
                                                 <div class="content">
@@ -174,9 +174,11 @@
                                 <hr>
                                 <div>
                                     <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnPrevArtist">Previous</button>
-                                    <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnNextUpload">Next</button>
+                                        id="btnPrevUpload">Previous</button>
+                                    <a class="btn btn-secondary mraa-button-secondary ms-3"
+                                        href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
+                                        target="_top">Finish</a>
+
                                 </div>
                             </div>
                         </div>
@@ -254,7 +256,7 @@
                                             until you fill out all required fields and press the <strong>Upload
                                                 Image</strong> button.
                                         </p>
-                                        <p>Click the <strong>Finish</strong> button after all images
+                                        <p>Click the <strong>Next</strong> button after all images
                                             have been uploaded.</p>
                                     </div>
                                     <div class="mraa-thumbnail-container" id="thumbnail-container"
@@ -270,10 +272,9 @@
                                 <hr>
                                 <div>
                                     <button class="btn btn-primary mraa-button-primary"
-                                        id="btnPrevPay">Previous</button>
-                                    <a class="btn btn-secondary mraa-button-secondary ms-3"
-                                        href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
-                                        target="_top">Finish</a>
+                                        id="btnPrevArtist">Previous</button>
+                                    <button class="btn btn-primary mraa-button-primary me-3"
+                                        id="btnNextPay">Next</button>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +294,7 @@
         <div class="d-flex justify-content-center">
             <div>
                 <div class="spinner-border mt-5" role="status" style="width: 4rem; height: 4rem;">
-                    <span class="sr-only">Saving...</span>
+                    <!-- <span class="sr-only">Saving...</span> -->
                 </div>
                 <div class="pt-3">Saving...</div>
             </div>
@@ -309,8 +310,6 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
 
-
-    <?!= include("Includes/scripts/paypal.inc"); ?>
     <?!= include("Includes/scripts/global.inc"); ?>
     <?!= include("Includes/scripts/tabs.inc"); ?>
     <?!= include("Includes/scripts/image-upload.inc"); ?>

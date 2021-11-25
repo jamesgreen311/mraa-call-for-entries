@@ -2,12 +2,12 @@
     let payTab = document.getElementById("pills-pay-fees-tab");
     let btnNextPay = document.getElementById("btnNextPay");
     payTab.addEventListener("click", function (e) {
-        setProgressBar("67%");
+        setProgressBar("100%");
     });
     btnNextPay.addEventListener("click", function (e) {
         let thisTab = new bootstrap.Tab(payTab);
         thisTab.show();
-        setProgressBar("67%");
+        setProgressBar("100%");
     });
 
     let btnPrevArtist = document.getElementById("btnPrevArtist");
@@ -23,9 +23,9 @@
         progressBar.style.width = "33%";
     });
 
-    let btnPrevPay = document.getElementById("btnPrevPay");
-    btnPrevPay.addEventListener("click", function (e) {
-        let thisTab = new bootstrap.Tab(payTab);
+    let btnPrevUpload = document.getElementById("btnPrevUpload");
+    btnPrevUpload.addEventListener("click", function (e) {
+        let thisTab = new bootstrap.Tab(uploadTab);
         thisTab.show();
         setProgressBar("67%");
     });
@@ -33,12 +33,12 @@
     let uploadTab = document.getElementById("pills-upload-images-tab");
     let btnNextUpload = document.getElementById("btnNextUpload");
     uploadTab.addEventListener("click", function (e) {
-        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("progressBar").style.width = "67%";
     });
     btnNextUpload.addEventListener("click", function (e) {
         let thisTab = new bootstrap.Tab(uploadTab);
         thisTab.show();
-        setProgressBar("100%");
+        setProgressBar("67%");
     })
 
     function setProgressBar(size) {
