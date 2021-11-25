@@ -31,7 +31,7 @@
   }
 
   function disableNextButton() {
-    document.getElementById('btnNextPay').disabled = true;
+    document.getElementById('btnNextUpload').disabled = true;
   }
 
   function disablePayFeesTab() {
@@ -51,7 +51,7 @@
   }
   
   function enableNextButton() {
-    document.getElementById('btnNextPay').disabled = false;
+    document.getElementById('btnNextUpload').disabled = false;
   }
 
   function enableArtistInfoFields() {
@@ -109,7 +109,7 @@
       enableUploadImagesTab();    
   } else {
       let el = document.getElementById('memberStatus')
-      el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
+      el.innerHTML = "Not a recognized Exhibiting MRAA Member Email Address. <br><br>If your email address has changed, please contact MRAA.";
       el.classList.remove("badge-success");
       el.classList.add("badge-danger");
       setArtistInfoPlaceholders("Please enter your MRAA registered email address");
