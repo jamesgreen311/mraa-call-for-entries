@@ -1,6 +1,10 @@
 const dataExhibitSheet = connect().getSheetByName("Exhibits");
 const dataCountsSheet = connect().getSheetByName("Exhibitor Upload Counts");
 
+// const sheetId = "1Br8f6ICMIMI6sIP1_0fznOsK7nQwyj0NOeI541cUzos"; // Test sheet
+// const dataExhibitSheet = connect(sheetId).getSheetByName("Exhibits");
+// const dataCountsSheet = connect(sheetId).getSheetByName("Exhibitor Upload Counts");
+
 // map field names to column position
 const DataColMap = {
     event_id: 1,        
