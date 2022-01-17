@@ -1,3 +1,5 @@
+const showId = "3295A61"
+
 function testConfig() {
     let id1 = generateUniqueId();
     console.log(id1);
@@ -12,12 +14,12 @@ function testShowObj() {
 }
 
 function testRetrieveShow() {
-    console.log(getShow("6E074B39"));
+    console.log(getShow(showId));
 }
 
 function testAddShowToSheet() {
     // grab an existing row to test with
-    let show = getShow("6E074B39");
+    let show = getShow(showId);
     // change the id and name
     show.id = generateUniqueId();
     show.name = "Test Add New Show";

@@ -60,3 +60,9 @@ function testGetTotalByEventArtist() {
   
     console.log(`Upload total: ${total}`);
   }
+
+  function testGetPayFeeOnly() {
+      let id = "3295A61";
+      console.log(getPayFeeOnly(id));
+      
+  }
