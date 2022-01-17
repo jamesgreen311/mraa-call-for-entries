@@ -9,6 +9,7 @@
 
     <?!= include("Includes/css/bootstrap-5.inc"); ?>
     <?!= include("Includes/css/mraa.inc"); ?>
+
     <style>
         .progress-line {
             position: absolute;
@@ -33,10 +34,13 @@
     <?!= include("Includes/html/header.inc"); ?>
 
     <h1 class="mraa-header text-center show-name"><?= name ?></h1>
+
+    <? if (name!="Canvas Purchase") { ?>
     <h2 class="text-center fs-5">Total entries for this exhibit are <span id="maxEntries" class="spotlight">Loading
             ...</span></h2>
     <h2 class="text-center fs-5">Entries submitted to date are <span id="entriesSubmitted" class="spotlight">Loading
             ...</span></h2>
+    <? } ?>
     <div class="container" style="background-color: white;">
         <div class="row mt-5">
             <div class="col">
@@ -122,11 +126,48 @@
                             <div class="container mt-4 mb-2">
                                 <div class="row text-center">
                                     <div class="tab-content" id="payFee">
+
+                                        <? if (name=="Canvas Purchase") { ?>
+
+                                        <h3>Purchase Your Canvas For the ArtWorks Show</h3>
+                                        <p>MRAA's show April 22nd at ArtWorks requires work that is 24 x 18 in a
+                                            horizontal presentation with 1.5 inch gallery wrapped sides or thin frame.
+                                            MRAA has purchased 
+                                            <? if (name=="Canvas Purchase") { ?>
+                                            <span id="maxEntries"></span><? } ?> heavy duty Canvases in this
+                                            size and can deliver them
+                                            to members who plan to show with MRAA at ArtWorks at a good price. <span
+                                                class="text-danger">Limit of 1</span> Canvas
+                                            for $15 and pick up: </p>
+                                        <p><strong>Saturday January 22nd;</strong> Susan Fisher's front porch 9 to 5</p>
+                                        <blockquote>1415 Claremont Avenue, Richmond VA 23227. <br></blockquote>Or
+                                        <p>
+                                            <strong>Saturday February 12th:</strong>
+                                            MRAA meeting 10 to 11am. Notice that this meeting ends at 11
+                                        </p>
+                                        <h3>Purchase through PayPal</h3>
+                                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"
+                                            target="_top">
+                                            <input type="hidden" name="cmd" value="_s-xclick">
+                                            <input type="hidden" name="hosted_button_id" value="YADU5MW8L7DZQ">
+                                            <input type="image"
+                                                src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif"
+                                                border="0" name="submit"
+                                                alt="PayPal - The safer, easier way to pay online!">
+                                            <img alt="" border="0"
+                                                src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1"
+                                                height="1">
+                                        </form>
+                                        <p>The canvas is Artist Loft Professional level 3</p>
+                                        <p>You may use other supports of this size, of course.</p>
+
+                                        <? } else { ?>
                                         <a rel="noopener noreferrer" href="https://metrorichmondart.org/pay-entry-fees"
                                             class="h3" target="_blank">Pay Now</a>
                                         <p>When you have completed payment, close the payment window and return to this
                                             screen, then click Finish
                                         </p>
+                                        <? } ?>
 
                                     </div>
                                 </div>
@@ -152,6 +193,12 @@
                     <div class="tab-pane fade" id="pills-upload-images" role="tabpanel"
                         aria-labelledby="pills-upload-images-tab">
                         <div class="row">
+                            <? if (name=="Canvas Purchase") { ?>
+                            <div class="class-12">
+                                <h3>If purchasing a Canvas, please skip the Upload Images section and proceed to Pay
+                                    Fees</h3>
+                            </div>
+                            <? } ?>
                             <div class="col-6">
                                 <div class="mraa-callout mraa-callout-info">
                                     <h2 class="fs-4">Select Your Images to Upload</h2>

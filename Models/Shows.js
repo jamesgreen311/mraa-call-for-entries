@@ -10,7 +10,10 @@ const Config = {
     maxEntriesPerShow: 5,
     imageFolderId: 6,
     allowNFS: 7,
-    registrationLink: 8
+    status: 8,
+    payFeeOnly: 9,
+    purchaseLimit: 10,
+    registrationLink: 11
 }
 
 // Map field names to column position
@@ -23,7 +26,10 @@ const ConfigColMap = {
     maxEntriesPerShow: 6,
     imageFolderId: 7,
     allowNFS: 8,
-    registrationLink: 9
+    status: 9,
+    payFeeOnly: 10,
+    purchaseLimit: 11,
+    registrationLink: 12
 }
 
 /**
@@ -45,7 +51,9 @@ function getShow(id) {
             show.maxEntriesPerShow = d[Config.maxEntriesPerShow]; //5
             show.imageFolderId = d[Config.imageFolderId]; // 6
             show.allowNFS = d[Config.allowNFS]; // 7
-            show.registrationLink = d[Config.registrationLink]; // 8
+            show.payFeeOnly = d[Config.payFeeOnly]; //8
+            show.purchaseLimit = d[Config.purchaseLimit]; //9
+            show.registrationLink = d[Config.registrationLink]; // 10
         } 
     }
     return show;
@@ -95,4 +103,15 @@ function getMaxEntriesPerShow(id) {
 function getMaxEntriesPerArtist(id) {
     let max = getShow(id).maxEntriesPerArtist;
     return max;
+}
+
+/** 
+ * Get Pay Fee Only setting for requested show
+ * @param {string} id Unique show identifier
+ * @returns {boolean} yes/no
+ */
+function getPayFeeOnly(id) {
+    let pfo = getShow(id).payFeeOnly;
+    return pfo;
+
 }
