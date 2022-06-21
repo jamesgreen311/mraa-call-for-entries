@@ -88,6 +88,8 @@ function showThumbnail(e) {
   if (uploadImageSize > maxImageSize) {
     message.innerHTML = maxFileSizeMsg
     message.style.display = "block"
+    imageFile.value = ""
+    return false
   } else {
     thumbnail.src = URL.createObjectURL(e.target.files[0]);
     container.style.display = "block";
