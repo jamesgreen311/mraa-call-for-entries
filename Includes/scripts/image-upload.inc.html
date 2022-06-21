@@ -42,7 +42,7 @@ function serializeAndSave() {
 
 }
 
-function saveFormSuccess(e) {
+function saveFormSuccess(data) {
   let email = document.getElementById('emailAddress').value;
   let evtName = document.querySelector('#btnSave').dataset.name;
   google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email) ;
@@ -53,6 +53,10 @@ function saveFormSuccess(e) {
   let container = document.getElementById("thumbnail-container");
   let outerBox = document.getElementById('thumbnail-outer-box');
   let messageBox = document.getElementById('thumbnail-message');
+  let uploadListBox = document.getElementById('upload-list');
+
+  google.script.run.withSuccessHandler(showUploadList).getUploadsByArtist(eventName, email)
+  //uploadListBox.innerHTML += data;
 
   document.getElementById("loading").style.display = "none";
   document.getElementById("messageContent").innerHTML = messageContent;
@@ -68,6 +72,14 @@ function saveFormSuccess(e) {
   messageBox.style.display = "block";
   outerBox.classList.add("mraa-highlight");
   return true;
+}
+
+function showUploadList(d) {
+  let uploadListBox = document.getElementById("upload-list")
+  let _d = JSON.parse(d)
+  for( let i = 0; i<=d.length; i++) {
+    uploadListBox.innerHTML += `File ${i}: ${_d[i]}`
+  }
 }
 
 function showThumbnail(e) {
@@ -88,13 +100,23 @@ function showThumbnail(e) {
   if (uploadImageSize > maxImageSize) {
     message.innerHTML = maxFileSizeMsg
     message.style.display = "block"
-    container.style.display = "none"
     imageFile.value = ""
+
+    /*
+     test case: 
+        a valid image is selected.
+        user selects a new image without uploading previous image
+        new image exceeds max
+        old image needs to be removed
+     */
+    container.style.display = "none"
     thumbnail.src = ""
+
     return false
   } else {
     thumbnail.src = URL.createObjectURL(e.target.files[0]);
     container.style.display = "block";
+    return true
   }
 }
 
@@ -123,22 +145,6 @@ function setSubmitsByArtist(count) {
   } 
   countEl.innerText = count;  
 }
-
-// Moved to global.inc.html
-// function showMemberSuccess(good) {
-//   if (good) {
-//     let el = document.getElementById('memberStatus')
-//     el.innerText = "Welcome Exhibiting MRAA Member";
-//     el.classList.remove("badge-danger");
-//     el.classList.add("badge-success");
-//   } else {
-//     let el = document.getElementById('memberStatus')
-//     el.innerText = "Not a recognized Exhibiting MRAA Member Email Address";
-//     el.classList.remove("badge-success");
-//     el.classList.add("badge-danger");
-//   }
-
-// }
 
 function getMaxImageSize() {
   let size = document.getElementById("maxImageSize").innerText

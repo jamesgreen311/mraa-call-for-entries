@@ -49,6 +49,7 @@ function saveFile(f,d,imgfolder) {
 function saveToSheet(data) {
     let ws = connect().getSheetByName(targetSheet);
     ws.appendRow(data);
+    return data;
     return true;
 }
 

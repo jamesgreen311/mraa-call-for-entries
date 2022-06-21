@@ -64,3 +64,11 @@ function getTotalByEventArtist(evtTitle, email) {
     }
     return totalByEventArtist;
 }
+
+function getUploadsByArtist(evtTitle, email) {
+    let data = dataExhibitSheet.getRange(2, 1, dataExhibitSheet.getLastRow(), DataColMap.fileName).getValues();
+    let uploads = data.filter(function(r) {
+        return r[1].toLowerCase() === evtTitle.toLowerCase() && r[4].toLowerCase() === email.toLowerCase();
+    })
+    return JSON.stringify(uploads.map(r => r[11]))
+}
