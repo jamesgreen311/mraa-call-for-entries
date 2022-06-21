@@ -71,16 +71,27 @@ function saveFormSuccess(e) {
 }
 
 function showThumbnail(e) {
+  const imageFile = document.getElementById('imageFile');
+  const maxImageSize = getMaxImageSize()
+  const uploadImageSize = ( imageFile.files[0].size / (1024 * 1024) ).toFixed(1) // convert bytes to mb 
+
   let thumbnail = document.getElementById('thumbnail');
   let container = document.getElementById('thumbnail-container');
   let message = document.getElementById('thumbnail-message');
   let outerBox = document.getElementById('thumbnail-outer-box');
+  let maxFileSizeMsg = `Your file (${uploadImageSize}MB) exceeds maximum allowed size of ${maxImageSize}MB.<br>Please select a smaller image.`
 
   outerBox.classList.remove('mraa-highlight');
   message.style.display = "none";
 
-  thumbnail.src = URL.createObjectURL(e.target.files[0]);
-  container.style.display = "block";
+  // check file size before showing image
+  if (uploadImageSize > maxImageSize) {
+    message.innerHTML = maxFileSizeMsg
+    message.style.display = "block"
+  } else {
+    thumbnail.src = URL.createObjectURL(e.target.files[0]);
+    container.style.display = "block";
+  }
 }
 
 function allFieldsValid() {
@@ -124,6 +135,10 @@ function setSubmitsByArtist(count) {
 //   }
 
 // }
+
+function getMaxImageSize() {
+  return 3
+}
 
 function submitsExceedLimit(submitCount) {
   let limit = document.getElementById('maxPerArtist').innerText;
