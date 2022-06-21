@@ -1,4 +1,5 @@
 const config = connect().getSheetByName("Config");
+const appSettings = connect().getSheetByName("App Settings")
 
 // Defines the structure of the config array
 const Config = {
@@ -30,6 +31,14 @@ const ConfigColMap = {
     payFeeOnly: 10,
     purchaseLimit: 11,
     registrationLink: 12
+}
+
+// cell reference for max image size app setting
+const ASMaxImageSize = "a2"
+
+function getMaxImageSize() {
+    let data = parseInt(appSettings.getRange(ASMaxImageSize).getDisplayValue())
+    return (isNaN(data)?"":data)
 }
 
 /**

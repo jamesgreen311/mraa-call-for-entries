@@ -79,7 +79,7 @@ function showThumbnail(e) {
   let container = document.getElementById('thumbnail-container');
   let message = document.getElementById('thumbnail-message');
   let outerBox = document.getElementById('thumbnail-outer-box');
-  let maxFileSizeMsg = `Your file (${uploadImageSize}MB) exceeds maximum allowed size of ${maxImageSize}MB.<br>Please select a smaller image.`
+  let maxFileSizeMsg = `Your file size is ${uploadImageSize}MB and it exceeds maximum allowed size of ${maxImageSize}MB.<br>Please select a smaller image.`
 
   outerBox.classList.remove('mraa-highlight');
   message.style.display = "none";
@@ -88,7 +88,9 @@ function showThumbnail(e) {
   if (uploadImageSize > maxImageSize) {
     message.innerHTML = maxFileSizeMsg
     message.style.display = "block"
+    container.style.display = "none"
     imageFile.value = ""
+    thumbnail.src = ""
     return false
   } else {
     thumbnail.src = URL.createObjectURL(e.target.files[0]);
@@ -139,7 +141,8 @@ function setSubmitsByArtist(count) {
 // }
 
 function getMaxImageSize() {
-  return 3
+  let size = document.getElementById("maxImageSize").innerText
+  return size
 }
 
 function submitsExceedLimit(submitCount) {
