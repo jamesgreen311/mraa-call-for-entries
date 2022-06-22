@@ -124,6 +124,7 @@
   function checkMemberEmail(el) {
     let email = this.value;
     let evtName = document.getElementById('btnSave').dataset.name;
+
     setArtistInfoPlaceholders("Retrieving ...");
     google.script.run.withSuccessHandler(showMemberSuccess).isMember(email.toLowerCase());
     google.script.run.withSuccessHandler(showMemberFirstName).getMemberFirstName(email);

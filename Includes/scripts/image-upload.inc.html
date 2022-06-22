@@ -32,8 +32,10 @@ function serializeAndSave() {
         mimeType: file.type,
         bytes: [...new Int8Array(e.target.result)]
       };
-      google.script.run.withSuccessHandler(saveFormSuccess).saveFile(obj, data, showData.dataset.folder, showData
-        .dataset.name, showId);
+      google.script.run
+        .withSuccessHandler(saveFormSuccess)
+        .withUserObject(obj)
+        .saveFile(obj, data, showData.dataset.folder, showData.dataset.name, showId);
     };
     fr.readAsArrayBuffer(file);
   } else {
@@ -42,7 +44,7 @@ function serializeAndSave() {
 
 }
 
-function saveFormSuccess(data) {
+function saveFormSuccess(data, obj) {
   let email = document.getElementById('emailAddress').value;
   let evtName = document.querySelector('#btnSave').dataset.name;
   google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email) ;
@@ -55,7 +57,9 @@ function saveFormSuccess(data) {
   let messageBox = document.getElementById('thumbnail-message');
   let uploadListBox = document.getElementById('upload-list');
 
-  google.script.run.withSuccessHandler(showUploadList).getUploadsByArtist(eventName, email)
+  uploadListBox.innerHTML += `File Name: ${obj.filename}<br>`
+  //showUploadList(obj)
+  //google.script.run.withSuccessHandler(showUploadList).getUploadsByArtist(eventName, email)
   //uploadListBox.innerHTML += data;
 
   document.getElementById("loading").style.display = "none";
@@ -76,10 +80,7 @@ function saveFormSuccess(data) {
 
 function showUploadList(d) {
   let uploadListBox = document.getElementById("upload-list")
-  let _d = JSON.parse(d)
-  for( let i = 0; i<=d.length; i++) {
-    uploadListBox.innerHTML += `File ${i}: ${_d[i]}`
-  }
+  uploadListBox.innerHTML = d.fileNameFormatted
 }
 
 function showThumbnail(e) {
@@ -110,9 +111,10 @@ function showThumbnail(e) {
         old image needs to be removed
      */
     container.style.display = "none"
-    thumbnail.src = ""
-
+    e.stopImmediatePropagation()
+    //thumbnail.src = ""
     return false
+
   } else {
     thumbnail.src = URL.createObjectURL(e.target.files[0]);
     container.style.display = "block";

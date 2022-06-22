@@ -1,5 +1,5 @@
 const config = connect().getSheetByName("Config");
-const appSettings = connect().getSheetByName("App Settings")
+const appSettings = connect().getSheetByName("AppSettings")
 
 // Defines the structure of the config array
 const Config = {
