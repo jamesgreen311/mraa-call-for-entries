@@ -8,6 +8,7 @@ function onOpen(e) {
     SpreadsheetApp.getUi()
     .createMenu('MRAA')
     .addItem('Create a New Show', 'createShowForm')
+    .addItem('Create Show Price Sheet', 'createPriceSheetForm')
     .addToUi();
 }
 
@@ -19,5 +20,13 @@ function createShowForm() {
     .createTemplateFromFile('Pages/CreateShowForm')
     .evaluate()
     .setTitle('Create a New Show');
+    SpreadsheetApp.getUi().showSidebar(html);
+}
+
+function createPriceSheetForm() {
+    let html = HtmlService
+    .createTemplateFromFile('Pages/CreatePriceSheet')
+    .evaluate()
+    .setTitle('Create Show Price Sheet');
     SpreadsheetApp.getUi().showSidebar(html);
 }

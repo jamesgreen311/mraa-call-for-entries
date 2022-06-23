@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <?!= include('Includes/css/bootstrap.inc') ?>
+    <?!= include('Includes/css/mraa.inc') ?>
+
+    <title>Create Show Price Sheet</title>
+
+</head>
+
+<body>        
+    <h2>Testing</h2>
+    <div class="container">
+
+        <form id="frmMain" class="mt-3">
+            <div class="form-group">
+                <label for="exhibitName">Select A Show
+                    <select name="showNameList" id="showNameList">
+                        <option value="*">Loading Open Shows...</option>
+                    </select>
+                </label>
+            </div>
+
+            <button type="button" class="btn btn-primary mraa-button-primary" id="btnCreate">
+                Create
+            </button>
+        </form>
+    </div>
+    <script>
+        //document.addEventListener('DOMContentLoaded', pageLoaded);
+        document.getElementById("btnCreate").addEventListener("click", createPriceSheet);
+        document.getElementById("frmMain").addEventListener("submit", stopSubmit);
+
+        google.script.run.withSuccessHandler(loadShowsInSelection).getAllOpenShows();
+
+        function loadShowsInSelection(shows) {
+            let showNameList = document.getElementById("showNameList")
+            showNameList.remove(showNameList.selectedIndex) // remove loading message
+            _s = shows.map(r => r[1])
+            for (s=0; s<shows.length; s++) {
+                let opt = document.createElement("option")
+                opt.value = _s[s]
+                opt.text = _s[s]
+                showNameList.appendChild(opt)
+            }
+
+        }
+
+        function createPriceSheet() {
+            let showNameList = document.getElementById("showNameList");
+            let showName = showNameList.options[showNameList.selectedIndex].text
+            //google.script.run.withSuccessHandler(formSubmitted).createPriceSheet(showName);
+            console.log(showName)
+        } 
+
+        function stopSubmit(e) {
+            e.preventDefault();
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -124,3 +124,14 @@ function getPayFeeOnly(id) {
     return pfo;
 
 }
+
+/**
+ * Get a list of all open shows
+ * @returns {array} a list of all open shows
+ */
+function getAllOpenShows() {
+    let data = config.getRange(2, 1, config.getLastRow() - 1, config.getLastColumn()).getDisplayValues();
+    let openShows = data.filter(d  => d[Config.status] === "OPEN" )
+
+    return openShows
+}
