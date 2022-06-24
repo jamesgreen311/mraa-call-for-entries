@@ -72,3 +72,15 @@ function getUploadsByArtist(evtTitle, email) {
     })
     return JSON.stringify(uploads.map(r => r[11]))
 }
+
+
+/**
+ * Get shows that are currently calling for entries
+ */
+ function getCurrentCalls() {
+    let data = dataExhibitSheet.getRange(2, DataColMap.event_title, dataExhibitSheet.getLastRow()-1, 1).getValues();
+    data = data.map( d => d[0])
+    const uniqueEvents = [... new Set(data)]
+
+    return uniqueEvents
+}

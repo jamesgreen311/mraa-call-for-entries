@@ -1,6 +1,6 @@
 function testGetAllOpenShows1(verbose) {
     let openShows = getAllOpenShows()
-    let expected = "object" // actual value is unknown but must be a number
+    let expected = "object" // actual value is unknown but must be an array. Array could be empty.
 
     if (verbose) {
         console.log("Test %s Number of Open Shows : %s ", "1", openShows.length)
