@@ -1,10 +1,6 @@
 const dataExhibitSheet = connect().getSheetByName("Exhibits");
 const dataCountsSheet = connect().getSheetByName("Exhibitor Upload Counts");
 
-// const sheetId = "1Br8f6ICMIMI6sIP1_0fznOsK7nQwyj0NOeI541cUzos"; // Test sheet
-// const dataExhibitSheet = connect(sheetId).getSheetByName("Exhibits");
-// const dataCountsSheet = connect(sheetId).getSheetByName("Exhibitor Upload Counts");
-
 // map field names to column position
 const DataColMap = {
     event_id: 1,        
@@ -73,7 +69,6 @@ function getUploadsByArtist(evtTitle, email) {
     return JSON.stringify(uploads.map(r => r[11]))
 }
 
-
 /**
  * Get shows that are currently calling for entries
  */
@@ -83,4 +78,16 @@ function getUploadsByArtist(evtTitle, email) {
     const uniqueEvents = [... new Set(data)]
 
     return uniqueEvents
+}
+
+/**
+ * Get all submissions for an event
+ * @param {string} id Event Id
+ * @returns {array} all submissions
+ */
+function getSubmissionsById(id) {
+    let data = dataExhibitSheet.getRange(2, DataColMap.event_id, dataExhibitSheet.getLastRow()-1, DataColMap.fileId).getValues();
+    data = data.filter( d => d[0] === id)
+    
+    return data
 }

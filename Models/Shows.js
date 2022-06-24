@@ -135,3 +135,15 @@ function getAllOpenShows() {
 
     return openShows
 }
+
+/**
+ * 
+ * @param {string} name the name of a show
+ * @returns {string} show id
+ */
+function getShowIdByName(name) {
+    let data = config.getRange(2, 1, config.getLastRow() - 1, config.getLastColumn()).getDisplayValues();
+    let showId = data.filter( d => d[1] === name)
+
+    return showId[0][0]
+}

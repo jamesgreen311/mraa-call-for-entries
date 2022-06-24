@@ -32,7 +32,6 @@
         </form>
     </div>
     <script>
-        //document.addEventListener('DOMContentLoaded', pageLoaded);
         document.getElementById("btnCreate").addEventListener("click", createPriceSheet);
         document.getElementById("frmMain").addEventListener("submit", stopSubmit);
 
@@ -41,7 +40,7 @@
         function loadShowsInSelection(shows) {
             let showNameList = document.getElementById("showNameList")
             showNameList.remove(showNameList.selectedIndex) // remove loading message
-            const max = 15
+            const max = 15 // length of show name in the drop down list
 
             if (shows.length>0) {            
                 for (s=0; s<shows.length; s++) {
@@ -65,7 +64,7 @@
             let showNameList = document.getElementById("showNameList");
             let showName = showNameList.options[showNameList.selectedIndex].text
             //google.script.run.withSuccessHandler(formSubmitted).createPriceSheet(showName);
-            console.log(showName)
+            //console.log(showName)
         } 
 
         function stopSubmit(e) {
