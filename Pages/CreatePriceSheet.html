@@ -50,6 +50,7 @@
         google.script.run.withSuccessHandler(loadShowsInSelection).getCurrentCalls();
 
         function loadShowsInSelection(shows) {
+            document.getElementById("btnCreate").disabled = false
             let showNameList = document.getElementById("showNameList")
             showNameList.remove(showNameList.selectedIndex) // remove loading message
             const max = 15 // length of show name in the drop down list
@@ -64,6 +65,7 @@
                     showNameList.appendChild(opt)
                 }
             } else {
+                document.getElementById("btnCreate").disabled = true
                 let opt = document.createElement("option")
                 opt.value = "*"
                 opt.text = "No Current Shows"
@@ -76,8 +78,13 @@
             let loading = document.getElementById("loading")
             let showNameList = document.getElementById("showNameList");
             let showName = showNameList.options[showNameList.selectedIndex].value
-            loading.style.display = "block"
-            google.script.run.withSuccessHandler(priceSheetCreated).createPriceSheet(showName);
+            if (showName==="*") {
+
+            } else {
+                loading.style.display = "block"
+                google.script.run.withSuccessHandler(priceSheetCreated).createPriceSheet(showName);                
+            }
+
             //console.log(showName)
         } 
 
