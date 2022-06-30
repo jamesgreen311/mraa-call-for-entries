@@ -64,6 +64,11 @@ function saveToSheet(data) {
  * @returns {array} Row added to sheet
  */
 function addShowToSheet(show) {
+    //let latestAppUrl = getLastestUrl()
+    //let latestAppVer = getLastestUrlVersion()
+    let latestAppVer = "=AppSettings!$c$2"
+    let lastRow = config.getLastRow() + 1
+    let latestAppUrl = `=concat(AppSettings!$b$3,a${lastRow})`
     let row = [
         generateUniqueId().toString(),
         show.exhibitName,
@@ -71,7 +76,10 @@ function addShowToSheet(show) {
         show.closeDate,
         show.maxEntriesPerArtist,
         show.maxEntriesPerShow,
-        createImageFolder(show.exhibitName)
+        createImageFolder(show.exhibitName),
+        ,,,,
+        latestAppUrl,
+        latestAppVer
     ]
     config.appendRow(row);
     config.getRange("c2:d").setNumberFormat("MM/dd/yyyy h:mm am/pm");

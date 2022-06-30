@@ -35,10 +35,35 @@ const ConfigColMap = {
 
 // cell reference for max image size app setting
 const ASMaxImageSize = "a2"
+const ASLatestUrl = "b2"
+const ASLatestUrlVersion = "c2"
 
+/**
+ * Get the maximum allowed size for images in MB
+ * 
+ * @returns {numeric}   max image size
+ */
 function getMaxImageSize() {
     let data = parseInt(appSettings.getRange(ASMaxImageSize).getDisplayValue())
     return (isNaN(data)?"":data)
+}
+
+/**
+ * Get the lastest deployed url for the CFE application
+ * 
+ * @returns {string} application url
+ */
+function getLastestUrl() {
+    return appSettings.getRange(ASLatestUrl).getDisplayValue()
+}
+
+/**
+ * Get the version number for the latest application deployment
+ * 
+ * @returns {numeric} application version
+ */
+function getLastestUrlVersion() {
+    return appSettings.getRange(ASLatestUrlVersion).getDisplayValue()
 }
 
 /**
