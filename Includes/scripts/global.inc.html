@@ -102,6 +102,23 @@
     document.getElementById("phoneNumber").value = phoneNumber;
   }
 
+  function setUploadHistory(list) {
+    let historyEl = document.getElementById("upload-history-list")
+    let historyContainer = document.getElementById("upload-history")
+
+    historyContainer.style.display = "block"
+
+    if (list.length<=0) {
+      historyEl.innerText = "No images have been uploaded for this event"
+    } else {
+      a = list.split(',')
+      for (let l = 0; l<a.length; l++) {
+        item = a[l]
+        historyEl.innerHTML += (l+1) + ". " + item + "<br>"
+      }
+    }
+  }
+
   function showMemberSuccess(good) {
     if (good) {
       let el = document.getElementById('memberStatus')
@@ -125,11 +142,14 @@
     let email = this.value;
     let evtName = document.getElementById('btnSave').dataset.name;
 
+    document.getElementById('upload-history-list').innerText = ""
+
     setArtistInfoPlaceholders("Retrieving ...");
     google.script.run.withSuccessHandler(showMemberSuccess).isMember(email.toLowerCase());
     google.script.run.withSuccessHandler(showMemberFirstName).getMemberFirstName(email);
     google.script.run.withSuccessHandler(showMemberLastName).getMemberLastName(email);
     google.script.run.withSuccessHandler(showMemberPhone).getMemberPhone(email);
     google.script.run.withSuccessHandler(setSubmitsByArtist).getTotalByEventArtist(evtName, email)
+    google.script.run.withSuccessHandler(setUploadHistory).getUploadsByArtist(evtName, email)
   }
 </script>

@@ -61,12 +61,36 @@ function getTotalByEventArtist(evtTitle, email) {
     return totalByEventArtist;
 }
 
+/**
+ * Get all uploads for an event (by title) for an artist
+ * @param {string} evtTitle Event Title
+ * @param {string} email Artist Email
+ * @returns {string}
+ */
 function getUploadsByArtist(evtTitle, email) {
     let data = dataExhibitSheet.getRange(2, 1, dataExhibitSheet.getLastRow(), DataColMap.fileName).getValues();
     let uploads = data.filter(function(r) {
-        return r[1].toLowerCase() === evtTitle.toLowerCase() && r[4].toLowerCase() === email.toLowerCase();
+        return r[DataColMap.event_title-1].toLowerCase() === evtTitle.toLowerCase() && r[DataColMap.email-1].toLowerCase() === email.toLowerCase();
     })
-    return JSON.stringify(uploads.map(r => r[11]))
+
+    return (uploads.map( r => r[DataColMap.fileName-1]).join())
+
+    // stringify not working as intended when passed back to the client
+    //return JSON.stringify(uploads.map(r => r[DataColMap.fileName-1]))
+}
+
+/**
+ * Get uploads for an event (by id) for an artist
+ * @param {string} id Event Id
+ * @param {string} email Artist Email
+ * @returns {string}
+ */
+function getUploadsByIdByArtist(id, email) {
+    let data = dataExhibitSheet.getRange(2, 1, dataExhibitSheet.getLastRow(), DataColMap.fileName).getValues();
+    let uploads = data.filter(function(r) {
+        return r[DataColMap.event_id-1].toLowerCase() === id.toLowerCase() && r[DataColMap.email-1].toLowerCase() === email.toLowerCase();
+    })
+    return JSON.stringify(uploads.map(r => r[DataColMap.fileName-1]))
 }
 
 /**
