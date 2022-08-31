@@ -1,338 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <base target="_top" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-    <?!= include("Includes/css/bootstrap-5.inc"); ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="css/mraa.css" /> -->
+
+    <!-- <?!= include("Includes/css/cdn.inc"); ?> -->
     <?!= include("Includes/css/mraa.inc"); ?>
 
-    <style>
-        .progress-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 1px;
-            background-color: rgb(63, 111, 243);
-        }
+    <title>MRAA Call For Entries Wizard</title>
+  </head>
 
-        .spotlight {
-            color: #00a98e;
-        }
-
-        .input-group-text {
-            background-color: #cbdef0;
-        }
-    </style>
-    <title>MRAA Exhibit Call For Entries Wizard</title>
-</head>
-
-<body>
-    <?!= include("Includes/html/header.inc"); ?>
-
-    <h1 class="mraa-header text-center show-name"><?= name ?></h1>
-
-    <? if (name!="Canvas Purchase") { ?>
-    <h2 class="text-center fs-5">Total entries for this exhibit are <span id="maxEntries" class="spotlight">Loading
-            ...</span></h2>
-    <h2 class="text-center fs-5">Entries submitted to date are <span id="entriesSubmitted" class="spotlight">Loading
-            ...</span></h2>
-    <? } ?>
-    <div class="container" style="background-color: white;">
-        <div class="row mt-5">
-            <div class="col">
-                <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-4 active" id="pills-artist-info-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-artist-info" type="button" role="tab" aria-controls="pills-home"
-                            aria-selected="true"><i class="bi bi-person-circle"></i>&nbsp;Artist Info</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-4" id="pills-upload-images-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-upload-images" type="button" role="tab"
-                            aria-controls="pills-upload-images" aria-selected="false"><i
-                                class="bi bi-cloud-arrow-up"></i>
-                            &nbsp;Upload Images</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-4" id="pills-pay-fees-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-pay-fees" type="button" role="tab" aria-controls="pills-pay-fees"
-                            aria-selected="false"><i class="bi bi-credit-card"></i>
-                            &nbsp;Pay Fees</button>
-                    </li>
-                </ul>
-                <div class="progress mb-3 gx-0">
-                    <div id="progressBar" class="progress-bar progress-bar-striped text-end" style="width: 33%;"
-                        role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-artist-info" role="tabpanel"
-                        aria-labelledby="pills-artist-info-tab">
-                        <div class="h4">
-                            Please provide the email address you registered with MRAA to continue
-                        </div>
-                        <form id="frmMain">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="emailAddressLabel">Email</span>
-                                        <input type="email" class="form-control" id="emailAddress"
-                                            aria-label="emailAddressLabel" placeholder="Enter a valid email address"
-                                            required />
-                                    </div>
-                                    <div class="mt-3">
-                                        <span id="memberStatus" class="badge"></span>
-                                    </div>
-                                    <div class="mt-3 mraa-flashy" id="upload-history" style="display:none;">
-                                        <h4 class="fs-5">Upload History for <?= name ?></h4>
-                                        <span class="fs-6" id="upload-history-list"></span>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="firstNameLabel">First Name</span>
-                                        <input type="text" class="form-control" id="firstName"
-                                            aria-label="firstNameLabel" required />
-                                        <div class="invalid-feedback">First name is required</div>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="lastNameLabel">Last Name</span>
-                                        <input type="text" class="form-control" id="lastName" aria-label="lastNameLabel"
-                                            required />
-                                        <div class="invalid-feedback">Last name is required</div>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="phoneLabel">Phone</span>
-                                        <input type="tel" class="form-control" id="phoneNumber" aria-label="phoneLabel"
-                                            required />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <!-- Buttons -->
-                                <hr>
-                                <div>
-                                    <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnNextUpload">Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-pay-fees" role="tabpanel" aria-labelledby="pills-pay-fees-tab">
-                        <div class="content">
-                            <div class="container mt-4 mb-2">
-                                <div class="row text-center">
-                                    <div class="tab-content" id="payFee">
-
-                                        <? if (name=="Canvas Purchase") { ?>
-
-                                        <h3>Purchase Your Canvas For the ArtWorks Show</h3>
-                                        <p>MRAA's show April 22nd at ArtWorks requires work that is 24 x 18 in a
-                                            horizontal presentation with 1.5 inch gallery wrapped sides or thin frame.
-                                            MRAA has purchased 
-                                            <? if (name=="Canvas Purchase") { ?>
-                                            <span id="maxEntries"></span><? } ?> heavy duty Canvases in this
-                                            size and can deliver them
-                                            to members who plan to show with MRAA at ArtWorks at a good price. <span
-                                                class="text-danger">Limit of 1</span> Canvas
-                                            for $15 and pick up: </p>
-                                        <p><strong>Saturday January 22nd;</strong> Susan Fisher's front porch 9 to 5</p>
-                                        <blockquote>1415 Claremont Avenue, Richmond VA 23227. <br></blockquote>Or
-                                        <p>
-                                            <strong>Saturday February 12th:</strong>
-                                            MRAA meeting 10 to 11am. Notice that this meeting ends at 11
-                                        </p>
-                                        <h3>Purchase through PayPal</h3>
-                                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"
-                                            target="_top">
-                                            <input type="hidden" name="cmd" value="_s-xclick">
-                                            <input type="hidden" name="hosted_button_id" value="YADU5MW8L7DZQ">
-                                            <input type="image"
-                                                src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif"
-                                                border="0" name="submit"
-                                                alt="PayPal - The safer, easier way to pay online!">
-                                            <img alt="" border="0"
-                                                src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1"
-                                                height="1">
-                                        </form>
-                                        <p>The canvas is Artist Loft Professional level 3</p>
-                                        <p>You may use other supports of this size, of course.</p>
-
-                                        <? } else { ?>
-                                        <a rel="noopener noreferrer" href="https://metrorichmondart.org/pay-entry-fees"
-                                            class="h3" target="_blank">Pay Now</a>
-                                        <p>When you have completed payment, close the payment window and return to this
-                                            screen, then click Finish
-                                        </p>
-                                        <? } ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <!-- Buttons -->
-                                <hr>
-                                <div>
-                                    <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnPrevUpload">Previous</button>
-                                    <a class="btn btn-secondary mraa-button-secondary ms-3"
-                                        href="<?= ScriptApp.getService().getUrl(); ?>?v=done" id="btnDone"
-                                        target="_top">Finish</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Upload Images Tab Content -->
-                    <div class="tab-pane fade" id="pills-upload-images" role="tabpanel"
-                        aria-labelledby="pills-upload-images-tab">
-                        <div class="row">
-                            <? if (name=="Canvas Purchase") { ?>
-                            <div class="class-12">
-                                <h3>If purchasing a Canvas, please skip the Upload Images section and proceed to Pay
-                                    Fees</h3>
-                            </div>
-                            <? } ?>
-                            <div class="col-6">
-                                <div class="mraa-callout mraa-callout-info">
-                                    <h2 class="fs-4">Select Your Images to Upload</h2>
-                                    <div class="row mb-2">
-                                        <p class="mraa-important">Image file sizes MUST be smaller than <span id="maxImageSize"></span>MB and 72dpi or they will not print correctly in the price sheet.</p>
-                                        <div class="col-8"><strong>Limit of <span id="maxPerArtist">Loading...</span>
-                                                uploads per
-                                                Artist</strong></div>
-                                        <div class="col-4 text-right">All fields required *</div>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <input accept="image/jpeg, image/png" type="file" id="imageFile"
-                                            class="form-control-file" required onchange="showThumbnail(event)">
-                                    </div>
-                                    <div class="bigger"><strong>You have uploaded <span id="submitsByArtist"
-                                                class="badge bg-warning badge-bigger">0</span>
-                                            images.</strong></div>
-                                </div>
-                                <!-- Title -->
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Title of Work</span>
-                                    <input type="text" class="form-control" id="titleOfWork" aria-label="Title of Work"
-                                        required />
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-text">Width (in)</span>
-                                    <input type="number" class="form-control" id="sizeWidth"
-                                        aria-label="Size: Width (in)" min="1" max="999" required />
-                                    <span class="input-group-text">Height (in)</span>
-                                    <input type="number" class="form-control" id="sizeHeight"
-                                        aria-label="Size: Height (in)" min="1" max="999" required />
-                                </div>
-                                <div class="fs-6 mb-3"><strong>Size should include the frame if artwork is
-                                        framed</strong></div>
-                                <!-- Medium -->
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Medium</span>
-                                    <input type="text" class="form-control" id="medium" aria-label="Medium" required />
-                                </div>
-                                <!-- Price -->
-                                <div>
-                                    <label for="price">Price *</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control"
-                                            aria-label="Amount (to the nearest dollar)" id="price" size="10" required />
-                                        <span class="input-group-text">.00</span>
-                                        <button class="btn btn-primary mraa-button-primary ms-5" data-id="<?= id ?>"
-                                            data-name="<?= name ?>" data-folder="<?= imageFolderId ?>" id="btnSave"
-                                            type="button">Upload
-                                            Image</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="uploaded" id="upload-feedback-box">
-                                    <h2 class="fs-4 mraa-highlight">Successful Uploads This Session</h2>
-                                    <p class="uploaded" id="upload-list"></p>
-                                  </div>
-                                <!-- Thumbnail -->
-                                <div id="thumbnail-outer-box" class="mraa-highlight mt-2">
-                                    <h2 class="fs-4">Preview Area</h2>
-                                    <div id="thumbnail-message" class="text-muted small m-3">
-                                        <p>Once you have chosen an image to upload, it
-                                            will appear here for you to preview before sending to MRAA.</p>
-                                        <p>
-                                            <strong class="mraa-important">IMPORTANT</strong>
-                                        </p>
-                                        <p>
-                                            Your registration is <span class="mraa-important">NOT</span> saved
-                                            until you fill out all required fields and press the <strong>Upload
-                                                Image</strong> button.
-                                        </p>
-                                        <p>Click the <strong>Next</strong> button after all images
-                                            have been uploaded.</p>
-                                    </div>
-                                    <div class="mraa-thumbnail-container" id="thumbnail-container"
-                                        style="display: none;">
-                                        <img class="mraa-thumbnail" id="thumbnail" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <!-- Buttons -->
-                                <hr>
-                                <div>
-                                    <button class="btn btn-primary mraa-button-primary"
-                                        id="btnPrevArtist">Previous</button>
-                                    <button class="btn btn-primary mraa-button-primary me-3"
-                                        id="btnNextPay">Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+  <body>
+    <div class="container">
+      <!-- <?!= include("Includes/html/header.inc"); ?> -->
+      <header>
+        <div id="banner" class="banner">
+          <div id="logo"></div>
+          <div id="title">
+            <span class="bold fs-3">Call For Entries </span>
+            <span class="light fs-6">New Exhibit</span><br />
+            <span id="exhibit-title" class="bold bright fs-3">
+              Fetching Exhibit Name ...</span
+            >
+          </div>
         </div>
-    </div>
-
-    <div id="messageAlert" class="alert alert-success mt-4" role="alert" style="display: none;">
-        <h4 class="alert-heading">Save Successful</h4>
-        <p id="messageContent"></p>
-    </div>
-
-    <div id="loading" class="loading pt-5" style="display: none;">
-        <div class="d-flex justify-content-center">
-            <div>
-                <div class="spinner-border mt-5" role="status" style="width: 4rem; height: 4rem;">
-                    <!-- <span class="sr-only">Saving...</span> -->
-                </div>
-                <div class="pt-3">Saving...</div>
+      </header>
+      <form
+        action="#"
+        id="form-artist-info"
+        class="needs-validation"
+        novalidate
+      >
+        <div id="artist-info">
+          <div class="header">
+            <span class="material-symbols-outlined icon"> person_pin </span>
+            <span class="text">Artist Login</span>
+          </div>
+          <div class="row g-3 mt-2">
+            <div class="col-auto col-form-label">
+              <label for="artist-email">Email Address</label>
             </div>
+            <div class="col-sm-6 col-md-8">
+              <input
+                type="email"
+                class="form-control"
+                id="artist-email"
+                placeholder="email@example.com"
+                required
+              />
+              <div id="emailMsg" class="invalid-feedback fs-6">
+                Must enter a valid email address
+              </div>
+            </div>
+            <div class="col-auto">
+              <button
+                type="submit"
+                class="btn btn-primary mb-3"
+                id="login-button"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+          <div class="mb-2">
+            <div id="fetching-artist" class="d-none">
+              <div class="loadingio-spinner-spinner-0mrqsirpbdgo">
+                <div class="ldio-mln9hvqf3o">
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                </div>
+              </div>
+            </div>
+            <div id="artist-detail" class="d-none container">
+              <div class="row border-bottom">
+                <div class="col-3 col-sm-1 label">Member</div>
+                <div class="col-12 col-sm-2" id="artist-name"></div>
+                <div class="col-12 col-sm-2" id="artist-phone"></div>
+              </div>
+              <div class="row">
+                <div class="col-4 col-sm-1 label">Status</div>
+                <div class="col-8 col-sm-11">
+                  <div id="valid-member" class="d-none">
+                    <span class="valid-member">Exhibiting Member</span>
+                    <span
+                      class="material-symbols-outlined valid-member small-icon"
+                    >
+                      done
+                    </span>
+                  </div>
+                  <div id="not-exhibiting-member" class="d-none">
+                    <span class="invalid-member">Not an Exhibiting Member</span>
+                    <span
+                      class="material-symbols-outlined invalid-member small-icon"
+                    >
+                      close
+                    </span>
+                  </div>
+                  <div id="not-active-member" class="d-none">
+                    <span class="invalid-member">Not an Active Member</span>
+                    <span
+                      class="material-symbols-outlined invalid-member small-icon"
+                    >
+                      close
+                    </span>
+                  </div>
+                  <div id="invalid-member" class="d-none">
+                    <span class="invalid-member"
+                      >Not an MRAA member email address</span
+                    >
+                    <span
+                      class="material-symbols-outlined invalid-member small-icon"
+                    >
+                      close
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div id="upload-history" class="d-none member-access">
+          <div class="header">
+            <span class="material-symbols-outlined icon"> cloud_upload </span>
+            <span class="text">Upload History For This Event</span>
+          </div>
+          <div id="fetching-uploads">
+            <div class="loadingio-spinner-spinner-0mrqsirpbdgo">
+              <div class="ldio-mln9hvqf3o">
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+                <div><div></div></div>
+              </div>
+            </div>
+          </div>
+          <div id="upload-history-notfound" class="d-none">
+            <span>No uploads found for this Exhibit</span>
+          </div>
+          <div id="upload-history-found" class="filelist d-none">
+            <table id="upload-history-table" class="table table-striped">
+              <thead>
+                <th>File Names</th>
+                <th>Date Submitted</th>
+                <th>Fee</th>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+      <form
+        action="#"
+        id="form-upload-images"
+        class="needs-validation"
+        required
+      >
+        <div id="upload-images" class="d-none member-access">
+          <div class="header">
+            <span class="material-symbols-outlined icon"> file_upload </span>
+            <span class="text">Add Submissions</span>
+          </div>
+
+          <div id="upload-gallery" class="d-none">
+            <h3 class="fs-6">Upload Gallery</h3>
+            <ul id="gallery" class="gallery">
+              <li class="d-none">
+                <span class="saved d-none">Saved</span>
+                <span class="empty">Image Placeholder</span>
+              </li>
+              <li class="d-none">
+                <span class="saved d-none">Saved</span>
+                <span class="empty">Image Placeholder</span>
+              </li>
+              <li class="d-none">
+                <span class="saved d-none">Saved</span>
+                <span class="empty">Image Placeholder</span>
+              </li>
+              <li class="d-none">
+                <span class="saved d-none">Saved</span>
+                <span class="empty">Image Placeholder</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mb-3">
+            <div class="banner">
+              <label for="form-file" class="form-label"
+                >You can submit
+                <span id="max-entries" class="fw-bold text-warning"
+                  >fetching...</span
+                >
+                images</label
+              >
+              <input class="form-control" type="file" id="form-file" required />
+              <span id="submission-messages"></span>
+            </div>
+
+            <div id="image-details">
+              <div class="row mb-3 mt-2">
+                <label for="worktitle" class="col-md-1 col-form-label"
+                  >Title</label
+                >
+                <div class="col-md-11">
+                  <input
+                    type="text"
+                    name="worktitle"
+                    id="worktitle"
+                    class="form-control"
+                    placeholder="Required"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3 mt-2">
+                <label for="width" class="col-md-1 col-form-label">
+                  Width (in)
+                </label>
+                <div class="col-md-2">
+                  <input
+                    type="text"
+                    name="width"
+                    id="width"
+                    class="form-control"
+                    placeholder="Required"
+                    required
+                  />
+                </div>
+                <label for="height" class="col-md-1 col-form-label">
+                  Height (in)
+                </label>
+                <div class="col-md-2">
+                  <input
+                    type="text"
+                    name="height"
+                    id="height"
+                    class="form-control"
+                    placeholder="Required"
+                    required
+                  />
+                </div>
+                <label for="medium" class="col-md-1 col-form-label">
+                  Medium
+                </label>
+                <div class="col-md-5">
+                  <input
+                    type="text"
+                    name="medium"
+                    id="medium"
+                    class="form-control"
+                    placeholder="Required"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="price" class="col-md-1 col-form-label mt-2">
+                  Price $
+                </label>
+                <div class="col-md-2 mt-2">
+                  <input
+                    type="text"
+                    name="price"
+                    id="price"
+                    class="form-control"
+                    placeholder="Required"
+                    required
+                  />
+                </div>
+
+                <div class="col-auto mt-2">
+                  <button type="submit" class="btn btn-primary">
+                    Submit Work
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto col-form-label mt-2 banner">
+              <p>
+                <span class="label">Total Fee Due for This Event: </span>
+                <span id="totalFee" class="text-warning">Calculating ...</span>
+                <br />
+                This is the total for all submissions to date.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="payment" class="d-none member-access">
+          <div class="header">
+            <span class="material-symbols-outlined icon"> local_atm </span>
+            <span class="text">Payment</span>
+          </div>
+
+          Link to PayPal here
+        </div>
+      </form>
+
+      <!-- <?!= include("Includes/html/footer.inc"); ?> -->
+      <footer class="footer">
+        <div id="footer" class="footer mt-3">
+          Metropolitan Richmond Artists Association |
+          <span id="copyright">Copyright &copy;</span>
+          <span id="year">2022</span>
+        </div>
+      </footer>
     </div>
 
-    <?!= include("Includes/html/footer.inc"); ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+      crossorigin="anonymous"
+      ></script>
+    <!-- <script src="js/router.js"></script> -->
+    <!-- <script src="js/main.js"></script> -->
     <?!= include("Includes/scripts/global.inc"); ?>
-    <?!= include("Includes/scripts/tabs.inc"); ?>
-    <?!= include("Includes/scripts/image-upload.inc"); ?>
-</body>
-
+<!--     <?!= include("Includes/scripts/image-upload.inc"); ?> -->
+  </body>
 </html>
