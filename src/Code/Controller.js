@@ -30,62 +30,30 @@ function doGet(e) {
     return r;
 }
 
-function saveFile(f,d,imgfolder) {
-    let blob = Utilities.newBlob(f.bytes, f.mimeType, f.filename);
-    let targetFolderId = imgfolder == undefined?imageFolderId:imgfolder;
-    let uploadFolder = DriveApp.getFolderById(targetFolderId);
-    let today = new Date();
-    let member = isMember(d[DataColMap.email-1])?"YES":"NO";
-    let newFileId = uploadFolder.createFile(blob).getId();
-    d.push(newFileId);
+function saveFile(data) {
+    let blob = Utilities.newBlob(data.image, data.mimetype, data.filename);
+    //let targetFolderId = imgfolder == undefined?imageFolderId:data.imagefolder; // TODO: set imageFolderId default value
+    let uploadFolder = DriveApp.getFolderById(data.imagefolder);
+/*     let today = new Date();
+    let member = isMember(d[DataColMap.email-1])?"YES":"NO"; */
+    data.fileid = uploadFolder.createFile(blob).getId();
+    // TODO: convert json data to array, map data to spreadsheet columns
+    //data.fileid = newFileId
+/*     d.push(newFileId);
     d.push(member);   
 
     d.push(""); // placeholder for availability
     d.push(""); // placeholder for hidden
-    d.push(today);
-    return saveToSheet(d);
+    d.push(today); */
+    return addSubmission(data);
 }
-
+/* 
 function saveToSheet(data) {
     let ws = connect().getSheetByName(targetSheet);
     ws.appendRow(data);
     return data;
     return true;
-}
-
-/*
-
-* @param {object} show
-* @return {array} row
-*/
-/**
- * Add a new show to the Config tab
- * @param {object} show 
- * @returns {array} Row added to sheet
- */
-function addShowToSheet(show) {
-    //let latestAppUrl = getLastestUrl()
-    //let latestAppVer = getLastestUrlVersion()
-    let latestAppVer = "=AppSettings!$c$2"
-    let lastRow = config.getLastRow() + 1
-    let latestAppUrl = `=concat(AppSettings!$b$3,a${lastRow})`
-    let row = [
-        generateUniqueId().toString(),
-        show.exhibitName,
-        show.startDate,
-        show.closeDate,
-        show.maxEntriesPerArtist,
-        show.maxEntriesPerShow,
-        createImageFolder(show.exhibitName),
-        ,,,,
-        latestAppUrl,
-        latestAppVer
-    ]
-    config.appendRow(row);
-    config.getRange("c2:d").setNumberFormat("MM/dd/yyyy h:mm am/pm");
-    //createDataSheet(show.exhibitName).showSheet();
-    return row;
-}
+} */
 
 /**
  * 

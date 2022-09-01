@@ -32,8 +32,8 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" href="css/mraa.css" /> -->
 
+    <!-- <link rel="stylesheet" href="/cfe/src/Test/_mraa.css" /> -->
     <!-- <?!= include("Includes/css/cdn.inc"); ?> -->
     <?!= include("Includes/css/mraa.inc"); ?>
 
@@ -195,6 +195,10 @@
         class="needs-validation"
         required
       >
+        <input id="imagedata-hidden" type="hidden" name="image" value="" />
+        <input id="mimetype-hidden" type="hidden" name="mimetype" value="" />
+        <input id="filename-hidden" type="hidden" name="filename" value="" />
+
         <div id="upload-images" class="d-none member-access">
           <div class="header">
             <span class="material-symbols-outlined icon"> file_upload </span>
@@ -351,13 +355,12 @@
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
-    <script 
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
       crossorigin="anonymous"
-      ></script>
-    <!-- <script src="js/router.js"></script> -->
-    <!-- <script src="js/main.js"></script> -->
+    ></script>
+
+    <!-- <script src="/cfe/src/Test/_main.js"></script> -->
     <?!= include("Includes/scripts/global.inc"); ?>
-<!--     <?!= include("Includes/scripts/image-upload.inc"); ?> -->
   </body>
 </html>
