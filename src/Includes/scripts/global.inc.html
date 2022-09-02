@@ -42,9 +42,8 @@
   /* 
     Submission information
   */
-  const upload = {
+  const upload = [];
 
-  };
   // End Point Source - MRAA Call For Entries API
   // -- Script Id = 1idLgBabKWZRx6uNEK5v4Z9lO36OWewbTJwSHeSCwxZSbd8Q5U4MwPLfh
   // End Point version 10
@@ -272,7 +271,7 @@
     totalFee.innerText = `\$${count * fee}`;
   }
 
-  function showComplete() {
+  function showComplete(data) {
     // increase upload count
     member.uploadcount = member.uploadcount++;
     imageSaved(member.sessioncount);
@@ -439,9 +438,12 @@
 
   function addSubmission(e) {
     e.preventDefault();
-    //const fileInput = document.querySelector("#form-file");
+    const fileInput = document.querySelector("#form-file");
     const formdata = new FormData(this);
+    const fr = new FileReader();
     //formdata.append("image", fileInput.files[0]);
+    file = fileInput.files[0]
+
     const payload = [
       ["eventid", cfe.id],
       ["eventtitle", cfe.name],
@@ -464,7 +466,27 @@
     _data.hidden = "";
     _data.fullname = member.firstname + " " + member.lastname;
     _data.timestamp = moment().format("MMMM Do YYYY, h:mm:ss a");
-    google.script.run.withSuccessHandler(imageSaved).saveFile(_data);
+
+    fr.onload = function (e) {
+      const img = {
+        filename: _data.filename,
+        mimetype: file.type,
+        bytes: [...new Int8Array(e.target.result)]
+      };
+      _data.bytes = img.bytes
+      _data.mimetype = file.type
+      upload.push(img)
+/*       console.log(_data.bytes)
+      console.log(_data.mimeType)
+      console.log(_data) */
+      google.script.run
+        .withSuccessHandler(showComplete)
+        .withUserObject(_data)
+        .addSubmission(_data);
+    };
+    fr.readAsArrayBuffer(file);
+
+    //google.script.run.withSuccessHandler(imageSaved).saveFile(img, _data);
     return _data;
   }
 

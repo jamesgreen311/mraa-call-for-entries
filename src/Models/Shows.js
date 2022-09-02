@@ -528,19 +528,41 @@ function getArtistUploads(params) {
     //return JSON.stringify(uploads.map(r => r[DataColMap.fileName-1]))
 }
 
-function addSubmission(row) {
-    const cfeTables = getCFETables()
-    const cfeExhibits = connect(CFE_ID).getSheetByName(cfeTables.exhibits.name)
-    
-    return cfeExhibits.appendRow(row) 
+function addSubmission(d) {
+    const t = getCFETables()
+    const e = connect(CFE_ID).getSheetByName(t.exhibits.name)
+    const newRow = []
+    const s = t.exhibits.schema
+    const image = d.bytes 
+
+    newRow[s.eventid.colToIndex()] = d.eventid
+    newRow[s.eventtitle.colToIndex()] = d.eventtitle
+    newRow[s.firstname.colToIndex()] = d.firstname
+    newRow[s.lastname.colToIndex()] = d.lastname
+    newRow[s.email.colToIndex()] = d.email
+    newRow[s.phone.colToIndex()] = d.phone
+    newRow[s.worktitle.colToIndex()] = d.worktitle
+    newRow[s.medium.colToIndex()] = d.medium
+    newRow[s.width.colToIndex()] = d.width
+    newRow[s.height.colToIndex()] = d.height
+    newRow[s.price.colToIndex()] = d.price
+    newRow[s.filename.colToIndex()] = d.filename
+    newRow[s.member.colToIndex()] = d.member
+    newRow[s.fullname.colToIndex()] = d.fullname
+    newRow[s.timestamp.colToIndex()] = d.timestamp
+    newRow[s.fileid.colToIndex()] = saveImage(d.bytes, d.mimetype, d.filename, d.imagefolder)
+
+    return e.appendRow(newRow) 
 }
 
-function saveImage(json) {
+function saveImage(bytes, type, filename, imagefolderid) {
 /*     var image = Utilities.base64Decode(json.image)
     var blob = Utilities.newBlob(image, json.mimetype, json.filename)
     var folder = DriveApp.getFolderById('1JL85kWwmAPWqyI-0c735N06a4EDpPGvZ');  
     var file = folder.createFile(blob); */
-    const imageFolder = getShow(evtId).imageFolderId
-    const blob = Utilities.newBlob(blob, blob.type, imageFolder)
+    //const imageFolder = getShow(evtId).imageFolderId
+    const blob = Utilities.newBlob(bytes, type, filename)
+    const folder = DriveApp.getFolderById(imagefolderid)
+    const file = folder.createFile(blob)
     return file.getId()
 }
