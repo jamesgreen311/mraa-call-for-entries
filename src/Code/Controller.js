@@ -11,9 +11,6 @@ Route.path = function (r, callback) {
 
 function doGet(e) {
     let r;
-    Route.path("done", loadThankYou);
-    Route.path("test", loadSamplePage);
-    Route.path("payment", loadPaymentPage);
     Route.path("wizard", loadWizard);
 
     // Add all current show ids as Routes
@@ -28,67 +25,6 @@ function doGet(e) {
         r = loadError();
     }
     return r;
-}
-
-function saveFile(data) {
-    let blob = Utilities.newBlob(data.image, data.mimetype, data.filename);
-    //let targetFolderId = imgfolder == undefined?imageFolderId:data.imagefolder; // TODO: set imageFolderId default value
-    let uploadFolder = DriveApp.getFolderById(data.imagefolder);
-/*     let today = new Date();
-    let member = isMember(d[DataColMap.email-1])?"YES":"NO"; */
-    data.fileid = uploadFolder.createFile(blob).getId();
-    // TODO: convert json data to array, map data to spreadsheet columns
-    //data.fileid = newFileId
-/*     d.push(newFileId);
-    d.push(member);   
-
-    d.push(""); // placeholder for availability
-    d.push(""); // placeholder for hidden
-    d.push(today); */
-    return addSubmission(data);
-}
-/* 
-function saveToSheet(data) {
-    let ws = connect().getSheetByName(targetSheet);
-    ws.appendRow(data);
-    return data;
-    return true;
-} */
-
-/**
- * 
- * @returns 
- */
-function loadSamplePage() {
-    return render(`${pageRoot}/CallForEntries`);
-}
-
-/**
- * Creates the Call For Entries form 
- * @param {string} showId Unique show identifier
- * @returns {HTMLTemplate} Call for entries form page
- */
-function loadCFE(showId) {
-    // s is an object that contains all show information
-    // s is passed to the page template where the key/value pairs are iterated through and sets page variables
-    let s = getShow(showId);
-    return render(`${pageRoot}/CallForEntries`, s);
-}
-
-/**
- * Creates the Thank You page 
- * @returns {HTMLTemplate} Thank You page
- */
-function loadThankYou() {
-    return render(`${pageRoot}/ThankYou`);
-}
-
-/**
- * Creates the Payment page
- * @returns {HTMLTemplate} Payment page
- */
-function loadPaymentPage() {
-    return render(`${pageRoot}/Payment`);
 }
 
 /**
