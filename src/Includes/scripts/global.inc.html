@@ -1,16 +1,4 @@
 <script>
-  const getRoute = () => {
-    const urlString = window.location.search;
-    const params = new URLSearchParams(urlString);
-
-    let route = {};
-    let id = params.get("id");
-
-    route["id"] = id ? id : "oldest"; // default to oldest
-
-    return route;
-  };
-
   const cfe = {
     closedate: "",
     id: "",
@@ -178,7 +166,7 @@
     const maxEntries = cfe.maxentries - member.uploadcount;
 
     if (maxEntries < 0) {
-      disableUploads();
+      // disableUploads(); TODO: enable after testing complete
       maxEntries = 0;
     }
     maxEntriesElement.innerText = maxEntries;
@@ -293,7 +281,6 @@
   }
 
   function showThumbnail(e) {
-    //const imageFile = document.getElementById("form-file");
     const file = this.files[0];
     const maxImageSize = appsettings.maximagesize;
     const uploadImageSize = (file.size / (1024 * 1024)).toFixed(1); // convert bytes to mb
@@ -344,38 +331,8 @@
   }
 
   function fetchMember(id) {
-    //const url = EP_CFEAPIGET + "member" + "&id=" + id;
-
-    resetErrorMessages();
+     resetErrorMessages();
     google.script.run.withSuccessHandler(processMember).getMemberByEmail(id);
-    /*     fetch(url)
-      .then((resp) => resp.json())
-      .then((resp) => {
-        const validMember = resp.length > 0;
-        if (validMember) {
-          member.email = resp[0];
-          member.firstname = resp[1];
-          member.lastname = resp[2];
-          member.phone = resp[10];
-          member.status = resp[4];
-          member.type = resp[12];
-
-          artistDetailBlock(true);
-          fetchingArtist(false); */
-    // attempt to fetch any uploads for this member
-    /*           fetchingUploads(true);
-          fetchUploads(cfe, member);
-        } else {
-          member.email = id;
-          member.firstname = "n/a";
-          member.lastname = "n/a";
-          member.phone = "n/a";
-          member.status = "notvalid";
-          member.type = "n/a";
-        }
-        displayMember(member);
-      })
-      .catch(); */
   }
 
   function processMember(resp) {
@@ -411,21 +368,9 @@
       event: cfe.id,
       key: "id",
     };
-    //const url = EP_CFEAPIGET + "uploads" + "&id=" + JSON.stringify(p);
     google.script.run
       .withSuccessHandler(processUploads)
       .getArtistUploads(JSON.stringify(p));
-
-    /*     fetch(url)
-      .then((resp) => resp.json())
-      .then((resp) => {
-        fetchingUploads(false);
-
-        member.uploads = [...resp];
-        member.uploadcount = resp.length;
-        displayUploads(member.uploads);
-        calcTotalFee(member.uploadcount, cfe.entryfee);
-      }); */
   }
 
   function processUploads(resp) {
