@@ -15,7 +15,7 @@
     phone: "",
     status: "",
     type: "",
-    uploadcount: "",
+    uploadcount: 0,
     sessioncount: 0,
   };
 
@@ -165,6 +165,10 @@
     const maxEntriesElement = document.getElementById("max-entries");
     const maxEntries = cfe.maxentries - member.uploadcount;
 
+    console.log(cfe.maxentries) 
+    console.log(member.uploadcount)
+    console.log(maxEntries)
+
     if (maxEntries < 0) {
       // disableUploads(); TODO: enable after testing complete
       maxEntries = 0;
@@ -177,7 +181,9 @@
     const galleryItems = galleryCollection.getElementsByTagName("li");
     const imageSaved = galleryCollection.getElementsByClassName("saved");
     const galleryContainer = galleryCollection.parentElement;
-
+    const wasEmpty = galleryCollection.getElementsByClassName("empty")[num];
+    
+    wasEmpty.classList.remove("empty")
     galleryItems[num].classList.remove("d-none");
     galleryContainer.classList.remove("d-none");
     imageSaved[num].classList.remove("d-none");
@@ -238,9 +244,6 @@
     emailAddressOld = document.getElementById("artist-email").value;
   }
 
-  // TODO - build function
-  function resetFields(form) {}
-
   function clearUploadHistory() {
     const uploadHistoryTable = document.getElementById("upload-history-table");
     const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0];
@@ -259,21 +262,26 @@
     totalFee.innerText = `\$${count * fee}`;
   }
 
-  function showComplete(data) {
+  function showComplete() {
+    // reset the form
+    formUploadImages.reset()
+    // mark current image as saved
+    imageSaved(member.uploadcount);    
     // increase upload count
-    member.uploadcount = member.uploadcount++;
-    imageSaved(member.sessioncount);
-    member.sessioncount = member.sessioncount++;
-    uploadsRemaining(cfe.maxentries - member.sessioncount);
+    member.uploadcount = member.uploadcount + 1;
+    member.sessioncount = member.sessioncount + 1;    
+    console.log(`showComplete member upload count = ${member.uploadcount}`)
+    uploadsRemaining(cfe.maxentries - member.uploadcount);
+    //resetDisplay()
   }
 
   function uploadsRemaining(count) {
     let maxEntries = document.getElementById("max-entries");
     if (count > 0) {
-      maxEntries = count;
+      maxEntries.value = count;
     } else {
       // disable additional uploads
-      maxEntries = 0;
+      //maxEntries = 0;
       const msgHTML =
         "You have reached the max entries for this event. If you feel this is inaccurate please contact the event coordinator"; // TODO - add cfe coordinator email link
       disableForm(msg); // TODO - build function
@@ -383,11 +391,10 @@
 
   function addSubmission(e) {
     e.preventDefault();
-    const fileInput = document.querySelector("#form-file");
+    const formfile = document.querySelector("#form-file");
     const formdata = new FormData(this);
     const fr = new FileReader();
-    //formdata.append("image", fileInput.files[0]);
-    file = fileInput.files[0]
+    file = formfile.files[0]
 
     const payload = [
       ["eventid", cfe.id],
@@ -402,7 +409,6 @@
     let _data = {};
     for (const [key, value] of payload) {
       _data[key] = value;
-      // console.log(`${key}: ${value} \n`)
     }
     _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${_data.price}`;
     _data.fileid = "";
@@ -421,17 +427,14 @@
       _data.bytes = img.bytes
       _data.mimetype = file.type
       upload.push(img)
-/*       console.log(_data.bytes)
-      console.log(_data.mimeType)
-      console.log(_data) */
+
       google.script.run
         .withSuccessHandler(showComplete)
-        .withUserObject(_data)
+        .withUserObject(this)
         .addSubmission(_data);
     };
     fr.readAsArrayBuffer(file);
 
-    //google.script.run.withSuccessHandler(imageSaved).saveFile(img, _data);
     return _data;
   }
 
@@ -508,7 +511,7 @@
       event.preventDefault();
     });
   document
-    .getElementById("form-upload-images")
+    .getElementById("formUploadImages")
     .addEventListener("submit", addSubmission);
   /*   document
     .getElementById("form-file")
