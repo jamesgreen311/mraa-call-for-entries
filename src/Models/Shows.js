@@ -530,7 +530,7 @@ function getArtistUploads(params) {
 
   // if the starting row is less than the last row then data exists to retrieve,
   // otherwise only the headers exist in the spreadsheet.
-  if (startRow < cfeExhibits.getLastRow()) {
+  if (startRow <= cfeExhibits.getLastRow()) {
     const data = cfeExhibits
       .getRange(
         startRow,
