@@ -120,7 +120,7 @@
     } else {
       uploadHistoryNotFound.classList.remove("d-none");
     }
-    updateMaxEntries();
+    uploadsRemaining(cfe.maxentries - member.uploadcount);
   }
 
   function fetchingArtist(toggle) {
@@ -161,7 +161,7 @@
     }
   }
 
-  function updateMaxEntries() {
+/*   function updateMaxEntries() {
     const maxEntriesElement = document.getElementById("max-entries");
     const maxEntries = cfe.maxentries - member.uploadcount;
 
@@ -174,19 +174,20 @@
       maxEntries = 0;
     }
     maxEntriesElement.innerText = maxEntries;
-  }
+  } */
 
   function imageSaved(num = 0) {
     const galleryCollection = document.getElementById("gallery");
     const galleryItems = galleryCollection.getElementsByTagName("li");
     const imageSaved = galleryCollection.getElementsByClassName("saved");
     const galleryContainer = galleryCollection.parentElement;
-    const wasEmpty = galleryCollection.getElementsByClassName("empty")[num];
+    const wasEmpty = galleryCollection.getElementsByClassName("empty")[0];
     
     wasEmpty.classList.remove("empty")
     galleryItems[num].classList.remove("d-none");
     galleryContainer.classList.remove("d-none");
     imageSaved[num].classList.remove("d-none");
+    calcTotalFee(member.uploadcount, cfe.entryfee);
   }
 
   function allowAccess() {
@@ -265,11 +266,13 @@
   function showComplete() {
     // reset the form
     formUploadImages.reset()
-    // mark current image as saved
-    imageSaved(member.uploadcount);    
-    // increase upload count
     member.uploadcount = member.uploadcount + 1;
-    member.sessioncount = member.sessioncount + 1;    
+
+    // mark current image as saved
+    imageSaved(member.sessioncount);    
+    member.sessioncount = member.sessioncount + 1;  
+
+    // increase upload count
     console.log(`showComplete member upload count = ${member.uploadcount}`)
     uploadsRemaining(cfe.maxentries - member.uploadcount);
     //resetDisplay()
@@ -278,13 +281,13 @@
   function uploadsRemaining(count) {
     let maxEntries = document.getElementById("max-entries");
     if (count > 0) {
-      maxEntries.value = count;
+      maxEntries.innerText = count;
     } else {
       // disable additional uploads
-      //maxEntries = 0;
+      maxEntries.innerText = 0;
       const msgHTML =
         "You have reached the max entries for this event. If you feel this is inaccurate please contact the event coordinator"; // TODO - add cfe coordinator email link
-      disableForm(msg); // TODO - build function
+      disableForm(msgHTML); // TODO - build function
     }
   }
 
@@ -368,6 +371,7 @@
       member.type = "n/a";
     }
     displayMember(member);
+    uploadsRemaining()
   }
 
   function fetchUploads(cfe, member) {
