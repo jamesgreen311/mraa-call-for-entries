@@ -287,7 +287,10 @@
         maxEntries.innerText = 0 
         const msgHTML =
           "<div class='banner bg-warning text-dark'>" +
-          "You have reached the max entries for this event. If you feel this is inaccurate please contact the event coordinator" + // TODO - add cfe coordinator email link
+          "You have reached the max entries for this event. If you feel this is inaccurate please contact the " + 
+          "<a href='mailto:" +
+          appsettings.cfecontact +
+          "'>Event Coordinator</a>" +
           "</div>" 
         disableSubmissions("addSubmissionsForm", msgHTML)
       }
@@ -352,7 +355,6 @@
     const r = JSON.parse(resp)
     appsettings.cfecontact = r.cfecontact
     appsettings.maximagesize = r.maximagesize
-    console.log(appsettings.cfecontact, appsettings.maximagesize)
   }
 
   function fetchMember(id) {
