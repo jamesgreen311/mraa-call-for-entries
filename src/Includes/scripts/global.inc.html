@@ -6,7 +6,7 @@
     maxentries: "",
     entryfee: "",
     imagefolderid: "",
-  };
+  } 
 
   const member = {
     email: "",
@@ -17,20 +17,20 @@
     type: "",
     uploadcount: 0,
     sessioncount: 0,
-  };
+  } 
 
   const appsettings = {
-    maximagesize: 3, // default, get actual from AppSettings Spreadsheet
+    maximagesize: 3, // TODO: default, get actual from AppSettings Spreadsheet
     cfecontact: "",
     session: {
       emailAddress: "",
     },
-  };
+  } 
 
   /* 
     Submission information
   */
-  const upload = [];
+  const upload = [] 
 
   // End Point Source - MRAA Call For Entries API
   // -- Script Id = 1idLgBabKWZRx6uNEK5v4Z9lO36OWewbTJwSHeSCwxZSbd8Q5U4MwPLfh
@@ -43,121 +43,121 @@
     "https://script.google.com/macros/s/AKfycbxHhOKR2Xj8w3zjGAGHQf22oWhzJg7Q4Mab94b_gftB0g5TTZnb0iCzWI4VijeMYx6I/exec" +
     "?q="; */
 
-  var test = true;
-  var emailAddressOld = "";
+  var test = true 
+  var emailAddressOld = "" 
 
   // View methods
   function displayExhibitName(name) {
-    const ele = document.getElementById("exhibit-title");
-    ele.innerText = name;
+    const ele = document.getElementById("exhibit-title") 
+    ele.innerText = name 
   }
 
   function displayMember(member) {
-    const artistNameElement = document.getElementById("artist-name");
-    const artistPhoneElement = document.getElementById("artist-phone");
-    const validMemberElement = document.getElementById("valid-member");
+    const artistNameElement = document.getElementById("artist-name") 
+    const artistPhoneElement = document.getElementById("artist-phone") 
+    const validMemberElement = document.getElementById("valid-member") 
     const notExhibitingMemberElement = document.getElementById(
       "not-exhibiting-member"
-    );
-    const notActiveMemberElement = document.getElementById("not-active-member");
-    const invalidMemberElement = document.getElementById("invalid-member");
+    ) 
+    const notActiveMemberElement = document.getElementById("not-active-member") 
+    const invalidMemberElement = document.getElementById("invalid-member") 
 
-    document.getElementById("artist-name").innerText = "";
+    document.getElementById("artist-name").innerText = "" 
     if (member.status !== "notvalid") {
-      artistNameElement.innerText = member.firstname + " " + member.lastname;
-      artistPhoneElement.innerText = member.phone;
+      artistNameElement.innerText = member.firstname + " " + member.lastname 
+      artistPhoneElement.innerText = member.phone 
 
       const activeexhibitor = isMember(member, "active", [
         "exhibiting",
         "honorary",
-      ]);
+      ]) 
       if (activeexhibitor) {
-        validMemberElement.classList.remove("d-none");
-        notActiveMemberElement.classList.add("d-none");
-        notExhibitingMemberElement.classList.add("d-none");
+        validMemberElement.classList.remove("d-none") 
+        notActiveMemberElement.classList.add("d-none") 
+        notExhibitingMemberElement.classList.add("d-none") 
 
-        allowAccess();
+        allowAccess() 
       } else {
         if (member.status !== "active") {
-          notActiveMemberElement.classList.remove("d-none");
-          invalidMemberElement.classList.add("d-none");
+          notActiveMemberElement.classList.remove("d-none") 
+          invalidMemberElement.classList.add("d-none") 
         }
         if (member.type !== "exhibiting" && member.type !== "honorary") {
-          notExhibitingMemberElement.classList.remove("d-none");
-          invalidMemberElement.classList.add("d-none");
+          notExhibitingMemberElement.classList.remove("d-none") 
+          invalidMemberElement.classList.add("d-none") 
         }
-        disallowAccess();
+        disallowAccess() 
       }
     } else {
-      invalidMemberElement.classList.remove("d-none");
+      invalidMemberElement.classList.remove("d-none") 
     }
   }
 
   function displayUploads(uploads) {
-    const uploadHistoryFound = document.getElementById("upload-history-found");
+    const uploadHistoryFound = document.getElementById("upload-history-found") 
     const uploadHistoryNotFound = document.getElementById(
       "upload-history-notfound"
-    );
-    const uploadHistoryTable = document.getElementById("upload-history-table");
-    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0];
+    ) 
+    const uploadHistoryTable = document.getElementById("upload-history-table") 
+    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0] 
 
     if (uploads.length > 0) {
       // build table body
       for (let i = 0; i < uploads.length; i++) {
-        let row = document.createElement("tr");
-        let col1 = document.createElement("td");
-        let col2 = document.createElement("td");
-        let col3 = document.createElement("td");
-        col1.innerText = uploads[i][0];
-        col2.innerText = uploads[i][1];
-        col3.innerText = `\$${cfe.entryfee}`;
-        row.appendChild(col1);
-        row.appendChild(col2);
-        row.appendChild(col3);
-        uhtBody.appendChild(row);
+        let row = document.createElement("tr") 
+        let col1 = document.createElement("td") 
+        let col2 = document.createElement("td") 
+        let col3 = document.createElement("td") 
+        col1.innerText = uploads[i][0] 
+        col2.innerText = uploads[i][1] 
+        col3.innerText = `\$${cfe.entryfee}` 
+        row.appendChild(col1) 
+        row.appendChild(col2) 
+        row.appendChild(col3) 
+        uhtBody.appendChild(row) 
       }
-      uploadHistoryFound.classList.remove("d-none");
+      uploadHistoryFound.classList.remove("d-none") 
     } else {
-      uploadHistoryNotFound.classList.remove("d-none");
+      uploadHistoryNotFound.classList.remove("d-none") 
     }
-    uploadsRemaining(cfe.maxentries - member.uploadcount);
+    uploadsRemaining(cfe.maxentries - member.uploadcount) 
   }
 
   function fetchingArtist(toggle) {
-    const fetchingBlock = document.getElementById("fetching-artist");
+    const fetchingBlock = document.getElementById("fetching-artist") 
     if (toggle) {
-      fetchingBlock.classList.remove("d-none");
+      fetchingBlock.classList.remove("d-none") 
     } else {
-      fetchingBlock.classList.add("d-none");
+      fetchingBlock.classList.add("d-none") 
     }
   }
 
   function fetchingUploads(toggle) {
-    const fetchingBlock = document.getElementById("fetching-uploads");
+    const fetchingBlock = document.getElementById("fetching-uploads") 
     if (toggle) {
-      fetchingBlock.classList.remove("d-none");
+      fetchingBlock.classList.remove("d-none") 
     } else {
-      fetchingBlock.classList.add("d-none");
+      fetchingBlock.classList.add("d-none") 
     }
   }
 
   function artistDetailBlock(toggle) {
     // toggle true is on/show, false is off/hide
-    const artistDetailBlock = document.getElementById("artist-detail");
+    const artistDetailBlock = document.getElementById("artist-detail") 
     if (toggle) {
-      artistDetailBlock.classList.remove("d-none");
+      artistDetailBlock.classList.remove("d-none") 
     } else {
-      artistDetailBlock.classList.add("d-none");
+      artistDetailBlock.classList.add("d-none") 
     }
   }
 
   function uploadHistoryBlock(toggle) {
     // toggle true is on/show, false is off/hide
-    const uploadHistoryBlock = document.getElementById("upload-history");
+    const uploadHistoryBlock = document.getElementById("upload-history") 
     if (toggle) {
-      uploadHistoryBlock.classList.remove("d-none");
+      uploadHistoryBlock.classList.remove("d-none") 
     } else {
-      uploadHistoryBlock.classList.add("d-none");
+      uploadHistoryBlock.classList.add("d-none") 
     }
   }
 
@@ -170,225 +170,222 @@
     }
 
   }
-  /*   function updateMaxEntries() {
-    const maxEntriesElement = document.getElementById("max-entries");
-    const maxEntries = cfe.maxentries - member.uploadcount;
-
-    console.log(cfe.maxentries) 
-    console.log(member.uploadcount)
-    console.log(maxEntries)
-
-    if (maxEntries < 0) {
-      // disableUploads(); TODO: enable after testing complete
-      maxEntries = 0;
-    }
-    maxEntriesElement.innerText = maxEntries;
-  } */
 
   function imageSaved(num = 0) {
-    const galleryCollection = document.getElementById("gallery");
-    const galleryItems = galleryCollection.getElementsByTagName("li");
-    const imageSaved = galleryCollection.getElementsByClassName("saved");
-    const galleryContainer = galleryCollection.parentElement;
-    const wasEmpty = galleryCollection.getElementsByClassName("empty")[0];
+    const galleryCollection = document.getElementById("gallery") 
+    const galleryItems = galleryCollection.getElementsByTagName("li") 
+    const imageSaved = galleryCollection.getElementsByClassName("saved") 
+    const galleryContainer = galleryCollection.parentElement 
+    const wasEmpty = galleryCollection.getElementsByClassName("empty")[0] 
 
-    wasEmpty.classList.remove("empty");
-    galleryItems[num].classList.remove("d-none");
-    galleryContainer.classList.remove("d-none");
-    imageSaved[num].classList.remove("d-none");
-    calcTotalFee(member.uploadcount, cfe.entryfee);
+    wasEmpty.classList.remove("empty") 
+    galleryItems[num].classList.remove("d-none") 
+    galleryContainer.classList.remove("d-none") 
+    imageSaved[num].classList.remove("d-none") 
+    calcTotalFee(member.uploadcount, cfe.entryfee) 
   }
 
   function allowAccess() {
-    const memberAccess = document.getElementsByClassName("member-access");
+    const memberAccess = document.getElementsByClassName("member-access") 
 
     // show all hidden elements
-    let allMemberAccess = memberAccess.length;
+    let allMemberAccess = memberAccess.length 
     for (i = allMemberAccess - 1; i >= 0; i--) {
-      memberAccess[i].classList.remove("d-none");
+      memberAccess[i].classList.remove("d-none") 
     }
   }
 
   function disallowAccess() {
-    const memberAccess = document.getElementsByClassName("member-access");
+    const memberAccess = document.getElementsByClassName("member-access") 
 
     // show all hidden elements
-    let allMemberAccess = memberAccess.length;
+    let allMemberAccess = memberAccess.length 
     for (i = allMemberAccess - 1; i >= 0; i--) {
-      memberAccess[i].classList.add("d-none");
+      memberAccess[i].classList.add("d-none") 
     }
   }
 
   function disableSubmissions(form, msg) {
-    const container = document.getElementById(form);
-    container.innerHTML = msg;
+    const container = document.getElementById(form) 
+    container.innerHTML = msg 
   }
 
   function imageGalleryToggle(toggle) {
-    const imageGallery = document.getElementById("upload-gallery");
+    const imageGallery = document.getElementById("upload-gallery") 
     if (toggle) {
-      imageGallery.classList.remove("d-none");
+      imageGallery.classList.remove("d-none") 
     } else {
-      imageGallery.classList.add("d-none");
+      imageGallery.classList.add("d-none") 
     }
   }
 
   function resetErrorMessages() {
     const notExhibitingMemberElement = document.getElementById(
       "not-exhibiting-member"
-    );
-    const notActiveMemberElement = document.getElementById("not-active-member");
-    const invalidMemberElement = document.getElementById("invalid-member");
+    ) 
+    const notActiveMemberElement = document.getElementById("not-active-member") 
+    const invalidMemberElement = document.getElementById("invalid-member") 
 
-    invalidMemberElement.classList.add("d-none");
-    notActiveMemberElement.classList.add("d-none");
-    notExhibitingMemberElement.classList.add("d-none");
+    invalidMemberElement.classList.add("d-none") 
+    notActiveMemberElement.classList.add("d-none") 
+    notExhibitingMemberElement.classList.add("d-none") 
   }
 
   function resetDisplay() {
     if (emailAddressOld !== "") {
       // turn off artist detail
-      artistDetailBlock(false);
+      artistDetailBlock(false) 
       // turn off upload history
-      uploadHistoryBlock(false);
-      clearUploadHistory();
+      uploadHistoryBlock(false) 
+      clearUploadHistory() 
     }
 
-    emailAddressOld = document.getElementById("artist-email").value;
+    emailAddressOld = document.getElementById("artist-email").value 
   }
 
   function clearUploadHistory() {
-    const uploadHistoryTable = document.getElementById("upload-history-table");
-    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0];
-    const uploadHistoryFound = document.getElementById("upload-history-found");
+    const uploadHistoryTable = document.getElementById("upload-history-table") 
+    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0] 
+    const uploadHistoryFound = document.getElementById("upload-history-found") 
     const uploadHistoryNotFound = document.getElementById(
       "upload-history-notfound"
-    );
+    ) 
 
-    uploadHistoryFound.classList.add("d-none");
-    uploadHistoryNotFound.classList.add("d-none");
-    uhtBody.innerHTML = "";
+    uploadHistoryFound.classList.add("d-none") 
+    uploadHistoryNotFound.classList.add("d-none") 
+    uhtBody.innerHTML = "" 
   }
 
   function calcTotalFee(count, fee) {
-    const totalFee = document.getElementById("totalFee");
+    const totalFee = document.getElementById("totalFee") 
     if (totalFee) {
-      totalFee.innerText = `\$${count * fee}`;
+      totalFee.innerText = `\$${count * fee}` 
     }
   }
 
   function showComplete() {
     uploadWaiting(false)
     // reset the form
-    formUploadImages.reset();
-    member.uploadcount = member.uploadcount + 1;
+    formUploadImages.reset() 
+    member.uploadcount = member.uploadcount + 1 
 
     // mark current image as saved
-    imageSaved(member.sessioncount);
-    member.sessioncount = member.sessioncount + 1;
+    imageSaved(member.sessioncount) 
+    member.sessioncount = member.sessioncount + 1 
 
     // increase upload count
-    uploadsRemaining(cfe.maxentries - member.uploadcount);
+    uploadsRemaining(cfe.maxentries - member.uploadcount) 
   }
 
   function uploadsRemaining(count) {
-    let maxEntries = document.getElementById("max-entries");
+    let maxEntries = document.getElementById("max-entries") 
     if (maxEntries) {
       if (count > 0) {
-        maxEntries.innerText = count;
+        maxEntries.innerText = count 
       } else {
         // disable additional uploads
-        maxEntries.innerText = 0;
+        maxEntries.innerText = 0 
         const msgHTML =
           "<div class='banner bg-warning text-dark'>" +
           "You have reached the max entries for this event. If you feel this is inaccurate please contact the event coordinator" + // TODO - add cfe coordinator email link
-          "</div>";
-        disableSubmissions("addSubmissionsForm", msgHTML); // TODO - build function
+          "</div>" 
+        disableSubmissions("addSubmissionsForm", msgHTML)
       }
     }
   }
 
   function showThumbnail(e) {
-    const file = this.files[0];
-    const maxImageSize = appsettings.maximagesize;
+    const file = this.files[0] 
+    const maxImageSize = appsettings.maximagesize 
     const uploadImageSize = (file.size / (1024 * 1024)).toFixed(1); // convert bytes to mb
-    const imageGallery = document.getElementById("gallery");
-    const galleryFirstEmpty = imageGallery.getElementsByClassName("empty")[0];
-    const imageContainer = galleryFirstEmpty.parentElement;
-    const submissionMessages = document.getElementById("submission-messages");
-    imageGalleryToggle(true);
+    const imageGallery = document.getElementById("gallery") 
+    const galleryFirstEmpty = imageGallery.getElementsByClassName("empty")[0] 
+    const imageContainer = galleryFirstEmpty.parentElement 
+    const submissionMessages = document.getElementById("submission-messages") 
+    imageGalleryToggle(true) 
 
-    const maxFileSizeMsg = `<p class="mt-2 mb-0">Your file size is <span class='text-danger'>** ${uploadImageSize} MB **</span> and it exceeds maximum allowed size of <span class="text-warning">${maxImageSize} MB</span>. Please select a smaller image.</p>`;
+    const maxFileSizeMsg = `<p class="mt-2 mb-0">Your file size is <span class='text-danger'>** ${uploadImageSize} MB **</span> and it exceeds maximum allowed size of <span class="text-warning">${maxImageSize} MB</span>. Please select a smaller image.</p>` 
 
     // check file size before showing image
     if (uploadImageSize > maxImageSize) {
-      submissionMessages.innerHTML = maxFileSizeMsg;
-      e.stopImmediatePropagation();
-      galleryFirstEmpty.innerHTML = "";
-      submitWork.disabled = true;
-      return false;
+      submissionMessages.innerHTML = maxFileSizeMsg 
+      e.stopImmediatePropagation() 
+      galleryFirstEmpty.innerHTML = "" 
+      submitWork.disabled = true 
+      return false 
     } else {
-      submissionMessages.innerHTML = "";
-      galleryFirstEmpty.innerHTML = "<img class='crop' />";
-      const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0];
-      thumbnail.src = URL.createObjectURL(file);
-      imageContainer.classList.remove("d-none");
-      submitWork.disabled = false;
-      return true;
+      submissionMessages.innerHTML = "" 
+      galleryFirstEmpty.innerHTML = "<img class='crop' />" 
+      const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0] 
+      thumbnail.src = URL.createObjectURL(file) 
+      imageContainer.classList.remove("d-none") 
+      submitWork.disabled = false 
+      return true 
     }
   }
 
   function displayMaxImageSize() {
-    maxImageSize.innerText = appsettings.maximagesize;
+    maxImageSize.innerText = appsettings.maximagesize 
   }
 
   // I/O Methods
   function fetchOpenCalls(id) {
-    google.script.run.withSuccessHandler(processOpenCalls).getOpenCalls(id);
+    google.script.run.withSuccessHandler(processOpenCalls).getOpenCalls(id) 
+  }
+
+  function fetchAppSettings() {
+    google.script.run.withSuccessHandler(processAppSettings).getAppSettings()
   }
 
   function processOpenCalls(resp) {
-    cfe.closedate = resp[0];
-    cfe.id = resp[1];
-    cfe.name = resp[2];
-    cfe.maxentries = parseInt(resp[3]);
-    cfe.entryfee = parseInt(resp[4]);
-    cfe.imagefolderid = resp[5];
-    displayExhibitName(cfe.name);
-    displayMaxImageSize();
+    cfe.closedate = resp[0] 
+    cfe.id = resp[1] 
+    cfe.name = resp[2] 
+    cfe.maxentries = parseInt(resp[3]) 
+    cfe.entryfee = parseInt(resp[4]) 
+    cfe.imagefolderid = resp[5] 
+    displayExhibitName(cfe.name) 
+    displayMaxImageSize() 
+  }
+
+  function processAppSettings(resp) {
+    const r = JSON.parse(resp)
+    appsettings.cfecontact = r.cfecontact
+    appsettings.maximagesize = r.maximagesize
+    console.log(appsettings.cfecontact, appsettings.maximagesize)
   }
 
   function fetchMember(id) {
-    resetErrorMessages();
-    google.script.run.withSuccessHandler(processMember).getMemberByEmail(id);
+    resetErrorMessages() 
+    google.script.run.withSuccessHandler(processMember).getMemberByEmail(id) 
   }
 
   function processMember(resp) {
-    const validMember = resp.length > 0;
+    const validMember = resp.length > 0 
     if (validMember) {
-      member.email = resp[0];
-      member.firstname = resp[1];
-      member.lastname = resp[2];
-      member.phone = resp[10];
-      member.status = resp[4];
-      member.type = resp[12];
+      member.email = resp[0] 
+      member.firstname = resp[1] 
+      member.lastname = resp[2] 
+      member.phone = resp[10] 
+      member.status = resp[4] 
+      member.type = resp[12] 
 
-      artistDetailBlock(true);
-      fetchingArtist(false);
+      artistDetailBlock(true) 
+      fetchingArtist(false) 
 
       // attempt to fetch any uploads for this member
-      fetchingUploads(true);
-      fetchUploads(cfe, member);
+      fetchingUploads(true) 
+      fetchUploads(cfe, member) 
     } else {
-      member.email = id;
-      member.firstname = "n/a";
-      member.lastname = "n/a";
-      member.phone = "n/a";
-      member.status = "notvalid";
-      member.type = "n/a";
+      member.email = id 
+      member.firstname = "n/a" 
+      member.lastname = "n/a" 
+      member.phone = "n/a" 
+      member.status = "notvalid" 
+      member.type = "n/a" 
     }
-    displayMember(member);
-    uploadsRemaining(cfe.maxentries - member.uploadcount);
+    displayMember(member) 
+    uploadsRemaining(cfe.maxentries - member.uploadcount) 
   }
 
   function fetchUploads(cfe, member) {
@@ -396,27 +393,27 @@
       artist: member.email,
       event: cfe.id,
       key: "id",
-    };
+    } 
     google.script.run
       .withSuccessHandler(processUploads)
-      .getArtistUploads(JSON.stringify(p));
+      .getArtistUploads(JSON.stringify(p)) 
   }
 
   function processUploads(resp) {
-    fetchingUploads(false);
-    member.uploads = [...resp];
-    member.uploadcount = resp.length;
-    displayUploads(member.uploads);
-    calcTotalFee(member.uploadcount, cfe.entryfee);
+    fetchingUploads(false) 
+    member.uploads = [...resp] 
+    member.uploadcount = resp.length 
+    displayUploads(member.uploads) 
+    calcTotalFee(member.uploadcount, cfe.entryfee) 
   }
 
   function addSubmission(e) {
-    e.preventDefault();
+    e.preventDefault() 
     uploadWaiting(true)
-    const formfile = document.querySelector("#form-file");
-    const formdata = new FormData(this);
-    const fr = new FileReader();
-    file = formfile.files[0];
+    const formfile = document.querySelector("#form-file") 
+    const formdata = new FormData(this) 
+    const fr = new FileReader() 
+    file = formfile.files[0] 
 
     const payload = [
       ["eventid", cfe.id],
@@ -427,101 +424,102 @@
       ["phone", member.phone],
       ["imagefolder", cfe.imagefolderid],
       ...formdata,
-    ];
-    let _data = {};
+    ] 
+    let _data = {} 
     for (const [key, value] of payload) {
-      _data[key] = value;
+      _data[key] = value 
     }
-    _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${_data.price}`;
-    _data.fileid = "";
-    _data.member = "YES";
-    _data.availability = "";
-    _data.hidden = "";
-    _data.fullname = member.firstname + " " + member.lastname;
-    _data.timestamp = moment().format("MMMM Do YYYY, h:mm:ss a");
+    _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${_data.price}` 
+    _data.fileid = "" 
+    _data.member = "YES" 
+    _data.availability = "" 
+    _data.hidden = "" 
+    _data.fullname = member.firstname + " " + member.lastname 
+    _data.timestamp = moment().format("MMMM Do YYYY, h:mm:ss a") 
 
     fr.onload = function (e) {
       const img = {
         filename: _data.filename,
         mimetype: file.type,
         bytes: [...new Int8Array(e.target.result)],
-      };
-      _data.bytes = img.bytes;
-      _data.mimetype = file.type;
-      upload.push(img);
+      } 
+      _data.bytes = img.bytes 
+      _data.mimetype = file.type 
+      upload.push(img) 
 
       google.script.run
         .withSuccessHandler(showComplete)
         .withUserObject(this)
-        .addSubmission(_data);
-    };
-    fr.readAsArrayBuffer(file);
+        .addSubmission(_data) 
+    } 
+    fr.readAsArrayBuffer(file) 
 
-    return _data;
+    return _data 
   }
 
   function isMember(member, status, type) {
-    return member.status === status && type.includes(member.type);
+    return member.status === status && type.includes(member.type) 
   }
 
   function emailValidate() {
-    const emailAddress = document.getElementById("artist-email").value;
-    const form = document.getElementById("form-artist-info");
+    const emailAddress = document.getElementById("artist-email").value 
+    const form = document.getElementById("form-artist-info") 
 
     if (form.checkValidity()) {
       // fetch member
-      fetchingArtist(true);
-      fetchMember(emailAddress);
+      fetchingArtist(true) 
+      fetchMember(emailAddress) 
     } else {
       // error handling by Bootstrap
     }
   }
 
   function loadPageElements() {
-    fetchOpenCalls();
+    fetchOpenCalls()
+    fetchAppSettings()
   }
 
   function handleFileSelect(evt) {
-    reader = new FileReader();
+    reader = new FileReader() 
     // remember selected file (first selected)
-    var file = this.files[0];
+    var file = this.files[0] 
     reader.onabort = function (e) {
-      alert("File read cancelled");
-    };
+      alert("File read cancelled") 
+    } 
     reader.onload = function (e) {
       const img = {
         filename: fileNameFormatted,
         mimeType: file.type,
         bytes: [...new Int8Array(e.target.result)],
-      };
-      const imagedataHidden = document.getElementById("imagedata-hidden");
-      const mimetypeHidden = document.getElementById("mimetype-hidden");
-      imagedataHidden.value = e.target.result.replace(/^.*,/, "");
-      mimetypeHidden.value = e.target.result.match(/^.*(?=;)/)[0];
+      } 
+      const imagedataHidden = document.getElementById("imagedata-hidden") 
+      const mimetypeHidden = document.getElementById("mimetype-hidden") 
+      imagedataHidden.value = e.target.result.replace(/^.*,/, "") 
+      mimetypeHidden.value = e.target.result.match(/^.*(?=;)/)[0] 
 
-      filename;
-      showThumbnail(file);
-    };
+      filename 
+      showThumbnail(file) 
+    } 
     // Read in the image file as a Data URL
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file) 
   }
 
-  document.addEventListener("DOMContentLoaded", loadPageElements);
+  document.addEventListener("DOMContentLoaded", loadPageElements) 
   document
     .getElementById("form-file")
-    .addEventListener("change", showThumbnail);
+    .addEventListener("change", showThumbnail) 
   document
     .getElementById("login-button")
-    .addEventListener("click", emailValidate);
+    .addEventListener("click", emailValidate) 
   document
     .getElementById("artist-email")
-    .addEventListener("change", resetDisplay);
+    .addEventListener("change", resetDisplay) 
   document
     .getElementById("form-artist-info")
     .addEventListener("submit", (event) => {
-      event.preventDefault();
-    });
+      event.preventDefault() 
+    }) 
   document
     .getElementById("formUploadImages")
-    .addEventListener("submit", addSubmission);
+    .addEventListener("submit", addSubmission) 
 </script>

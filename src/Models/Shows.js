@@ -87,7 +87,8 @@ function getCFETables() {
       type: "standard",
       headers: 1,
       schema: {
-        maximagesize: "a",
+        maximagesize: "a2",
+        cfecontact: "d2"
       },
     },
     opencalls: {
@@ -140,6 +141,28 @@ function getShow(id) {
     }
   }
   return show;
+}
+
+/**
+ * Get application settings
+ * 
+ * @returns {string} JSON string containing max image size and cfe contact
+ */
+function getAppSettings() {
+    const t = getCFETables()
+    const schema = t.appsettings.schema
+    const settings = connect(CFE_ID).getSheetByName(t.appsettings.name)
+    const maxImageSize = settings
+        .getRange(
+            schema.maximagesize
+        )
+        .getDisplayValue()
+    const cfeContact = settings
+        .getRange(
+            schema.cfecontact
+        )
+        .getDisplayValue()
+    return JSON.stringify({maximagesize:maxImageSize, cfecontact:cfeContact})
 }
 
 /**
