@@ -20,7 +20,7 @@
   } 
 
   const appsettings = {
-    maximagesize: 3, // TODO: default, get actual from AppSettings Spreadsheet
+    maximagesize: 3,
     cfecontact: "",
     session: {
       emailAddress: "",
@@ -30,21 +30,7 @@
   /* 
     Submission information
   */
-  const upload = [] 
-
-  // End Point Source - MRAA Call For Entries API
-  // -- Script Id = 1idLgBabKWZRx6uNEK5v4Z9lO36OWewbTJwSHeSCwxZSbd8Q5U4MwPLfh
-  // End Point version 10
-  // -- this end point is currently in a different project.
-  // -- it can be used by other MRAA projects.
-  // -- TODO: there is duplication in this project that needs to be cleaned up.
-  // fetch calls to end point quit working. For no apparent reason this is now gets a cors block response.
-  /*   const EP_CFEAPIGET =
-    "https://script.google.com/macros/s/AKfycbxHhOKR2Xj8w3zjGAGHQf22oWhzJg7Q4Mab94b_gftB0g5TTZnb0iCzWI4VijeMYx6I/exec" +
-    "?q="; */
-
-  var test = true 
-  var emailAddressOld = "" 
+  //const upload = [] 
 
   // View methods
   function displayExhibitName(name) {
@@ -232,7 +218,7 @@
   }
 
   function resetDisplay() {
-    if (emailAddressOld !== "") {
+    if (appsettings.session.emailAddress !== "") {
       // turn off artist detail
       artistDetailBlock(false) 
       // turn off upload history
@@ -240,7 +226,7 @@
       clearUploadHistory() 
     }
 
-    emailAddressOld = document.getElementById("artist-email").value 
+    appsettings.session.emailAddress = document.getElementById("artist-email").value 
   }
 
   function clearUploadHistory() {
@@ -447,7 +433,7 @@
       } 
       _data.bytes = img.bytes 
       _data.mimetype = file.type 
-      upload.push(img) 
+      //upload.push(img) 
 
       google.script.run
         .withSuccessHandler(showComplete)
