@@ -317,7 +317,7 @@
       submissionMessages.innerHTML = maxFileSizeMsg;
       e.stopImmediatePropagation();
       galleryFirstEmpty.innerHTML = "";
-
+      submitWork.disabled = true
       return false;
     } else {
       submissionMessages.innerHTML = "";
@@ -325,8 +325,7 @@
       const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0];
       thumbnail.src = URL.createObjectURL(file);
       imageContainer.classList.remove("d-none");
-      //galleryFirstEmpty.classList.remove('empty')
-
+      submitWork.disabled = false
       return true;
     }
   }
@@ -380,7 +379,7 @@
       member.type = "n/a";
     }
     displayMember(member);
-    uploadsRemaining();
+    uploadsRemaining(cfe.maxentries - member.uploadcount);
   }
 
   function fetchUploads(cfe, member) {
