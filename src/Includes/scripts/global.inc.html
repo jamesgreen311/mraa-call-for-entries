@@ -161,6 +161,15 @@
     }
   }
 
+  function uploadWaiting(toggle) {
+    const uploadWaiting = document.getElementById("uploadWaiting")
+    if (toggle) {
+      uploadWaiting.classList.remove("d-none")      
+    } else {
+      uploadWaiting.classList.add("d-none")
+    }
+
+  }
   /*   function updateMaxEntries() {
     const maxEntriesElement = document.getElementById("max-entries");
     const maxEntries = cfe.maxentries - member.uploadcount;
@@ -269,6 +278,7 @@
   }
 
   function showComplete() {
+    uploadWaiting(false)
     // reset the form
     formUploadImages.reset();
     member.uploadcount = member.uploadcount + 1;
@@ -402,6 +412,7 @@
 
   function addSubmission(e) {
     e.preventDefault();
+    uploadWaiting(true)
     const formfile = document.querySelector("#form-file");
     const formdata = new FormData(this);
     const fr = new FileReader();

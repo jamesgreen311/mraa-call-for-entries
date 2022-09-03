@@ -186,6 +186,9 @@
           </div>
         </div>
       </form>
+      <div id="uploadWaiting" class="uploading d-none">
+        <div class="animation line-up">Saving Submission, Please Wait ...</div>
+      </div>
       <div id="addSubmissionsForm">
         <form
           action="#"
@@ -229,9 +232,16 @@
                   <span id="max-entries" class="fw-bold text-warning"
                     >fetching...</span
                   >
-                  images. Image size must not exceed <span class="text-warning" id="maxImageSize"> </span>MB.</label
+                  images. Image size must not exceed
+                  <span class="text-warning" id="maxImageSize"> </span
+                  >MB.</label
                 >
-                <input class="form-control" type="file" id="form-file" required />
+                <input
+                  class="form-control"
+                  type="file"
+                  id="form-file"
+                  required
+                />
                 <span id="submission-messages"></span>
               </div>
               <div id="image-details">
@@ -306,7 +316,11 @@
                     />
                   </div>
                   <div class="col-auto mt-2">
-                    <button id="submitWork" type="submit" class="btn btn-primary">
+                    <button
+                      id="submitWork"
+                      type="submit"
+                      class="btn btn-primary"
+                    >
                       Submit Work
                     </button>
                   </div>
@@ -315,7 +329,9 @@
               <div class="col-auto col-form-label mt-2 banner">
                 <p>
                   <span class="label">Total Fee Due for This Event: </span>
-                  <span id="totalFee" class="text-warning">Calculating ...</span>
+                  <span id="totalFee" class="text-warning"
+                    >Calculating ...</span
+                  >
                   <br />
                   This is the total for all submissions to date.
                 </p>
