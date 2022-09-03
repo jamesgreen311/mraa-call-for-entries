@@ -278,9 +278,7 @@
     member.sessioncount = member.sessioncount + 1;
 
     // increase upload count
-    console.log(`showComplete member upload count = ${member.uploadcount}`);
     uploadsRemaining(cfe.maxentries - member.uploadcount);
-    //resetDisplay()
   }
 
   function uploadsRemaining(count) {
@@ -317,7 +315,7 @@
       submissionMessages.innerHTML = maxFileSizeMsg;
       e.stopImmediatePropagation();
       galleryFirstEmpty.innerHTML = "";
-      submitWork.disabled = true
+      submitWork.disabled = true;
       return false;
     } else {
       submissionMessages.innerHTML = "";
@@ -325,16 +323,16 @@
       const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0];
       thumbnail.src = URL.createObjectURL(file);
       imageContainer.classList.remove("d-none");
-      submitWork.disabled = false
+      submitWork.disabled = false;
       return true;
     }
   }
 
-  // I/O
-  /* function uploadImage() {
-    const accessToken = gapi.auth.getToken().access_token
-} */
+  function displayMaxImageSize() {
+    maxImageSize.innerText = appsettings.maximagesize;
+  }
 
+  // I/O Methods
   function fetchOpenCalls(id) {
     google.script.run.withSuccessHandler(processOpenCalls).getOpenCalls(id);
   }
@@ -347,6 +345,7 @@
     cfe.entryfee = parseInt(resp[4]);
     cfe.imagefolderid = resp[5];
     displayExhibitName(cfe.name);
+    displayMaxImageSize();
   }
 
   function fetchMember(id) {
@@ -467,17 +466,6 @@
     }
   }
 
-  function mode() {
-    const hidden = document.getElementsByClassName("d-none");
-    if (test) {
-      // show all hidden elements
-      let allhidden = hidden.length;
-      for (i = allhidden - 1; i >= 0; i--) {
-        hidden[i].classList.remove("d-none");
-      }
-    }
-  }
-
   function loadPageElements() {
     fetchOpenCalls();
   }
@@ -525,9 +513,4 @@
   document
     .getElementById("formUploadImages")
     .addEventListener("submit", addSubmission);
-  /*   document
-    .getElementById("form-file")
-    .addEventListener("change", showThumbnail); */
-  //document.addEventListener("DOMContentLoaded", imageSaved)
-  //document.addEventListener("DOMContentLoaded", mode)
 </script>
