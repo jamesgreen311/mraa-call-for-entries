@@ -186,156 +186,151 @@
           </div>
         </div>
       </form>
-      <form
-        action="#"
-        id="formUploadImages"
-        class="needs-validation"
-        required
-      >
-        <input id="imagedata-hidden" type="hidden" name="image" value="" />
-        <input id="mimetype-hidden" type="hidden" name="mimetype" value="" />
-        <input id="filename-hidden" type="hidden" name="filename" value="" />
-
-        <div id="upload-images" class="d-none member-access">
-          <div class="header">
-            <span class="material-symbols-outlined icon"> file_upload </span>
-            <span class="text">Add Submissions</span>
-          </div>
-
-          <div id="upload-gallery" class="d-none">
-            <h3 class="fs-6">Upload Gallery</h3>
-            <ul id="gallery" class="gallery">
-              <li class="d-none">
-                <span class="saved d-none">Saved</span>
-                <span class="empty">Image Placeholder</span>
-              </li>
-              <li class="d-none">
-                <span class="saved d-none">Saved</span>
-                <span class="empty">Image Placeholder</span>
-              </li>
-              <li class="d-none">
-                <span class="saved d-none">Saved</span>
-                <span class="empty">Image Placeholder</span>
-              </li>
-              <li class="d-none">
-                <span class="saved d-none">Saved</span>
-                <span class="empty">Image Placeholder</span>
-              </li>
-            </ul>
-          </div>
-          <div class="mb-3">
-            <div class="banner">
-              <label for="form-file" class="form-label"
-                >You can submit
-                <span id="max-entries" class="fw-bold text-warning"
-                  >fetching...</span
+      <div id="addSubmissionsForm">
+        <form
+          action="#"
+          id="formUploadImages"
+          class="needs-validation"
+          required
+        >
+          <input id="imagedata-hidden" type="hidden" name="image" value="" />
+          <input id="mimetype-hidden" type="hidden" name="mimetype" value="" />
+          <input id="filename-hidden" type="hidden" name="filename" value="" />
+          <div id="upload-images" class="d-none member-access">
+            <div class="header">
+              <span class="material-symbols-outlined icon"> file_upload </span>
+              <span class="text">Add Submissions</span>
+            </div>
+            <div id="upload-gallery" class="d-none">
+              <h3 class="fs-6">Upload Gallery</h3>
+              <ul id="gallery" class="gallery">
+                <li class="d-none">
+                  <span class="saved d-none">Saved</span>
+                  <span class="empty">Image Placeholder</span>
+                </li>
+                <li class="d-none">
+                  <span class="saved d-none">Saved</span>
+                  <span class="empty">Image Placeholder</span>
+                </li>
+                <li class="d-none">
+                  <span class="saved d-none">Saved</span>
+                  <span class="empty">Image Placeholder</span>
+                </li>
+                <li class="d-none">
+                  <span class="saved d-none">Saved</span>
+                  <span class="empty">Image Placeholder</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mb-3">
+              <div class="banner">
+                <label for="form-file" class="form-label"
+                  >You can submit
+                  <span id="max-entries" class="fw-bold text-warning"
+                    >fetching...</span
+                  >
+                  images</label
                 >
-                images</label
-              >
-              <input class="form-control" type="file" id="form-file" required />
-              <span id="submission-messages"></span>
-            </div>
-
-            <div id="image-details">
-              <div class="row mb-3 mt-2">
-                <label for="worktitle" class="col-md-1 col-form-label"
-                  >Title</label
-                >
-                <div class="col-md-11">
-                  <input
-                    type="text"
-                    name="worktitle"
-                    id="worktitle"
-                    class="form-control"
-                    placeholder="Required"
-                    required
-                  />
+                <input class="form-control" type="file" id="form-file" required />
+                <span id="submission-messages"></span>
+              </div>
+              <div id="image-details">
+                <div class="row mb-3 mt-2">
+                  <label for="worktitle" class="col-md-1 col-form-label"
+                    >Title</label
+                  >
+                  <div class="col-md-11">
+                    <input
+                      type="text"
+                      name="worktitle"
+                      id="worktitle"
+                      class="form-control"
+                      placeholder="Required"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3 mt-2">
+                  <label for="width" class="col-md-1 col-form-label">
+                    Width (in)
+                  </label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      name="width"
+                      id="width"
+                      class="form-control"
+                      placeholder="Required"
+                      required
+                    />
+                  </div>
+                  <label for="height" class="col-md-1 col-form-label">
+                    Height (in)
+                  </label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      name="height"
+                      id="height"
+                      class="form-control"
+                      placeholder="Required"
+                      required
+                    />
+                  </div>
+                  <label for="medium" class="col-md-1 col-form-label">
+                    Medium
+                  </label>
+                  <div class="col-md-5">
+                    <input
+                      type="text"
+                      name="medium"
+                      id="medium"
+                      class="form-control"
+                      placeholder="Required"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="price" class="col-md-1 col-form-label mt-2">
+                    Price $
+                  </label>
+                  <div class="col-md-2 mt-2">
+                    <input
+                      type="text"
+                      name="price"
+                      id="price"
+                      class="form-control"
+                      placeholder="Required"
+                      required
+                    />
+                  </div>
+                  <div class="col-auto mt-2">
+                    <button type="submit" class="btn btn-primary">
+                      Submit Work
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div class="row mb-3 mt-2">
-                <label for="width" class="col-md-1 col-form-label">
-                  Width (in)
-                </label>
-                <div class="col-md-2">
-                  <input
-                    type="text"
-                    name="width"
-                    id="width"
-                    class="form-control"
-                    placeholder="Required"
-                    required
-                  />
-                </div>
-                <label for="height" class="col-md-1 col-form-label">
-                  Height (in)
-                </label>
-                <div class="col-md-2">
-                  <input
-                    type="text"
-                    name="height"
-                    id="height"
-                    class="form-control"
-                    placeholder="Required"
-                    required
-                  />
-                </div>
-                <label for="medium" class="col-md-1 col-form-label">
-                  Medium
-                </label>
-                <div class="col-md-5">
-                  <input
-                    type="text"
-                    name="medium"
-                    id="medium"
-                    class="form-control"
-                    placeholder="Required"
-                    required
-                  />
-                </div>
+              <div class="col-auto col-form-label mt-2 banner">
+                <p>
+                  <span class="label">Total Fee Due for This Event: </span>
+                  <span id="totalFee" class="text-warning">Calculating ...</span>
+                  <br />
+                  This is the total for all submissions to date.
+                </p>
               </div>
-              <div class="row mb-3">
-                <label for="price" class="col-md-1 col-form-label mt-2">
-                  Price $
-                </label>
-                <div class="col-md-2 mt-2">
-                  <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    class="form-control"
-                    placeholder="Required"
-                    required
-                  />
-                </div>
-
-                <div class="col-auto mt-2">
-                  <button type="submit" class="btn btn-primary">
-                    Submit Work
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-auto col-form-label mt-2 banner">
-              <p>
-                <span class="label">Total Fee Due for This Event: </span>
-                <span id="totalFee" class="text-warning">Calculating ...</span>
-                <br />
-                This is the total for all submissions to date.
-              </p>
             </div>
           </div>
-        </div>
-
+        </form>
         <div id="payment" class="d-none member-access">
           <div class="header">
             <span class="material-symbols-outlined icon"> local_atm </span>
             <span class="text">Payment</span>
           </div>
-
           Link to PayPal here
         </div>
-      </form>
+      </div>
 
       <footer class="footer">
         <div id="footer" class="footer mt-3">

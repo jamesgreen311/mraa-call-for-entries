@@ -8,17 +8,7 @@
   "exceptionLogging": "STACKDRIVER",
   "oauthScopes": [
     "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/script.container.ui",
     "https://www.googleapis.com/auth/spreadsheets"
   ],
-  "runtimeVersion": "V8",
-  "sheets": {
-    "macros": [
-      {
-        "menuName": "InsertImage",
-        "functionName": "InsertImage",
-        "defaultShortcut": "Ctrl+Alt+Shift+1"
-      }
-    ]
-  }
+  "runtimeVersion": "V8"
 }
