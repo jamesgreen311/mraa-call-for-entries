@@ -577,9 +577,6 @@ function getArtistUploads(params) {
   }
 
   return compactUploads;
-
-  // stringify not working as intended when passed back to the client
-  //return JSON.stringify(uploads.map(r => r[DataColMap.fileName-1]))
 }
 
 function addSubmission(d) {
@@ -587,7 +584,6 @@ function addSubmission(d) {
   const e = connect(CFE_ID).getSheetByName(t.exhibits.name);
   const newRow = [];
   const s = t.exhibits.schema;
-  const image = d.bytes;
 
   newRow[s.eventid.colToIndex()] = d.eventid;
   newRow[s.eventtitle.colToIndex()] = d.eventtitle;
@@ -615,11 +611,6 @@ function addSubmission(d) {
 }
 
 function saveImage(bytes, type, filename, imagefolderid) {
-  /*     var image = Utilities.base64Decode(json.image)
-    var blob = Utilities.newBlob(image, json.mimetype, json.filename)
-    var folder = DriveApp.getFolderById('1JL85kWwmAPWqyI-0c735N06a4EDpPGvZ');  
-    var file = folder.createFile(blob); */
-  //const imageFolder = getShow(evtId).imageFolderId
   const blob = Utilities.newBlob(bytes, type, filename);
   const folder = DriveApp.getFolderById(imagefolderid);
   const file = folder.createFile(blob);
