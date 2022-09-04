@@ -166,7 +166,7 @@ function getAppSettings() {
 }
 
 /**
- *
+ * Not Used
  * @param {string} id Unique show identifier
  * @returns {string} Show name
  */
@@ -210,6 +210,7 @@ function getMaxEntriesPerArtist(id) {
 }
 
 /**
+ * Not Used
  * Get Pay Fee Only setting for requested show
  * @param {string} id Unique show identifier
  * @returns {boolean} yes/no
@@ -231,6 +232,10 @@ function getAllOpenShows() {
   return data.filter((d) => d[statusPos] === "OPEN");
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAllShows() {
   const cfeTables = getCFETables();
   const cfeConfig = connect(CFE_ID).getSheetByName(cfeTables.config.name);
@@ -249,7 +254,7 @@ function getAllShows() {
 }
 
 /**
- *
+ * Not Used
  * @param {string} name the name of a show
  * @returns {string} show id
  */
@@ -266,6 +271,7 @@ function getShowIdByName(name) {
 }
 
 /**
+ * Not Used
  * Get total entries for the event from the pivot table
  * @param {string}  Id
  * @returns {number} Total
@@ -298,6 +304,7 @@ function getTotalByEvent(id) {
 }
 
 /**
+ * Not Used
  * Get total number of entries for an event for each artist
  * @param {string} Event Title
  * @param {string} Artist email
@@ -337,6 +344,7 @@ function getTotalByEventArtist(evtTitle, email) {
 }
 
 /**
+ * Not Used
  * Get shows that are currently calling for entries
  */
 function getCurrentCalls() {
@@ -355,6 +363,10 @@ function getCurrentCalls() {
   return uniqueEvents;
 }
 
+/**
+ * Not Used
+ * @returns 
+ */
 function getCurrentCallsUploads() {
   const cfeTables = getCFETables();
   const cfeCountsById = connect(CFE_ID).getSheetByName(
@@ -379,6 +391,7 @@ function getCurrentCallsUploads() {
   return data;
 }
 /**
+ * Not Used
  * Get all submissions for an event
  * @param {string} id Event Id
  * @returns {array} all submissions
@@ -404,6 +417,7 @@ function getSubmissionsById(id) {
 }
 
 /**
+ * Not Used
  * Get all uploads for an event (by title) for an artist
  * @param {string} evtTitle Event Title
  * @param {string} email Artist Email
@@ -439,6 +453,7 @@ function getUploadsByArtist(evtTitle, email) {
 }
 
 /**
+ * Not Used
  * Get uploads for an event (by id) for an artist
  * @param {string} id Event Id
  * @param {string} email Artist Email
@@ -469,6 +484,10 @@ function getUploadsByIdByArtist(id, email) {
   return JSON.stringify(uploads.map((r) => r[filenamePos]));
 }
 
+/**
+ * Not Used
+ * @returns 
+ */
 function getEventArtistEntries() {
   const cfeTables = getCFETables();
   const cfeEntries = connect(CFE_ID).getSheetByName(
@@ -496,11 +515,21 @@ function getEventArtistEntries() {
   return newData;
 }
 
+/**
+ * 
+ * @param {string} id Event id
+ * @returns {integer}
+ */
 function getEntryFee(id) {
   const show = getShow(id);
   return parseInt(show.entryfee);
 }
 
+/** 
+ * Get an open call for entries. Defaults to the oldest open call.
+ * @param {object} param 
+ * @returns {array}
+ */
 function getOpenCalls(param) {
   const cfeTables = getCFETables();
   const cfeOpenCalls = connect(CFE_ID).getSheetByName(cfeTables.opencalls.name);
@@ -525,14 +554,14 @@ function getOpenCalls(param) {
     opencall = data.filter((d) => d[1] === param)[0]; // flatten the two dimensional array
   }
 
-  return opencall ? opencall : [];
+  // Because this is a pivot table, if no open calls are found the table contains "Rows" and "Values" in the first 2 columns
+  return opencall[0]!=="Rows" ? opencall : [];
 }
 
 /**
  * Get all uploads for an event (by title) for an artist
- * @param {string} evtTitle Event Title
- * @param {string} email Artist Email
- * @returns {string}
+ * @param {object} event, artist, key
+ * @returns {array}
  */
 function getArtistUploads(params) {
   const cfeTables = getCFETables();
@@ -579,6 +608,11 @@ function getArtistUploads(params) {
   return compactUploads;
 }
 
+/**
+ * Add a new submission to spreadsheet
+ * @param {object} data 
+ * @returns {array}
+ */
 function addSubmission(d) {
   const t = getCFETables();
   const e = connect(CFE_ID).getSheetByName(t.exhibits.name);
@@ -610,6 +644,14 @@ function addSubmission(d) {
   return e.appendRow(newRow);
 }
 
+/**
+ * Save image to Google Drive Folder
+ * @param {binary} bytes 
+ * @param {string} type 
+ * @param {string} filename 
+ * @param {string} imagefolderid 
+ * @returns {string} fileid
+ */
 function saveImage(bytes, type, filename, imagefolderid) {
   const blob = Utilities.newBlob(bytes, type, filename);
   const folder = DriveApp.getFolderById(imagefolderid);

@@ -11,10 +11,17 @@ Route.path = function (r, callback) {
 
 function doGet(e) {
     let r;
-    Route.path("wizard", loadWizard);
+    //Route.path("wizard", loadWizard);
 
     // Add all current show ids as Routes
-    let shows = getAllShowIds();
+    const shows = getOpenCalls();
+    const oldestShow = getOpenCalls("oldest")
+    const oldestShowId = oldestShow[1]
+    if (shows.length===0) {
+        return loadError("No shows currently open")
+    }
+
+    // preload all routes for open shows
     for (let s of shows) {
         Route.path(s, loadWizard);
     }
@@ -22,7 +29,8 @@ function doGet(e) {
     if (Route[e.parameter.v]) {
         r = Route[e.parameter.v](e.parameter.v);
     } else {
-        r = loadError();
+        // default to the oldest open show
+        r = loadWizard(oldestShowId);
     }
     return r;
 }
@@ -40,6 +48,7 @@ function loadWizard(showId) {
  * Creates the Error page 
  * @returns {HTMLTemplate} Error page
  */
-function loadError() {
-    return render(`${pageRoot}/Error`);
+function loadError(msg) {
+    const opt = {text:msg}
+    return render(`${pageRoot}/Error`, opt);
 }
