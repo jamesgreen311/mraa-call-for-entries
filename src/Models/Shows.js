@@ -220,7 +220,8 @@ function getPayFeeOnly(id) {
 }
 
 /**
- * Get a list of all open shows
+ * Get a list of all open shows. This function retrieves open calls from the Config table. 
+ * getOpenCalls retrieves from the Open Calls pivot table.
  * @returns {array} a list of all open shows
  */
 function getAllOpenShows() {
@@ -233,19 +234,20 @@ function getAllOpenShows() {
 }
 
 /**
- * 
+ * Get all shows from Config regardless of status.
  * @returns 
  */
 function getAllShows() {
-  const cfeTables = getCFETables();
-  const cfeConfig = connect(CFE_ID).getSheetByName(cfeTables.config.name);
-  const startRow = cfeTables.config.headers + 1;
+  const t = getCFETables();
+  const cfeConfig = connect(CFE_ID).getSheetByName(t.config.name);
+  const hdrRows = t.config.headers
+  const startRow = hdrRows + 1;
   const startCol = 1;
   const data = cfeConfig
     .getRange(
       startRow,
       startCol,
-      cfeConfig.getLastRow() - startRow,
+      cfeConfig.getLastRow() - hdrRows,
       cfeConfig.getLastColumn()
     )
     .getDisplayValues();
