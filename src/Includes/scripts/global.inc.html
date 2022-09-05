@@ -191,8 +191,8 @@
     }
   }
 
-  function disableSubmissions(form, msg) {
-    const container = document.getElementById(form) 
+  function disableSubmissions(ele, msg) {
+    const container = document.getElementById(ele) 
     container.innerHTML = msg 
   }
 
@@ -278,7 +278,7 @@
           appsettings.cfecontact +
           "'>Event Coordinator</a>" +
           "</div>" 
-        disableSubmissions("addSubmissionsForm", msgHTML)
+        disableSubmissions("entryInfo", msgHTML)
       }
     }
   }

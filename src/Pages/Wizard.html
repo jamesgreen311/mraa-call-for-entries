@@ -225,7 +225,7 @@
                 </li>
               </ul>
             </div>
-            <div class="mb-3">
+            <div id="entryInfo" class="mb-3">
               <div class="banner">
                 <label for="form-file" class="form-label"
                   >You can submit
@@ -326,19 +326,19 @@
                   </div>
                 </div>
               </div>
-              <div class="col-auto col-form-label mt-2 banner">
-                <p>
-                  <span class="label">Total Fee Due for This Event: </span>
-                  <span id="totalFee" class="text-warning"
-                    >Calculating ...</span
-                  >
-                  <br />
-                  This is the total for all submissions to date.
-                </p>
-              </div>
             </div>
           </div>
         </form>
+        <div class="col-auto col-form-label mt-2 banner d-none member-access">
+          <p>
+            <span class="label">Total Fee Due for This Event: </span>
+            <span id="totalFee" class="text-warning"
+              >Calculating ...</span
+            >
+            <br />
+            This is the total for all submissions to date.
+          </p>
+        </div>
         <div id="payment" class="d-none member-access">
           <div class="header">
             <span class="material-symbols-outlined icon"> local_atm </span>
