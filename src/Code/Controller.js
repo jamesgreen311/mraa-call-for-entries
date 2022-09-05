@@ -11,7 +11,6 @@ Route.path = function (r, callback) {
 
 function doGet(e) {
     let r;
-    //Route.path("wizard", loadWizard);
 
     // Add all current show ids as Routes
     const shows = getOpenCalls();

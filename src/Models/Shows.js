@@ -88,7 +88,12 @@ function getCFETables() {
       headers: 1,
       schema: {
         maximagesize: "a2",
-        cfecontact: "d2"
+        cfecontact: "b2",
+        statuslist: "c2:c",
+        latestdeploymenturl: "d2",
+        applicationversion: "e2",
+        latestdeploymentlist: "d2:d",
+        applicationversionlist: "e2:e"
       },
     },
     opencalls: {
