@@ -27,6 +27,14 @@
     },
   } 
 
+  const messagesrepo = {
+    "maxentriesreached": 
+      "<div class='banner bg-warning text-dark'>" +
+      "You have reached the max entries for this event. If you feel this is inaccurate please contact the " + 
+      "**contactmailto**" + 
+      "</div>"
+  }
+
   // PayPal Smart Button customization
   function setPayPalItemPrice(price) {
     const itemOptions = document.getElementById("item-options")
@@ -274,21 +282,21 @@
   }
 
   function uploadsRemaining(count) {
+    const msgMaxEntriesReached = messagesrepo.maxentriesreached
     let maxEntries = document.getElementById("max-entries") 
+
     if (maxEntries) {
       if (count > 0) {
         maxEntries.innerText = count 
       } else {
         // disable additional uploads
         maxEntries.innerText = 0 
-        const msgHTML =
-          "<div class='banner bg-warning text-dark'>" +
-          "You have reached the max entries for this event. If you feel this is inaccurate please contact the " + 
+        const exhibitmailto = msgMaxEntriesReached.replace('**contactmailto**', 
           "<a href='mailto:" +
           appsettings.cfecontact +
-          "'>Event Coordinator</a>" +
-          "</div>" 
-        disableSubmissions("entryInfo", msgHTML)
+          "'>Exhibit Coordinator</a>")
+
+        disableSubmissions("entryInfo", exhibitmailto)
       }
     }
   }
@@ -325,6 +333,16 @@
 
   function displayMaxImageSize() {
     maxImageSize.innerText = appsettings.maximagesize 
+  }
+
+  function setCopyrightYear() {
+    const year = document.getElementById("year")
+    year.innerText = moment().format('YYYY')
+  }
+
+  function displaySupportContact(contact) {
+    const supportcontact = document.getElementById("supportcontact")
+    supportcontact.innerHTML = ` > <a href='mailto:${contact}'>Support Contact</a>`
   }
 
   // I/O Methods
@@ -384,6 +402,7 @@
       member.type = "n/a" 
     }
     displayMember(member) 
+    displaySupportContact(appsettings.cfecontact)
     uploadsRemaining(cfe.maxentries - member.uploadcount) 
   }
 
@@ -475,9 +494,11 @@
     }
   }
 
+  // Start up
   function loadPageElements() {
     fetchOpenCalls()
     fetchAppSettings()
+    setCopyrightYear()
   }
 
   function handleFileSelect(evt) {
