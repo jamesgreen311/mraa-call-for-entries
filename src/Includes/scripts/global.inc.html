@@ -27,10 +27,20 @@
     },
   } 
 
-  /* 
-    Submission information
-  */
-  //const upload = [] 
+  // PayPal Smart Button customization
+  function setPayPalItemPrice(price) {
+    const itemOptions = document.getElementById("item-options")
+    const option = new Option('$' + price + ' Per Entry' , 'Per Entry')
+    option.setAttribute('price', price)
+    itemOptions.add(option)
+  }
+
+  function setPayPalItemQty(max){
+    const qtyOptions = document.getElementById("quantitySelect")
+    for (let i=1; i<=max; i++) {
+      qtyOptions.add(new Option(i, i))
+    }
+  }
 
   // View methods
   function displayExhibitName(name) {
@@ -335,6 +345,7 @@
     cfe.imagefolderid = resp[5] 
     displayExhibitName(cfe.name) 
     displayMaxImageSize() 
+    setPayPalItemPrice(cfe.entryfee)
   }
 
   function processAppSettings(resp) {
@@ -393,6 +404,8 @@
     member.uploadcount = resp.length 
     displayUploads(member.uploads) 
     calcTotalFee(member.uploadcount, cfe.entryfee) 
+    console.log(member.uploadcount)
+    setPayPalItemQty(member.uploadcount)
   }
 
   function addSubmission(e) {
