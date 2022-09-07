@@ -28,7 +28,7 @@ function loadWizard(id) {
  * @returns {HTMLTemplate} Error page
  */
 function loadError(msg) {
-    const appSettings = getAppSettings()
-    const opt = {text:msg, support:appSettings.cfeContact}
+    const appSettings = JSON.parse(getAppSettings())
+    const opt = {text:msg, support:appSettings.cfecontact}
     return render(`${pageRoot}/Error`, opt);
 }
