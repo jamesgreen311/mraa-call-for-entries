@@ -361,7 +361,7 @@
     cfe.maxentries = parseInt(resp[3]) 
     cfe.entryfee = parseInt(resp[4]) 
     cfe.imagefolderid = resp[5] 
-    displayExhibitName(cfe.name) 
+    //displayExhibitName(cfe.name) 
     displayMaxImageSize() 
     setPayPalItemPrice(cfe.entryfee)
   }
@@ -496,7 +496,8 @@
 
   // Start up
   function loadPageElements() {
-    fetchOpenCalls()
+    const id = document.getElementById("exhibitId").value
+    fetchOpenCalls(id)
     fetchAppSettings()
     setCopyrightYear()
   }

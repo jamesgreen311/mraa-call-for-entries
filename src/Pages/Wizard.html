@@ -39,6 +39,9 @@
   </head>
 
   <body>
+    <form action="#" id="dataImport">
+      <input type="hidden" name="exhibitId" id="exhibitId" value="<?= id ?>">
+    </form>
     <div class="container">
       <header>
         <div id="banner" class="banner">
@@ -47,7 +50,7 @@
             <span class="bold fs-3">Call For Entries </span>
             <span class="light fs-6">New Exhibit</span><br />
             <span id="exhibit-title" class="bold bright fs-3">
-              Fetching Exhibit Name ...</span
+              <?= name ?></span
             >
           </div>
         </div>
@@ -106,13 +109,13 @@
             </div>
             <div id="artist-detail" class="d-none container">
               <div class="row border-bottom">
-                <div class="col-3 col-sm-1 label">Member</div>
-                <div class="col-12 col-sm-2" id="artist-name"></div>
+                <div class="col-3 col-sm-2 label">Member</div>
+                <div class="col-12 col-sm-3" id="artist-name"></div>
                 <div class="col-12 col-sm-2" id="artist-phone"></div>
               </div>
               <div class="row">
-                <div class="col-4 col-sm-1 label">Status</div>
-                <div class="col-8 col-sm-11">
+                <div class="col-4 col-sm-2 label">Status</div>
+                <div class="col-8 col-sm-10">
                   <div id="valid-member" class="d-none">
                     <span class="valid-member">Exhibiting Member</span>
                     <span

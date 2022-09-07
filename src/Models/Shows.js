@@ -570,11 +570,12 @@ function getOpenCalls(param="oldest") {
     if (param==="oldest") {
       opencall = data[0]
     } else {
+      // keep only the one for requested id. if requested id is no longer open, this will fail and opencall array will be undefined.
       opencall = data.filter((d) => d[1].toUpperCase() === param.toUpperCase())[0]; // flatten the two dimensional array
     }
   }
 
-  return opencall
+  return (opencall?opencall:[])
 }
 
 /**

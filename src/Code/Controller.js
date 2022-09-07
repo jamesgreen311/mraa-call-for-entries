@@ -1,45 +1,25 @@
-/*
-    Accepts input and converts it to commands for the model or view.
-
-    The controller responds to the user input and performs interactions on the data model objects. 
-    The controller receives the input, optionally validates it and then passes the input to the model.
-*/
-var Route = {};
-Route.path = function (r, callback) {
-    Route[r] = callback;
-}
-
+/**
+ * Loads page for requested exhibit id if it exists and is not closed
+ * @param {*} e 
+ * @returns 
+ */
 function doGet(e) {
-    let r;
-
-    // Add all current show ids as Routes
-    const shows = getOpenCalls();
-    const oldestShow = getOpenCalls("oldest")
-    const oldestShowId = oldestShow[1]
-    if (shows.length===0) {
-        return loadError("No shows currently open")
+    const id = e?e.parameter.v:"oldest"
+    const show = getOpenCalls(id)
+    if (show.length===0) {
+        return loadError("No shows are currently open or the requested call for entries has closed.")
     }
+    const showId = show[1]
 
-    // preload all routes for open shows
-    for (let s of shows) {
-        Route.path(s, loadWizard);
-    }
-
-    if (Route[e.parameter.v]) {
-        r = Route[e.parameter.v](e.parameter.v);
-    } else {
-        // default to the oldest open show
-        r = loadWizard(oldestShowId);
-    }
-    return r;
+    return loadWizard(showId)
 }
 
 /**
  * Creates the Call For Entries Wizard 
  * @returns {HTMLTemplate} Wizard page
  */
-function loadWizard(showId) {
-    let s = getShow(showId);
+function loadWizard(id) {
+    let s = getShow(id.toUpperCase());
     return render(`${pageRoot}/Wizard`, s);
 }
 
