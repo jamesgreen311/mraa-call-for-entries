@@ -537,7 +537,7 @@ function getEntryFee(id) {
  * @param {object} param 
  * @returns {array}
  */
-function getOpenCalls(param) {
+function getOpenCalls(param="oldest") {
   const cfeTables = getCFETables();
   const cfeOpenCalls = connect(CFE_ID).getSheetByName(cfeTables.opencalls.name);
   const cfeOpenCallsSchema = cfeTables.opencalls.schema;
@@ -553,16 +553,28 @@ function getOpenCalls(param) {
     )
     .getDisplayValues();
 
+  // Checks
+  // 1. requested exhibit
+  // -- empty will default to oldest
+  // -- explict id requested
+  // Don't need to check the param
+  // 2. no open calls
+  // -- data will contain one array element with [["Rows"], ["Values"]] 
+  // -- return empty array
+  // 3. open calls found
+  // -- param is oldest -> return first element of data array
+  // -- param is passed and id matches -> return matching array element
+
   let opencall = [];
-  if (!param || param === "oldest") {
-    opencall = data[0];
-  } else {
-    // filter by id
-    opencall = data.filter((d) => d[1] === param)[0]; // flatten the two dimensional array
+  if (data[0][0]!=="Rows") {
+    if (param==="oldest") {
+      opencall = data[0]
+    } else {
+      opencall = data.filter((d) => d[1].toUpperCase() === param.toUpperCase())[0]; // flatten the two dimensional array
+    }
   }
 
-  // Because this is a pivot table, if no open calls are found the table contains "Rows" and "Values" in the first 2 columns
-  return opencall[0]!=="Rows" ? opencall : [];
+  return opencall
 }
 
 /**
