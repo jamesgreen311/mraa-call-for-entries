@@ -40,12 +40,15 @@
 
   <body>
     <form action="#" id="dataImport">
-      <input type="hidden" name="exhibitId" id="exhibitId" value="<?= id ?>">
+      <input type="hidden" name="exhibitId" id="exhibitId" value="<?= id ?>" />
     </form>
     <div class="container">
       <header>
         <div id="banner" class="banner">
-          <div id="logo fs-2"><a href="https://www.metrorichmondart.org">MRAA</a> <span class="text-right" id="supportcontact"></span></div>
+          <div id="logo fs-2">
+            <a href="https://www.metrorichmondart.org">MRAA</a>
+            <span class="text-right" id="supportcontact"></span>
+          </div>
           <div id="title">
             <span class="bold fs-3">Call For Entries </span>
             <span class="light fs-6">New Exhibit</span><br />
@@ -93,19 +96,11 @@
             </div>
           </div>
           <div class="mb-2">
-            <div id="fetching-artist" class="d-none">
-              <div class="loadingio-spinner-spinner-0mrqsirpbdgo">
-                <div class="ldio-mln9hvqf3o">
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                </div>
+            <div id="fetching-artist" class="fetching d-none">
+              <div class="animation line-up">
+                Fetching data, Please Wait ...
               </div>
+
             </div>
             <div id="artist-detail" class="d-none container">
               <div class="row border-bottom">
@@ -161,18 +156,7 @@
             <span class="text">Upload History For This Event</span>
           </div>
           <div id="fetching-uploads">
-            <div class="loadingio-spinner-spinner-0mrqsirpbdgo">
-              <div class="ldio-mln9hvqf3o">
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-                <div><div></div></div>
-              </div>
-            </div>
+            Fetching upload history, Please Wait ...
           </div>
           <div id="upload-history-notfound" class="banner d-none">
             <span>No uploads found for this Exhibit</span>
@@ -335,9 +319,7 @@
         <div class="col-auto col-form-label mt-2 banner d-none member-access">
           <p>
             <span class="label">Total Fee Due for This Event: </span>
-            <span id="totalFee" class="text-warning"
-              >Calculating ...</span
-            >
+            <span id="totalFee" class="text-warning">Calculating ...</span>
             <br />
             This is the total for all submissions to date.
           </p>
