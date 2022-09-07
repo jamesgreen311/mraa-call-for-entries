@@ -28,6 +28,7 @@ function loadWizard(id) {
  * @returns {HTMLTemplate} Error page
  */
 function loadError(msg) {
-    const opt = {text:msg}
+    const appSettings = getAppSettings()
+    const opt = {text:msg, support:appSettings.cfeContact}
     return render(`${pageRoot}/Error`, opt);
 }
