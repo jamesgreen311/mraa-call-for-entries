@@ -50,6 +50,11 @@
     }
   }
 
+  function addPayPalItemQty(n=1) {
+    const qtyOptions = document.getElementById("quantitySelect")
+    qtyOptions.add(new Option(qtyOptions.length+n, qtyOptions.length+n))
+  }
+
   // View methods
   function displayExhibitName(name) {
     const ele = document.getElementById("exhibit-title") 
@@ -187,6 +192,7 @@
     galleryContainer.classList.remove("d-none") 
     imageSaved[num].classList.remove("d-none") 
     calcTotalFee(member.uploadcount, cfe.entryfee) 
+    addPayPalItemQty(1)
   }
 
   function allowAccess() {
