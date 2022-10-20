@@ -60,12 +60,13 @@ function getMemberByEmail(email) {
     const members = connect(MEMBER_ID).getSheetByName(memberTables.directory.name)
     const memberSchema = memberTables.directory.schema
     const emailPos = memberSchema.email.colToIndex()
-    const startRow = memberTables.directory.headers + 1
+    const headers = memberTables.directory.headers
+    const startRow = headers + 1
     const startCol = 1
     const data = members
         .getRange(startRow,
             startCol,
-            members.getLastRow() - startRow,
+            members.getLastRow() - headers,
             members.getLastColumn()
             )
         .getDisplayValues()
