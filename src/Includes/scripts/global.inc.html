@@ -274,6 +274,8 @@
   }
 
   function showComplete() {
+    const fldsetSubmit = document.getElementById("fldsetSubmit")
+    fldsetSubmit.disabled = false
     uploadWaiting(false)
     // reset the form
     formUploadImages.reset() 
@@ -435,6 +437,8 @@
 
   function addSubmission(e) {
     e.preventDefault() 
+    const fldsetSubmit = document.getElementById("fldsetSubmit")
+    fldsetSubmit.disabled = true 
     uploadWaiting(true)
     const formfile = document.querySelector("#form-file") 
     const formdata = new FormData(this) 
