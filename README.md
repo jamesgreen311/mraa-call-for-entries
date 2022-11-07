@@ -5,9 +5,10 @@ This application provides an easy to use front end for the creation, submission 
 
 Local path: CodeRepo / MRAA Projects / mraa-call-for-entries
 
+<!---
 #PayPal Integration
 Important Links
 https://developer.paypal.com/docs/checkout/integrate/
 https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/
-
+--->
 Attached to spreadsheet - Call For Entries
