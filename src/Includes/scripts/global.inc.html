@@ -35,6 +35,10 @@
       "</div>"
   }
 
+  const session = {
+    "savewait" : "Saving, Please wait..."
+  }
+
   // PayPal Smart Button customization
   function setPayPalItemPrice(price) {
     const itemOptions = document.getElementById("item-options")
@@ -276,6 +280,9 @@
   function showComplete() {
     const fldsetSubmit = document.getElementById("fldsetSubmit")
     fldsetSubmit.disabled = false
+    const saveButton = document.getElementById("submitWork")
+    saveButton.textContent = session.saveButtonText
+
     uploadWaiting(false)
     // reset the form
     formUploadImages.reset() 
@@ -438,7 +445,11 @@
   function addSubmission(e) {
     e.preventDefault() 
     const fldsetSubmit = document.getElementById("fldsetSubmit")
+    const saveButton = document.getElementById("submitWork")
     fldsetSubmit.disabled = true 
+    session.saveButtonText = saveButton.textContent
+    saveButton.textContent = session.savewait
+
     uploadWaiting(true)
     const formfile = document.querySelector("#form-file") 
     const formdata = new FormData(this) 
