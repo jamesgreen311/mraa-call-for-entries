@@ -280,6 +280,7 @@
   function showComplete() {
     const fldsetSubmit = document.getElementById("fldsetSubmit")
     fldsetSubmit.disabled = false
+    addToGallery()
     const saveButton = document.getElementById("submitWork")
     saveButton.textContent = session.saveButtonText
 
@@ -548,7 +549,24 @@
     reader.readAsDataURL(file) 
   }
 
-  document.addEventListener("DOMContentLoaded", loadPageElements) 
+  function addToGallery() {
+    const gallery = document.getElementById("gallery");
+    const galleryItem = document.createElement("li");
+    const gallerySpanSaved = document.createElement("span");
+    const gallerySpanPlaceholder = document.createElement("span");
+
+    galleryItem.classList.add("d-none");
+    gallerySpanSaved.innerText = "Saved";
+    gallerySpanSaved.classList.add("saved", "d-none");
+    gallerySpanPlaceholder.innerText = "Image Placeholder";
+    gallerySpanPlaceholder.classList.add("empty");
+
+    galleryItem.appendChild(gallerySpanSaved);
+    galleryItem.appendChild(gallerySpanPlaceholder);
+    gallery.appendChild(galleryItem);
+  }
+  
+  document.addEventListener("DOMContentLoaded", loadPageElements)
   document
     .getElementById("form-file")
     .addEventListener("change", showThumbnail) 
