@@ -410,13 +410,15 @@
       fetchingUploads(true) 
       fetchUploads(cfe, member) 
     } else {
-      member.email = id 
-      member.firstname = "n/a" 
-      member.lastname = "n/a" 
-      member.phone = "n/a" 
+      member.email = "Email Address Not Found" 
+      member.firstname = "" 
+      member.lastname = "" 
+      member.phone = "" 
       member.status = "notvalid" 
-      member.type = "n/a" 
+      member.type = "" 
     }
+    artistDetailBlock(true) 
+    fetchingArtist(false)
     displayMember(member) 
     displaySupportContact(appsettings.cfecontact)
     uploadsRemaining(cfe.maxentries - member.uploadcount) 

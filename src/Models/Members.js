@@ -74,7 +74,7 @@ function getMemberByEmail(email) {
     const member = data.filter(
        (m) => m[emailPos].toLowerCase() === email.toLowerCase()
     )[0]
-    return (member?member:[])
+    return member !== undefined ? member : []
 
 }
 
