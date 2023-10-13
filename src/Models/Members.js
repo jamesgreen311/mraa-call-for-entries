@@ -71,7 +71,9 @@ function getMemberByEmail(email) {
             )
         .getDisplayValues()
 
-    const member = data.filter(m => m[emailPos] === email)[0]
+    const member = data.filter(
+       (m) => m[emailPos].toLowerCase() === email.toLowerCase()
+    )[0]
     return (member?member:[])
 
 }
