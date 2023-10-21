@@ -473,7 +473,8 @@
     for (const [key, value] of payload) {
       _data[key] = value 
     }
-    _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${_data.price}` 
+    const priceInt = parseInt(_data.price)
+    _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${priceInt}` 
     _data.fileid = "" 
     _data.member = "YES" 
     _data.availability = "" 
