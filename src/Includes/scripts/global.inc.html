@@ -1,590 +1,608 @@
 <script>
-  const cfe = {
-    closedate: "",
-    id: "",
-    name: "",
-    maxentries: "",
-    entryfee: "",
-    imagefolderid: "",
-  } 
+   const cfe = {
+      closedate: "",
+      id: "",
+      name: "",
+      maxentries: "",
+      entryfee: "",
+      imagefolderid: "",
+   }
 
-  const member = {
-    email: "",
-    firstname: "",
-    lastname: "",
-    phone: "",
-    status: "",
-    type: "",
-    uploadcount: 0,
-    sessioncount: 0,
-  } 
+   const member = {
+      email: "",
+      firstname: "",
+      lastname: "",
+      phone: "",
+      status: "",
+      type: "",
+      uploadcount: 0,
+      sessioncount: 0,
+   }
 
-  const appsettings = {
-    maximagesize: 3,
-    cfecontact: "",
-    session: {
-      emailAddress: "",
-    },
-  } 
+   const appsettings = {
+      maximagesize: 3,
+      cfecontact: "",
+      session: {
+         emailAddress: "",
+      },
+      treasurername: "",
+      treasureremail: "",
+   }
 
-  const messagesrepo = {
-    "maxentriesreached": 
-      "<div class='banner bg-warning text-dark'>" +
-      "You have reached the max entries for this event. If you feel this is inaccurate please contact the " + 
-      "**contactmailto**" + 
-      "</div>"
-  }
+   const messagesrepo = {
+      maxentriesreached:
+         "<div class='banner bg-warning text-dark'>" +
+         "You have reached the max entries for this event. If you feel this is inaccurate please contact the " +
+         "**contactmailto**" +
+         "</div>",
+   }
 
-  const session = {
-    "savewait" : "Saving, Please wait..."
-  }
+   const session = {
+      savewait: "Saving, Please wait...",
+   }
 
-  // PayPal Smart Button customization
-  function setPayPalItemPrice(price) {
-    const itemOptions = document.getElementById("item-options")
-    const option = new Option('$' + price + ' Per Entry' , 'Per Entry')
-    option.setAttribute('price', price)
-    itemOptions.add(option)
-  }
+   // PayPal Smart Button customization
+   function setPayPalItemPrice(price) {
+      const itemOptions = document.getElementById("item-options")
+      const option = new Option("$" + price + " Per Entry", "Per Entry")
+      option.setAttribute("price", price)
+      itemOptions.add(option)
+   }
 
-  function setPayPalItemQty(max){
-    const qtyOptions = document.getElementById("quantitySelect")
-    for (let i=1; i<=max; i++) {
-      qtyOptions.add(new Option(i, i))
-    }
-  }
+   function setPayPalItemQty(max) {
+      const qtyOptions = document.getElementById("quantitySelect")
+      for (let i = 1; i <= max; i++) {
+         qtyOptions.add(new Option(i, i))
+      }
+   }
 
-  function addPayPalItemQty(n=1) {
-    const qtyOptions = document.getElementById("quantitySelect")
-    qtyOptions.add(new Option(qtyOptions.length+n, qtyOptions.length+n))
-  }
+   function addPayPalItemQty(n = 1) {
+      const qtyOptions = document.getElementById("quantitySelect")
+      qtyOptions.add(new Option(qtyOptions.length + n, qtyOptions.length + n))
+   }
 
-  // View methods
-  function displayExhibitName(name) {
-    const ele = document.getElementById("exhibit-title") 
-    ele.innerText = name 
-  }
+   // View methods
+   function displayExhibitName(name) {
+      const ele = document.getElementById("exhibit-title")
+      ele.innerText = name
+   }
 
-  function displayMember(member) {
-    const artistNameElement = document.getElementById("artist-name") 
-    const artistPhoneElement = document.getElementById("artist-phone") 
-    const validMemberElement = document.getElementById("valid-member") 
-    const notExhibitingMemberElement = document.getElementById(
-      "not-exhibiting-member"
-    ) 
-    const notActiveMemberElement = document.getElementById("not-active-member") 
-    const invalidMemberElement = document.getElementById("invalid-member") 
+   function displayMember(member) {
+      const artistNameElement = document.getElementById("artist-name")
+      const artistPhoneElement = document.getElementById("artist-phone")
+      const validMemberElement = document.getElementById("valid-member")
+      const notExhibitingMemberElement = document.getElementById(
+         "not-exhibiting-member"
+      )
+      const notActiveMemberElement =
+         document.getElementById("not-active-member")
+      const invalidMemberElement = document.getElementById("invalid-member")
 
-    document.getElementById("artist-name").innerText = "" 
-    if (member.status !== "notvalid") {
-      artistNameElement.innerText = member.firstname + " " + member.lastname 
-      artistPhoneElement.innerText = member.phone 
+      document.getElementById("artist-name").innerText = ""
+      if (member.status !== "notvalid") {
+         artistNameElement.innerText = member.firstname + " " + member.lastname
+         artistPhoneElement.innerText = member.phone
 
-      const activeexhibitor = isMember(member, "active", [
-        "exhibiting",
-        "honorary",
-      ]) 
-      if (activeexhibitor) {
-        validMemberElement.classList.remove("d-none") 
-        notActiveMemberElement.classList.add("d-none") 
-        notExhibitingMemberElement.classList.add("d-none") 
+         const activeexhibitor = isMember(member, "active", [
+            "exhibiting",
+            "honorary",
+         ])
+         if (activeexhibitor) {
+            validMemberElement.classList.remove("d-none")
+            notActiveMemberElement.classList.add("d-none")
+            notExhibitingMemberElement.classList.add("d-none")
 
-        allowAccess() 
+            allowAccess()
+         } else {
+            if (member.status !== "active") {
+               notActiveMemberElement.classList.remove("d-none")
+               invalidMemberElement.classList.add("d-none")
+            }
+            if (member.type !== "exhibiting" && member.type !== "honorary") {
+               notExhibitingMemberElement.classList.remove("d-none")
+               invalidMemberElement.classList.add("d-none")
+            }
+            disallowAccess()
+         }
       } else {
-        if (member.status !== "active") {
-          notActiveMemberElement.classList.remove("d-none") 
-          invalidMemberElement.classList.add("d-none") 
-        }
-        if (member.type !== "exhibiting" && member.type !== "honorary") {
-          notExhibitingMemberElement.classList.remove("d-none") 
-          invalidMemberElement.classList.add("d-none") 
-        }
-        disallowAccess() 
+         invalidMemberElement.classList.remove("d-none")
       }
-    } else {
-      invalidMemberElement.classList.remove("d-none") 
-    }
-  }
+   }
 
-  function displayUploads(uploads) {
-    const uploadHistoryFound = document.getElementById("upload-history-found") 
-    const uploadHistoryNotFound = document.getElementById(
-      "upload-history-notfound"
-    ) 
-    const uploadHistoryTable = document.getElementById("upload-history-table") 
-    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0] 
+   function displayUploads(uploads) {
+      const uploadHistoryFound = document.getElementById("upload-history-found")
+      const uploadHistoryNotFound = document.getElementById(
+         "upload-history-notfound"
+      )
+      const uploadHistoryTable = document.getElementById("upload-history-table")
+      const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0]
 
-    if (uploads.length > 0) {
-      // build table body
-      for (let i = 0; i < uploads.length; i++) {
-        let row = document.createElement("tr") 
-        let col1 = document.createElement("td") 
-        let col2 = document.createElement("td") 
-        let col3 = document.createElement("td") 
-        col1.innerText = uploads[i][0] 
-        col2.innerText = uploads[i][1] 
-        col3.innerText = `\$${cfe.entryfee}` 
-        row.appendChild(col1) 
-        row.appendChild(col2) 
-        row.appendChild(col3) 
-        uhtBody.appendChild(row) 
-      }
-      uploadHistoryFound.classList.remove("d-none") 
-    } else {
-      uploadHistoryNotFound.classList.remove("d-none") 
-    }
-    uploadsRemaining(cfe.maxentries - member.uploadcount) 
-  }
-
-  function fetchingArtist(toggle) {
-    const fetchingBlock = document.getElementById("fetching-artist") 
-    if (toggle) {
-      fetchingBlock.classList.remove("d-none") 
-    } else {
-      fetchingBlock.classList.add("d-none") 
-    }
-  }
-
-  function fetchingUploads(toggle) {
-    const fetchingBlock = document.getElementById("fetching-uploads") 
-    if (toggle) {
-      fetchingBlock.classList.remove("d-none") 
-    } else {
-      fetchingBlock.classList.add("d-none") 
-    }
-  }
-
-  function artistDetailBlock(toggle) {
-    // toggle true is on/show, false is off/hide
-    const artistDetailBlock = document.getElementById("artist-detail") 
-    if (toggle) {
-      artistDetailBlock.classList.remove("d-none") 
-    } else {
-      artistDetailBlock.classList.add("d-none") 
-    }
-  }
-
-  function uploadHistoryBlock(toggle) {
-    // toggle true is on/show, false is off/hide
-    const uploadHistoryBlock = document.getElementById("upload-history") 
-    if (toggle) {
-      uploadHistoryBlock.classList.remove("d-none") 
-    } else {
-      uploadHistoryBlock.classList.add("d-none") 
-    }
-  }
-
-  function uploadWaiting(toggle) {
-    const uploadWaiting = document.getElementById("uploadWaiting")
-    if (toggle) {
-      uploadWaiting.classList.remove("d-none")      
-    } else {
-      uploadWaiting.classList.add("d-none")
-    }
-
-  }
-
-  function imageSaved(num = 0) {
-    const galleryCollection = document.getElementById("gallery") 
-    const galleryItems = galleryCollection.getElementsByTagName("li") 
-    const imageSaved = galleryCollection.getElementsByClassName("saved") 
-    const galleryContainer = galleryCollection.parentElement 
-    const wasEmpty = galleryCollection.getElementsByClassName("empty")[0] 
-
-    wasEmpty.classList.remove("empty") 
-    galleryItems[num].classList.remove("d-none") 
-    galleryContainer.classList.remove("d-none") 
-    imageSaved[num].classList.remove("d-none") 
-    calcTotalFee(member.uploadcount, cfe.entryfee) 
-    addPayPalItemQty(1)
-  }
-
-  function allowAccess() {
-    const memberAccess = document.getElementsByClassName("member-access") 
-
-    // show all hidden elements
-    let allMemberAccess = memberAccess.length 
-    for (i = allMemberAccess - 1; i >= 0; i--) {
-      memberAccess[i].classList.remove("d-none") 
-    }
-  }
-
-  function disallowAccess() {
-    const memberAccess = document.getElementsByClassName("member-access") 
-
-    // show all hidden elements
-    let allMemberAccess = memberAccess.length 
-    for (i = allMemberAccess - 1; i >= 0; i--) {
-      memberAccess[i].classList.add("d-none") 
-    }
-  }
-
-  function disableSubmissions(ele, msg) {
-    const container = document.getElementById(ele) 
-    container.innerHTML = msg 
-  }
-
-  function imageGalleryToggle(toggle) {
-    const imageGallery = document.getElementById("upload-gallery") 
-    if (toggle) {
-      imageGallery.classList.remove("d-none") 
-    } else {
-      imageGallery.classList.add("d-none") 
-    }
-  }
-
-  function resetErrorMessages() {
-    const notExhibitingMemberElement = document.getElementById(
-      "not-exhibiting-member"
-    ) 
-    const notActiveMemberElement = document.getElementById("not-active-member") 
-    const invalidMemberElement = document.getElementById("invalid-member") 
-
-    invalidMemberElement.classList.add("d-none") 
-    notActiveMemberElement.classList.add("d-none") 
-    notExhibitingMemberElement.classList.add("d-none") 
-  }
-
-  function resetDisplay() {
-    if (appsettings.session.emailAddress !== "") {
-      // turn off artist detail
-      artistDetailBlock(false) 
-      // turn off upload history
-      uploadHistoryBlock(false) 
-      clearUploadHistory() 
-    }
-
-    appsettings.session.emailAddress = document.getElementById("artist-email").value 
-  }
-
-  function clearUploadHistory() {
-    const uploadHistoryTable = document.getElementById("upload-history-table") 
-    const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0] 
-    const uploadHistoryFound = document.getElementById("upload-history-found") 
-    const uploadHistoryNotFound = document.getElementById(
-      "upload-history-notfound"
-    ) 
-
-    uploadHistoryFound.classList.add("d-none") 
-    uploadHistoryNotFound.classList.add("d-none") 
-    uhtBody.innerHTML = "" 
-  }
-
-  function calcTotalFee(count, fee) {
-    const totalFee = document.getElementById("totalFee") 
-    if (totalFee) {
-      totalFee.innerText = `\$${count * fee}` 
-    }
-  }
-
-  function showComplete() {
-    const fldsetSubmit = document.getElementById("fldsetSubmit")
-    fldsetSubmit.disabled = false
-    addToGallery()
-    const saveButton = document.getElementById("submitWork")
-    saveButton.textContent = session.saveButtonText
-
-    uploadWaiting(false)
-    // reset the form
-    formUploadImages.reset() 
-    member.uploadcount = member.uploadcount + 1 
-
-    // mark current image as saved
-    imageSaved(member.sessioncount) 
-    member.sessioncount = member.sessioncount + 1 
-
-    // increase upload count
-    uploadsRemaining(cfe.maxentries - member.uploadcount) 
-  }
-
-  function uploadsRemaining(count) {
-    const msgMaxEntriesReached = messagesrepo.maxentriesreached
-    let maxEntries = document.getElementById("max-entries") 
-
-    if (maxEntries) {
-      if (count > 0) {
-        maxEntries.innerText = count 
+      if (uploads.length > 0) {
+         // build table body
+         for (let i = 0; i < uploads.length; i++) {
+            let row = document.createElement("tr")
+            let col1 = document.createElement("td")
+            let col2 = document.createElement("td")
+            let col3 = document.createElement("td")
+            col1.innerText = uploads[i][0]
+            col2.innerText = uploads[i][1]
+            col3.innerText = `\$${cfe.entryfee}`
+            row.appendChild(col1)
+            row.appendChild(col2)
+            row.appendChild(col3)
+            uhtBody.appendChild(row)
+         }
+         uploadHistoryFound.classList.remove("d-none")
       } else {
-        // disable additional uploads
-        maxEntries.innerText = 0 
-        const exhibitmailto = msgMaxEntriesReached.replace('**contactmailto**', 
-          "<a href='mailto:" +
-          appsettings.cfecontact +
-          "'>Exhibit Coordinator</a>")
-
-        disableSubmissions("entryInfo", exhibitmailto)
+         uploadHistoryNotFound.classList.remove("d-none")
       }
-    }
-  }
+      uploadsRemaining(cfe.maxentries - member.uploadcount)
+   }
 
-  function showThumbnail(e) {
-    const file = this.files[0] 
-    const maxImageSize = appsettings.maximagesize 
-    const uploadImageSize = (file.size / (1024 * 1024)).toFixed(1); // convert bytes to mb
-    const imageGallery = document.getElementById("gallery") 
-    const galleryFirstEmpty = imageGallery.getElementsByClassName("empty")[0] 
-    const imageContainer = galleryFirstEmpty.parentElement 
-    const submissionMessages = document.getElementById("submission-messages") 
-    imageGalleryToggle(true) 
+   function fetchingArtist(toggle) {
+      const fetchingBlock = document.getElementById("fetching-artist")
+      if (toggle) {
+         fetchingBlock.classList.remove("d-none")
+      } else {
+         fetchingBlock.classList.add("d-none")
+      }
+   }
 
-    const maxFileSizeMsg = `<p class="mt-2 mb-0">Your file size is <span class='text-danger'>** ${uploadImageSize} MB **</span> and it exceeds maximum allowed size of <span class="text-warning">${maxImageSize} MB</span>. Please select a smaller image.</p>` 
+   function fetchingUploads(toggle) {
+      const fetchingBlock = document.getElementById("fetching-uploads")
+      if (toggle) {
+         fetchingBlock.classList.remove("d-none")
+      } else {
+         fetchingBlock.classList.add("d-none")
+      }
+   }
 
-    // check file size before showing image
-    if (uploadImageSize > maxImageSize) {
-      submissionMessages.innerHTML = maxFileSizeMsg 
-      e.stopImmediatePropagation() 
-      galleryFirstEmpty.innerHTML = "" 
-      submitWork.disabled = true 
-      return false 
-    } else {
-      submissionMessages.innerHTML = "" 
-      galleryFirstEmpty.innerHTML = "<img class='crop' />" 
-      const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0] 
-      thumbnail.src = URL.createObjectURL(file) 
-      imageContainer.classList.remove("d-none") 
-      submitWork.disabled = false 
-      return true 
-    }
-  }
+   function artistDetailBlock(toggle) {
+      // toggle true is on/show, false is off/hide
+      const artistDetailBlock = document.getElementById("artist-detail")
+      if (toggle) {
+         artistDetailBlock.classList.remove("d-none")
+      } else {
+         artistDetailBlock.classList.add("d-none")
+      }
+   }
 
-  function displayMaxImageSize() {
-    maxImageSize.innerText = appsettings.maximagesize 
-  }
+   function uploadHistoryBlock(toggle) {
+      // toggle true is on/show, false is off/hide
+      const uploadHistoryBlock = document.getElementById("upload-history")
+      if (toggle) {
+         uploadHistoryBlock.classList.remove("d-none")
+      } else {
+         uploadHistoryBlock.classList.add("d-none")
+      }
+   }
 
-  function setCopyrightYear() {
-    const year = document.getElementById("year")
-    year.innerText = moment().format('YYYY')
-  }
+   function uploadWaiting(toggle) {
+      const uploadWaiting = document.getElementById("uploadWaiting")
+      if (toggle) {
+         uploadWaiting.classList.remove("d-none")
+      } else {
+         uploadWaiting.classList.add("d-none")
+      }
+   }
 
-  function displaySupportContact(contact) {
-    const supportcontact = document.getElementById("supportcontact")
-    supportcontact.innerHTML = ` > <a href='mailto:${contact}'>Support Contact</a>`
-  }
+   function imageSaved(num = 0) {
+      const galleryCollection = document.getElementById("gallery")
+      const galleryItems = galleryCollection.getElementsByTagName("li")
+      const imageSaved = galleryCollection.getElementsByClassName("saved")
+      const galleryContainer = galleryCollection.parentElement
+      const wasEmpty = galleryCollection.getElementsByClassName("empty")[0]
 
-  // I/O Methods
-  function fetchOpenCalls(id) {
-    google.script.run.withSuccessHandler(processOpenCalls).getOpenCalls(id) 
-  }
+      wasEmpty.classList.remove("empty")
+      galleryItems[num].classList.remove("d-none")
+      galleryContainer.classList.remove("d-none")
+      imageSaved[num].classList.remove("d-none")
+      calcTotalFee(member.uploadcount, cfe.entryfee)
+      addPayPalItemQty(1)
+   }
 
-  function fetchAppSettings() {
-    google.script.run.withSuccessHandler(processAppSettings).getAppSettings()
-  }
+   function allowAccess() {
+      const memberAccess = document.getElementsByClassName("member-access")
 
-  function processOpenCalls(resp) {
-    cfe.closedate = resp[0] 
-    cfe.id = resp[1] 
-    cfe.name = resp[2] 
-    cfe.maxentries = parseInt(resp[3]) 
-    cfe.entryfee = parseInt(resp[4]) 
-    cfe.imagefolderid = resp[5] 
-    //displayExhibitName(cfe.name) 
-    displayMaxImageSize() 
-    setPayPalItemPrice(cfe.entryfee)
-  }
+      // show all hidden elements
+      let allMemberAccess = memberAccess.length
+      for (i = allMemberAccess - 1; i >= 0; i--) {
+         memberAccess[i].classList.remove("d-none")
+      }
+   }
 
-  function processAppSettings(resp) {
-    const r = JSON.parse(resp)
-    appsettings.cfecontact = r.cfecontact
-    appsettings.maximagesize = r.maximagesize
-  }
+   function disallowAccess() {
+      const memberAccess = document.getElementsByClassName("member-access")
 
-  function fetchMember(id) {
-    resetErrorMessages() 
-    google.script.run.withSuccessHandler(processMember).getMemberByEmail(id) 
-  }
+      // show all hidden elements
+      let allMemberAccess = memberAccess.length
+      for (i = allMemberAccess - 1; i >= 0; i--) {
+         memberAccess[i].classList.add("d-none")
+      }
+   }
 
-  function processMember(resp) {
-    const validMember = resp.length > 0 
-    if (validMember) {
-      member.email = resp[0] 
-      member.firstname = resp[1] 
-      member.lastname = resp[2] 
-      member.phone = resp[10] 
-      member.status = resp[4] 
-      member.type = resp[12] 
+   function disableSubmissions(ele, msg) {
+      const container = document.getElementById(ele)
+      container.innerHTML = msg
+   }
 
-      artistDetailBlock(true) 
-      fetchingArtist(false) 
+   function imageGalleryToggle(toggle) {
+      const imageGallery = document.getElementById("upload-gallery")
+      if (toggle) {
+         imageGallery.classList.remove("d-none")
+      } else {
+         imageGallery.classList.add("d-none")
+      }
+   }
 
-      // attempt to fetch any uploads for this member
-      fetchingUploads(true) 
-      fetchUploads(cfe, member) 
-    } else {
-      member.email = "Email Address Not Found" 
-      member.firstname = "" 
-      member.lastname = "" 
-      member.phone = "" 
-      member.status = "notvalid" 
-      member.type = "" 
-    }
-    artistDetailBlock(true) 
-    fetchingArtist(false)
-    displayMember(member) 
-    displaySupportContact(appsettings.cfecontact)
-    uploadsRemaining(cfe.maxentries - member.uploadcount) 
-  }
+   function resetErrorMessages() {
+      const notExhibitingMemberElement = document.getElementById(
+         "not-exhibiting-member"
+      )
+      const notActiveMemberElement =
+         document.getElementById("not-active-member")
+      const invalidMemberElement = document.getElementById("invalid-member")
 
-  function fetchUploads(cfe, member) {
-    const p = {
-      artist: member.email,
-      event: cfe.id,
-      key: "id",
-    } 
-    google.script.run
-      .withSuccessHandler(processUploads)
-      .getArtistUploads(JSON.stringify(p)) 
-  }
+      invalidMemberElement.classList.add("d-none")
+      notActiveMemberElement.classList.add("d-none")
+      notExhibitingMemberElement.classList.add("d-none")
+   }
 
-  function processUploads(resp) {
-    fetchingUploads(false) 
-    member.uploads = [...resp] 
-    member.uploadcount = resp.length 
-    displayUploads(member.uploads) 
-    calcTotalFee(member.uploadcount, cfe.entryfee) 
-    console.log(member.uploadcount)
-    setPayPalItemQty(member.uploadcount)
-  }
+   function resetDisplay() {
+      if (appsettings.session.emailAddress !== "") {
+         // turn off artist detail
+         artistDetailBlock(false)
+         // turn off upload history
+         uploadHistoryBlock(false)
+         clearUploadHistory()
+      }
 
-  function addSubmission(e) {
-    e.preventDefault() 
-    const fldsetSubmit = document.getElementById("fldsetSubmit")
-    const saveButton = document.getElementById("submitWork")
-    fldsetSubmit.disabled = true 
-    session.saveButtonText = saveButton.textContent
-    saveButton.textContent = session.savewait
+      appsettings.session.emailAddress =
+         document.getElementById("artist-email").value
+   }
 
-    uploadWaiting(true)
-    const formfile = document.querySelector("#form-file") 
-    const formdata = new FormData(this) 
-    const fr = new FileReader() 
-    file = formfile.files[0] 
+   function clearUploadHistory() {
+      const uploadHistoryTable = document.getElementById("upload-history-table")
+      const uhtBody = uploadHistoryTable.getElementsByTagName("tbody")[0]
+      const uploadHistoryFound = document.getElementById("upload-history-found")
+      const uploadHistoryNotFound = document.getElementById(
+         "upload-history-notfound"
+      )
 
-    const payload = [
-      ["eventid", cfe.id],
-      ["eventtitle", cfe.name],
-      ["firstname", member.firstname],
-      ["lastname", member.lastname],
-      ["email", member.email],
-      ["phone", member.phone],
-      ["imagefolder", cfe.imagefolderid],
-      ...formdata,
-    ] 
-    let _data = {} 
-    for (const [key, value] of payload) {
-      _data[key] = value 
-    }
-    const priceInt = parseInt(_data.price)
-    _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${priceInt}` 
-    _data.fileid = "" 
-    _data.member = "YES" 
-    _data.availability = "" 
-    _data.hidden = "" 
-    _data.fullname = member.firstname + " " + member.lastname 
-    _data.timestamp = moment().format("MMMM Do YYYY, h:mm:ss a") 
+      uploadHistoryFound.classList.add("d-none")
+      uploadHistoryNotFound.classList.add("d-none")
+      uhtBody.innerHTML = ""
+   }
 
-    fr.onload = function (e) {
-      const img = {
-        filename: _data.filename,
-        mimetype: file.type,
-        bytes: [...new Int8Array(e.target.result)],
-      } 
-      _data.bytes = img.bytes 
-      _data.mimetype = file.type 
-      //upload.push(img) 
+   function calcTotalFee(count, fee) {
+      const totalFee = document.getElementById("totalFee")
+      if (totalFee) {
+         totalFee.innerText = `\$${count * fee}`
+      }
+   }
 
+   function showComplete() {
+      const fldsetSubmit = document.getElementById("fldsetSubmit")
+      fldsetSubmit.disabled = false
+      addToGallery()
+      const saveButton = document.getElementById("submitWork")
+      saveButton.textContent = session.saveButtonText
+
+      uploadWaiting(false)
+      // reset the form
+      formUploadImages.reset()
+      member.uploadcount = member.uploadcount + 1
+
+      // mark current image as saved
+      imageSaved(member.sessioncount)
+      member.sessioncount = member.sessioncount + 1
+
+      // increase upload count
+      uploadsRemaining(cfe.maxentries - member.uploadcount)
+   }
+
+   function uploadsRemaining(count) {
+      const msgMaxEntriesReached = messagesrepo.maxentriesreached
+      let maxEntries = document.getElementById("max-entries")
+
+      if (maxEntries) {
+         if (count > 0) {
+            maxEntries.innerText = count
+         } else {
+            // disable additional uploads
+            maxEntries.innerText = 0
+            const exhibitmailto = msgMaxEntriesReached.replace(
+               "**contactmailto**",
+               "<a href='mailto:" +
+                  appsettings.cfecontact +
+                  "'>Exhibit Coordinator</a>"
+            )
+
+            disableSubmissions("entryInfo", exhibitmailto)
+         }
+      }
+   }
+
+   function showThumbnail(e) {
+      const file = this.files[0]
+      const maxImageSize = appsettings.maximagesize
+      const uploadImageSize = (file.size / (1024 * 1024)).toFixed(1) // convert bytes to mb
+      const imageGallery = document.getElementById("gallery")
+      const galleryFirstEmpty = imageGallery.getElementsByClassName("empty")[0]
+      const imageContainer = galleryFirstEmpty.parentElement
+      const submissionMessages = document.getElementById("submission-messages")
+      imageGalleryToggle(true)
+
+      const maxFileSizeMsg = `<p class="mt-2 mb-0">Your file size is <span class='text-danger'>** ${uploadImageSize} MB **</span> and it exceeds maximum allowed size of <span class="text-warning">${maxImageSize} MB</span>. Please select a smaller image.</p>`
+
+      // check file size before showing image
+      if (uploadImageSize > maxImageSize) {
+         submissionMessages.innerHTML = maxFileSizeMsg
+         e.stopImmediatePropagation()
+         galleryFirstEmpty.innerHTML = ""
+         submitWork.disabled = true
+         return false
+      } else {
+         submissionMessages.innerHTML = ""
+         galleryFirstEmpty.innerHTML = "<img class='crop' />"
+         const thumbnail = galleryFirstEmpty.getElementsByTagName("img")[0]
+         thumbnail.src = URL.createObjectURL(file)
+         imageContainer.classList.remove("d-none")
+         submitWork.disabled = false
+         return true
+      }
+   }
+
+   function displayMaxImageSize() {
+      maxImageSize.innerText = appsettings.maximagesize
+   }
+
+   function setCopyrightYear() {
+      const year = document.getElementById("year")
+      year.innerText = moment().format("YYYY")
+   }
+
+   function displaySupportContact(contact) {
+      const supportcontact = document.getElementById("supportcontact")
+      supportcontact.innerHTML = ` > <a href='mailto:${contact}'>Support Contact</a>`
+   }
+
+   function displayTreasurerContact(treasurer) {
+      const treasurercontact = document.getElementById("treasurercontact")
+      treasurercontact.innerHTML = 
+        `<a
+          href="mailto:${treasurer.email}?subject=Exhibit Payment by Cash or Check&body=How can I pay with cash or check?"
+          >${treasurer.name}</a
+        > `
+   }
+
+   // I/O Methods
+   function fetchOpenCalls(id) {
+      google.script.run.withSuccessHandler(processOpenCalls).getOpenCalls(id)
+   }
+
+   function fetchAppSettings() {
+      google.script.run.withSuccessHandler(processAppSettings).getAppSettings()
+   }
+
+   function processOpenCalls(resp) {
+      cfe.closedate = resp[0]
+      cfe.id = resp[1]
+      cfe.name = resp[2]
+      cfe.maxentries = parseInt(resp[3])
+      cfe.entryfee = parseInt(resp[4])
+      cfe.imagefolderid = resp[5]
+      //displayExhibitName(cfe.name)
+      displayMaxImageSize()
+      setPayPalItemPrice(cfe.entryfee)
+   }
+
+   function processAppSettings(resp) {
+      const r = JSON.parse(resp)
+      appsettings.cfecontact = r.cfecontact
+      appsettings.maximagesize = r.maximagesize
+      appsettings.treasurername = r.treasurername
+      appsettings.treasureremail = r.treasureremail
+   }
+
+   function fetchMember(id) {
+      resetErrorMessages()
+      google.script.run.withSuccessHandler(processMember).getMemberByEmail(id)
+   }
+
+   function processMember(resp) {
+      const validMember = resp.length > 0
+      if (validMember) {
+         member.email = resp[0]
+         member.firstname = resp[1]
+         member.lastname = resp[2]
+         member.phone = resp[10]
+         member.status = resp[4]
+         member.type = resp[12]
+
+         artistDetailBlock(true)
+         fetchingArtist(false)
+
+         // attempt to fetch any uploads for this member
+         fetchingUploads(true)
+         fetchUploads(cfe, member)
+      } else {
+         member.email = "Email Address Not Found"
+         member.firstname = ""
+         member.lastname = ""
+         member.phone = ""
+         member.status = "notvalid"
+         member.type = ""
+      }
+      artistDetailBlock(true)
+      fetchingArtist(false)
+      displayMember(member)
+      displaySupportContact(appsettings.cfecontact)
+      displayTreasurerContact({name:appsettings.treasurername, email:appsettings.treasureremail})
+      uploadsRemaining(cfe.maxentries - member.uploadcount)
+   }
+
+   function fetchUploads(cfe, member) {
+      const p = {
+         artist: member.email,
+         event: cfe.id,
+         key: "id",
+      }
       google.script.run
-        .withSuccessHandler(showComplete)
-        .withUserObject(this)
-        .addSubmission(_data) 
-    } 
-    fr.readAsArrayBuffer(file) 
+         .withSuccessHandler(processUploads)
+         .getArtistUploads(JSON.stringify(p))
+   }
 
-    return _data 
-  }
+   function processUploads(resp) {
+      fetchingUploads(false)
+      member.uploads = [...resp]
+      member.uploadcount = resp.length
+      displayUploads(member.uploads)
+      calcTotalFee(member.uploadcount, cfe.entryfee)
+      console.log(member.uploadcount)
+      setPayPalItemQty(member.uploadcount)
+   }
 
-  function isMember(member, status, type) {
-    return member.status === status && type.includes(member.type) 
-  }
+   function addSubmission(e) {
+      e.preventDefault()
+      const fldsetSubmit = document.getElementById("fldsetSubmit")
+      const saveButton = document.getElementById("submitWork")
+      fldsetSubmit.disabled = true
+      session.saveButtonText = saveButton.textContent
+      saveButton.textContent = session.savewait
 
-  function emailValidate() {
-    const emailAddress = document.getElementById("artist-email").value 
-    const form = document.getElementById("form-artist-info") 
+      uploadWaiting(true)
+      const formfile = document.querySelector("#form-file")
+      const formdata = new FormData(this)
+      const fr = new FileReader()
+      file = formfile.files[0]
 
-    if (form.checkValidity()) {
-      // fetch member
-      fetchingArtist(true) 
-      fetchMember(emailAddress) 
-    } else {
-      // error handling by Bootstrap
-    }
-  }
+      const payload = [
+         ["eventid", cfe.id],
+         ["eventtitle", cfe.name],
+         ["firstname", member.firstname],
+         ["lastname", member.lastname],
+         ["email", member.email],
+         ["phone", member.phone],
+         ["imagefolder", cfe.imagefolderid],
+         ...formdata,
+      ]
+      let _data = {}
+      for (const [key, value] of payload) {
+         _data[key] = value
+      }
+      const priceInt = parseInt(_data.price)
+      _data.filename = `${_data.lastname}-${_data.firstname}-${_data.worktitle}-${_data.medium}-${_data.width}x${_data.height}-${priceInt}`
+      _data.fileid = ""
+      _data.member = "YES"
+      _data.availability = ""
+      _data.hidden = ""
+      _data.fullname = member.firstname + " " + member.lastname
+      _data.timestamp = moment().format("MMMM Do YYYY, h:mm:ss a")
 
-  // Start up
-  function loadPageElements() {
-    const id = document.getElementById("exhibitId").value
-    fetchOpenCalls(id)
-    fetchAppSettings()
-    setCopyrightYear()
-  }
+      fr.onload = function (e) {
+         const img = {
+            filename: _data.filename,
+            mimetype: file.type,
+            bytes: [...new Int8Array(e.target.result)],
+         }
+         _data.bytes = img.bytes
+         _data.mimetype = file.type
+         //upload.push(img)
 
-  function handleFileSelect(evt) {
-    reader = new FileReader() 
-    // remember selected file (first selected)
-    var file = this.files[0] 
-    reader.onabort = function (e) {
-      alert("File read cancelled") 
-    } 
-    reader.onload = function (e) {
-      const img = {
-        filename: fileNameFormatted,
-        mimeType: file.type,
-        bytes: [...new Int8Array(e.target.result)],
-      } 
-      const imagedataHidden = document.getElementById("imagedata-hidden") 
-      const mimetypeHidden = document.getElementById("mimetype-hidden") 
-      imagedataHidden.value = e.target.result.replace(/^.*,/, "") 
-      mimetypeHidden.value = e.target.result.match(/^.*(?=;)/)[0] 
+         google.script.run
+            .withSuccessHandler(showComplete)
+            .withUserObject(this)
+            .addSubmission(_data)
+      }
+      fr.readAsArrayBuffer(file)
 
-      filename 
-      showThumbnail(file) 
-    } 
-    // Read in the image file as a Data URL
-    reader.readAsDataURL(file) 
-  }
+      return _data
+   }
 
-  function addToGallery() {
-    const gallery = document.getElementById("gallery");
-    const galleryItem = document.createElement("li");
-    const gallerySpanSaved = document.createElement("span");
-    const gallerySpanPlaceholder = document.createElement("span");
+   function isMember(member, status, type) {
+      return member.status === status && type.includes(member.type)
+   }
 
-    galleryItem.classList.add("d-none");
-    gallerySpanSaved.innerText = "Saved";
-    gallerySpanSaved.classList.add("saved", "d-none");
-    gallerySpanPlaceholder.innerText = "Image Placeholder";
-    gallerySpanPlaceholder.classList.add("empty");
+   function emailValidate() {
+      const emailAddress = document.getElementById("artist-email").value
+      const form = document.getElementById("form-artist-info")
 
-    galleryItem.appendChild(gallerySpanSaved);
-    galleryItem.appendChild(gallerySpanPlaceholder);
-    gallery.appendChild(galleryItem);
-  }
-  
-  document.addEventListener("DOMContentLoaded", loadPageElements)
-  document
-    .getElementById("form-file")
-    .addEventListener("change", showThumbnail) 
-  document
-    .getElementById("login-button")
-    .addEventListener("click", emailValidate) 
-  document
-    .getElementById("artist-email")
-    .addEventListener("change", resetDisplay) 
-  document
-    .getElementById("form-artist-info")
-    .addEventListener("submit", (event) => {
-      event.preventDefault() 
-    }) 
-  document
-    .getElementById("formUploadImages")
-    .addEventListener("submit", addSubmission) 
+      if (form.checkValidity()) {
+         // fetch member
+         fetchingArtist(true)
+         fetchMember(emailAddress)
+      } else {
+         // error handling by Bootstrap
+      }
+   }
+
+   // Start up
+   function loadPageElements() {
+      const id = document.getElementById("exhibitId").value
+      fetchOpenCalls(id)
+      fetchAppSettings()
+      setCopyrightYear()
+   }
+
+   function handleFileSelect(evt) {
+      reader = new FileReader()
+      // remember selected file (first selected)
+      var file = this.files[0]
+      reader.onabort = function (e) {
+         alert("File read cancelled")
+      }
+      reader.onload = function (e) {
+         const img = {
+            filename: fileNameFormatted,
+            mimeType: file.type,
+            bytes: [...new Int8Array(e.target.result)],
+         }
+         const imagedataHidden = document.getElementById("imagedata-hidden")
+         const mimetypeHidden = document.getElementById("mimetype-hidden")
+         imagedataHidden.value = e.target.result.replace(/^.*,/, "")
+         mimetypeHidden.value = e.target.result.match(/^.*(?=;)/)[0]
+
+         filename
+         showThumbnail(file)
+      }
+      // Read in the image file as a Data URL
+      reader.readAsDataURL(file)
+   }
+
+   function addToGallery() {
+      const gallery = document.getElementById("gallery")
+      const galleryItem = document.createElement("li")
+      const gallerySpanSaved = document.createElement("span")
+      const gallerySpanPlaceholder = document.createElement("span")
+
+      galleryItem.classList.add("d-none")
+      gallerySpanSaved.innerText = "Saved"
+      gallerySpanSaved.classList.add("saved", "d-none")
+      gallerySpanPlaceholder.innerText = "Image Placeholder"
+      gallerySpanPlaceholder.classList.add("empty")
+
+      galleryItem.appendChild(gallerySpanSaved)
+      galleryItem.appendChild(gallerySpanPlaceholder)
+      gallery.appendChild(galleryItem)
+   }
+
+   document.addEventListener("DOMContentLoaded", loadPageElements)
+   document
+      .getElementById("form-file")
+      .addEventListener("change", showThumbnail)
+   document
+      .getElementById("login-button")
+      .addEventListener("click", emailValidate)
+   document
+      .getElementById("artist-email")
+      .addEventListener("change", resetDisplay)
+   document
+      .getElementById("form-artist-info")
+      .addEventListener("submit", (event) => {
+         event.preventDefault()
+      })
+   document
+      .getElementById("formUploadImages")
+      .addEventListener("submit", addSubmission)
 </script>
