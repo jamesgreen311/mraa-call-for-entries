@@ -11,4 +11,4 @@ Important Links
 https://developer.paypal.com/docs/checkout/integrate/
 https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/
 --->
-Attached to spreadsheet - Call For Entries
+No longer attached to spreadsheet, Call For Entries. This is now a standalone project.
