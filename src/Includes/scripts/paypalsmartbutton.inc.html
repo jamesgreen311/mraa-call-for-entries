@@ -13,10 +13,15 @@
 </div>
 <!-- Production client id = AfbhOcpktCdya-uK-M7soZkFkxh0euDoWcKOCAC63DRSc2N4eXlx7Mgwe0q2bRPYa3z_a6PkZOeCo2DS -->
 <!-- Sandbox client id = AcbPm-heZCDlqDwdLzPt6Y526oUGcWDNAa8EcFCnQL2-vEumXBq055iPMaXFbziEf6r-XDWoGKTM6q3q -->
-<script
+<!-- Sandbox client id tied to my personal account = AejJcYqe0dL9rjTZnqO-PJ5OBU4f6EKaZaAl_hKAw2uoq7O04Srm7-p6M_Goym3lK2i9e1r2Ta7mcztU-->
+<!-- <script
   src="https://www.paypal.com/sdk/js?client-id=AfbhOcpktCdya-uK-M7soZkFkxh0euDoWcKOCAC63DRSc2N4eXlx7Mgwe0q2bRPYa3z_a6PkZOeCo2DS&disable-funding=credit&currency=USD"
   data-sdk-integration-source="button-factory"
-></script>
+></script> -->
+<script
+  src="https://sandbox.paypal.com/sdk/js?client-id=AejJcYqe0dL9rjTZnqO-PJ5OBU4f6EKaZaAl_hKAw2uoq7O04Srm7-p6M_Goym3lK2i9e1r2Ta7mcztU&disable-funding=credit&currency=USD"
+  data-sdk-integration-source="button-factory"
+  ></script>
 
 <script>
   function initPayPalButton() {
@@ -31,7 +36,7 @@
     if (!isNaN(quantity)) {
       quantitySelect.style.visibility = "visible";
     }
-    var orderDescription = "Exhibit entry";
+    var orderDescription = "Entry fee for Exhibit " + document.getElementById("exhibit-title").innerText;
     if (orderDescription === "") {
       orderDescription = "Item";
     }
