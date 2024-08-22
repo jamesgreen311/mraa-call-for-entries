@@ -44,7 +44,7 @@
    // PayPal Smart Button customization
    function setPayPalItemPrice(price) {
       const itemOptions = document.getElementById("item-options")
-      const option = new Option("$" + price + " Per Entry", "Per Entry")
+      const option = new Option("$" + price + " Entry fee ", "Entry fee for Exhibit " + document.getElementById("exhibit-title").innerText)
       option.setAttribute("price", price)
       itemOptions.add(option)
    }
