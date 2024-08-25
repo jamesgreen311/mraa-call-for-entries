@@ -80,6 +80,11 @@ function getCFETables() {
             showclosedate: "m",
             entryfee: "n",
             registrationlink: "o",
+            applicationversion: "p",
+            feestructure: "q",
+            maxprice: "r",
+            showfee: "s",
+            location: "t",
          },
       },
       appsettings: {
@@ -110,6 +115,22 @@ function getCFETables() {
             maxentries: "d",
             entryfee: "e",
             imagefolderid: "f",
+         },
+      },
+      payments: {
+         name: "Payments",
+         type: "standard",
+         headers: 1,
+         schema: {
+            exhibitid: "a",
+            exhibitname: "b",
+            exhibitlocation: "c", // in config file
+            artistemail: "d",
+            artistlastname: "e",
+            artistfirstname: "f",
+            qtyentered: "g",
+            amountpaid: "h", // blank - entered by treasurer when payment is made
+            timestamp: "i",
          },
       },
    }
@@ -146,6 +167,7 @@ function getShow(id) {
          show.entryfee = d[cfeConfigSchema.entryfee.colToIndex()]
          show.registrationLink =
             d[cfeConfigSchema.registrationlink.colToIndex()]
+         show.location = d[cfeConfigSchema.location.colToIndex()]
       }
    }
    return show
@@ -184,6 +206,16 @@ function getAppSettings() {
  */
 function getShowName(id) {
    return getShow(id).name
+}
+
+/**
+ *
+ * @param {*} id
+ * @returns {string} Show location
+ */
+function getShowLocation(id) {
+   const show = getShow(id)
+   return show.location
 }
 
 /**
@@ -672,6 +704,23 @@ function addSubmission(d) {
    )
 
    return e.appendRow(newRow)
+}
+
+function addPaymentDue(d) {
+   const t = getCFETables()
+   const p = connect(CFE_ID).getSheetByName(t.payments.name)
+   const newRow = []
+   const s = t.payments.schema
+   newRow[s.exhibitid.colToIndex()] = d.eventid
+   newRow[s.exhibitname.colToIndex()] = d.eventtitle
+   newRow[s.exhibitlocation.colToIndex()] = getShowLocation(d.eventid)
+   newRow[s.artistemail.colToIndex()] = d.email
+   newRow[s.artistlastname.colToIndex()] = d.lastname
+   newRow[s.artistfirstname.colToIndex()] = d.firstname
+   newRow[s.qtyentered.colToIndex()] = 1
+   newRow[s.timestamp.colToIndex()] = d.timestamp
+
+   return p.appendRow(newRow)
 }
 
 /**
