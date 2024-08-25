@@ -1,3 +1,9 @@
+function testGetLocation() {
+   const id = "176BD2A"
+   const l = getShowLocation(id)
+   return l
+}
+
 function testGetmemberByEmail() {
    const m = getMemberByEmail("Jamesgreen.311@gmail.com")
 }

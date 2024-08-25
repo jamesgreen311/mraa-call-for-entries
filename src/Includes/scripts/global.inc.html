@@ -511,9 +511,13 @@
          //upload.push(img)
 
          google.script.run
+            .addSubmission(_data)
+         
+         google.script.run
             .withSuccessHandler(showComplete)
             .withUserObject(this)
-            .addSubmission(_data)
+            .addPaymentDue(_data)
+
       }
       fr.readAsArrayBuffer(file)
 
