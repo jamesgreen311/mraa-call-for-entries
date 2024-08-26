@@ -130,7 +130,8 @@ function getCFETables() {
             artistfirstname: "f",
             qtyentered: "g",
             amountpaid: "h", // blank - entered by treasurer when payment is made
-            timestamp: "i",
+            datereceived: "i", // blank - entered by treasurer when payment is made
+            timestamp: "j",
          },
       },
    }
