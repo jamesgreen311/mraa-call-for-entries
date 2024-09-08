@@ -401,7 +401,12 @@ function getCurrentCalls() {
    const startRow = cfeTables.exhibits.headers + 1
    const startCol = cfeExhibitsSchema.eventtitle.colToIndex() + 1
    const data = cfeExhibits
-      .getRange(startRow, startCol, cfeExhibits.getLastRow() - startRow, 1)
+      .getRange(
+         startRow,
+         startCol,
+         cfeExhibits.getLastRow() - cfeTables.exhibits.headers,
+         1
+      )
       .getDisplayValues()
 
    const filteredData = data.map((d) => d[0])
