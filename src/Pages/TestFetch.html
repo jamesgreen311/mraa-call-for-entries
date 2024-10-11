@@ -29,9 +29,8 @@
          crossorigin="anonymous" />
 
       <?!= include("Includes/css/mraa.inc"); ?>
-      <title>MRAA Call For Entries Wizard</title>
+      <title>MRAA Call For Entries Test Page</title>
    </head>
-
    <body>
       <form action="#" id="dataImport">
          <input
@@ -51,7 +50,7 @@
                   <span class="bold fs-3">Call For Entries </span>
                   <span class="light fs-6">New Exhibit</span><br />
                   <span id="exhibit-title" class="bold bright fs-3">
-                     <?= name ?></span
+                     <?= name ?> Test Page</span
                   >
                </div>
             </div>
@@ -172,17 +171,6 @@
                   </table>
                </div>
             </div>
-            <div id="paymentreceived" class="d-none member-access">
-               <div class="header">
-                  <span class="material-symbols-outlined icon">
-                     payments
-                  </span>
-                  <span class="text">Payment Received</span>
-               </div>
-               <div>
-                  <p id="paymentreceivedtext" class="notice-me"></p>
-               </div>
-            </div>            
          </form>
          <div id="uploadWaiting" class="uploading d-none">
             <div class="animation line-up">
@@ -351,6 +339,18 @@
                   </p>
                </div>
             </div>
+            <div id="paymentreceived" class="d-none member-access">
+               <div class="header">
+                  <span class="material-symbols-outlined icon">
+                     payments
+                  </span>
+                  <span class="text">Payment Received</span>
+               </div>
+               <div>
+                  <p id="paymentreceivedtext" class="notice-me"></p>
+
+               </div>
+            </div>
             <div id="payment" class="d-none member-access">
                <div class="header">
                   <span class="material-symbols-outlined icon">
@@ -380,6 +380,7 @@
          </footer>
       </div>
 
+
       <script
          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
          integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
@@ -388,6 +389,7 @@
          src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
          crossorigin="anonymous"></script>
 
-      <?!= include("Includes/scripts/global.inc"); ?>
+      <?!= include("Includes/scripts/testing.inc"); ?>
+
    </body>
 </html>

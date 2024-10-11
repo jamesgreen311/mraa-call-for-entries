@@ -4,23 +4,31 @@
  * @returns 
  */
 function doGet(e) {
-    const id = e?e.parameter.v:"oldest"
-    const show = getOpenCalls(id)
-    if (show.length===0) {
-        return loadError("No shows are currently open or the requested call for entries has closed.")
-    }
-    const showId = show[1]
+   const id = e ? e.parameter.v : "oldest"
+   const show = getOpenCalls(id)
+   if (show.length === 0) {
+      return loadError(
+         "No shows are currently open or the requested call for entries has closed."
+      )
+   }
+   const showId = show[1]
 
-    return loadWizard(showId)
+   return loadWizard(showId)
+   //return loadTestFetch(showId)
 }
 
 /**
- * Creates the Call For Entries Wizard 
+ * Creates the Call For Entries Wizard
  * @returns {HTMLTemplate} Wizard page
  */
 function loadWizard(id) {
-    let s = getShow(id.toUpperCase());
-    return render(`${pageRoot}/Wizard`, s);
+   let s = getShow(id.toUpperCase())
+   return render(`${pageRoot}/Wizard`, s)
+}
+
+function loadTestFetch(id) {
+   let s = getShow(id.toUpperCase())
+   return render(`${pageRoot}/TestFetch`, s)
 }
 
 /**
