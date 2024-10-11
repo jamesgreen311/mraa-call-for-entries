@@ -134,6 +134,52 @@ function getCFETables() {
             timestamp: "j",
          },
       },
+      paymentdashboard: {
+         name: "Payment Dashboard",
+         type: "dashboard",
+         pivottables: {
+            exhibittotals: {
+               name: "Exhibit Totals",
+               type: "pivot",
+               headers: 2,
+               summary: 1,
+               titles: 1,
+               schema: {
+                  exhibitname: "a",
+                  totalentries: "b",
+                  totalpaid: "c",
+               },
+            },
+            totalsbyemail: {
+               name: "Exhibit Totals By Artist Email",
+               type: "pivot",
+               headers: 2,
+               summary: 1,
+               titles: 1,
+               schema: {
+                  artistemail: "d",
+                  exhibitname: "e",
+                  exhibitid: "f",
+                  qtyentered: "g",
+                  amountpaid: "h",
+               },
+            },
+            totalsbyexhibitname: {
+               name: "Exhibit Totals By Exhibit Name",
+               type: "pivot",
+               headers: 2,
+               summary: 1,
+               titles: 1,
+               schema: {
+                  exhibitname: "j",
+                  artistlastname: "k",
+                  artistfirstname: "l",
+                  qtyentered: "m",
+                  amountpaid: "n",
+               },
+            },
+         },
+      },
    }
 }
 
@@ -674,6 +720,46 @@ function getArtistUploads(params) {
    }
 
    return compactUploads
+}
+
+/**
+ * Search the Exhibit Totals by Artist Email pivot table in Payment Dashboard
+ *
+ * @param {integer} id
+ * @param {string} email
+ * @returns {array}
+ */
+function getPaymentsByArtist(id, email) {
+   const cfeTables = getCFETables()
+   const cfePaymentDashboard = connect(CFE_ID).getSheetByName(
+      cfeTables.paymentdashboard.name
+   )
+   const cfePDPivotTables = cfeTables.paymentdashboard.pivottables
+   const cfeTBEPivotTable = cfePDPivotTables.totalsbyemail
+   const cfeTBESchema = cfePDPivotTables.totalsbyemail.schema // schema for totalsbyexhibitname pivot table
+   const startRow = 1 + cfeTBEPivotTable.titles // include headers and summary rows, exclude title
+   const cols = Object.keys(cfeTBESchema).length // determine number of columns in pivot table
+   const startCol = cfeTBESchema.artistemail.colToIndex() + 1 // determine starting column for this pivot table
+   const dataRows = cfePaymentDashboard.getLastRow() // include headers and summary rows
+   const arrOffset = startCol - 1 // data position in array is offset by where the first column appears in the spreadsheet
+   const idPos = cfeTBESchema.exhibitid.colToIndex() - arrOffset
+   const emailPos = cfeTBESchema.artistemail.colToIndex() - arrOffset
+
+   let data = []
+
+   if (dataRows > 0) {
+      data = cfePaymentDashboard
+         .getRange(startRow, startCol, dataRows, cols)
+         .getDisplayValues()
+   }
+
+   // filter data for exhibit id and artist email
+   const filteredData = data.filter(
+      (r) =>
+         r[idPos].toUpperCase() === id.toUpperCase() &&
+         r[emailPos].toUpperCase() === email.toUpperCase()
+   )
+   return filteredData[0]
 }
 
 /**
