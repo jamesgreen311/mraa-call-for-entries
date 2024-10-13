@@ -1,3 +1,10 @@
+function testGetPaymentsByArtist() {
+   const id = "269BFB8"
+   const email = "appletreestudio@yahoo.com"
+   const data = getPaymentsByArtist(id, email)
+   return data
+}
+
 function testGetLocation() {
    const id = "176BD2A"
    const l = getShowLocation(id)
