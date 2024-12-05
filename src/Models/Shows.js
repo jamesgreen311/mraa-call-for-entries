@@ -23,6 +23,7 @@ function getCFETables() {
             hidden: "p", // not currently used
             fullname: "q", // not currently used
             timestamp: "r", // not currently used
+            securitytoken: "s", // not currently used
          },
       },
       countsbytitleartist: {
@@ -85,6 +86,7 @@ function getCFETables() {
             maxprice: "r",
             showfee: "s",
             location: "t",
+            cashdiscount: "u",
          },
       },
       appsettings: {
@@ -95,12 +97,12 @@ function getCFETables() {
             maximagesize: "a2",
             cfecontact: "b2",
             statuslist: "c2:c",
-            latestdeploymenturl: "d2",
+            applicationlink: "d2",
             applicationversion: "e2",
-            latestdeploymentlist: "d2:d",
-            applicationversionlist: "e2:e",
             treasurerName: "i2",
             treasurerEmail: "j2",
+            confirmationdocid: "k2",
+            destinationfolderid: "l2",
          },
       },
       opencalls: {
@@ -215,6 +217,7 @@ function getShow(id) {
          show.registrationLink =
             d[cfeConfigSchema.registrationlink.colToIndex()]
          show.location = d[cfeConfigSchema.location.colToIndex()]
+         show.cashdiscount = d[cfeConfigSchema.cashdiscount.colToIndex()]
       }
    }
    return show
@@ -237,12 +240,24 @@ function getAppSettings() {
    const cfeTreasurerEmail = settings
       .getRange(schema.treasurerEmail)
       .getDisplayValue()
+   const confirmationDocId = settings
+      .getRange(schema.confirmationdocid)
+      .getDisplayValue()
+   const destinationFolderId = settings
+      .getRange(schema.destinationfolderid)
+      .getDisplayValue()
+   const applicationLink = settings
+      .getRange(schema.applicationlink)
+      .getDisplayValue()
 
    return JSON.stringify({
       maximagesize: maxImageSize,
       cfecontact: cfeContact,
       treasurername: cfeTreasurerName,
       treasureremail: cfeTreasurerEmail,
+      confirmationdocid: confirmationDocId,
+      destinationfolderid: destinationFolderId,
+      applicationlink: applicationLink,
    })
 }
 
@@ -795,7 +810,10 @@ function addSubmission(d) {
       d.imagefolder
    )
 
-   return e.appendRow(newRow)
+   e.appendRow(newRow)
+   const fileid = sendConfirmation(d)
+
+   return fileid
 }
 
 function addPaymentDue(d) {
