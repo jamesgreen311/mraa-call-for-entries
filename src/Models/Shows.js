@@ -803,12 +803,14 @@ function addSubmission(d) {
    newRow[s.member.colToIndex()] = d.member
    newRow[s.fullname.colToIndex()] = d.fullname
    newRow[s.timestamp.colToIndex()] = d.timestamp
+   newRow[s.securitytoken.colToIndex()] = generateToken()
    newRow[s.fileid.colToIndex()] = saveImage(
       d.bytes,
       d.mimetype,
       d.filename,
       d.imagefolder
    )
+   d.securitytoken = newRow[s.securitytoken.colToIndex()]
 
    e.appendRow(newRow)
    const fileid = sendConfirmation(d)
