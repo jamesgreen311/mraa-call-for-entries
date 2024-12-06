@@ -11,11 +11,11 @@ const MEMBER_ID = "1puqturm6WCBtfL3uaT_YICKHI9StLcPA4SosBuMs4ZY"
  * The init file is processed first by Google App script. 
  */
 function init() {
-
-  // Scopes needed
-  // SpreadsheetApp.open(file);
-  // DriveApp.createFile(blob);
-  // SpreadsheetApp.getUi();
+   // Scopes needed
+   // SpreadsheetApp.open(file);
+   // DriveApp.createFile(blob);
+   // SpreadsheetApp.getUi();
+   // GmailApp.sendEmail("tech@metrorichmondart.org", "Test", "Test")
 }
 /**
  * Placing connect here ensures that the SpreadsheetApp object is created 
