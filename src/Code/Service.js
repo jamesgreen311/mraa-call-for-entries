@@ -56,7 +56,7 @@ function createConfirmationDoc(submission) {
       .getElement()
       .editAsText()
       .setLinkUrl(applicationLink)
-   body.replaceText("{token}", generateToken())
+   body.replaceText("{token}", submission.securitytoken)
    body.replaceText("{member_email}", submission.email)
    body.replaceText(
       "{subject}",
