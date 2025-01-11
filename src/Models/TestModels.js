@@ -1,3 +1,31 @@
+function testGetOpenCalls() {
+   const openCalls = getOpenCalls()
+   Logger.log(openCalls)
+}
+
+function testGetArtistUploads() {
+   const p = {
+      artist: "jamesgreen.311@gmail.com",
+      event: "28ED453",
+      key: "id",
+   }
+   const artistUploads = getArtistUploads(JSON.stringify(p))
+   Logger.log(artistUploads)
+   return
+}
+
+function testGetShowById() {
+   const id = "28ED453"
+   const show = getShow(id)
+   return show
+}
+
+function testGetAppSettings() {
+   const settings = getAppSettings()
+   Logger.log(settings)
+   return
+}
+
 function testGetPaymentsByArtist() {
    const id = "269BFB8"
    const email = "appletreestudio@yahoo.com"
