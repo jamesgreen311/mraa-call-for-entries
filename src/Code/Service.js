@@ -81,6 +81,7 @@ function createConfirmationDoc(submission) {
       "mraa-exhibits@metrorichmondart.org"
    )
    body.replaceText("{treasurer_email}", appSettings.treasureremail)
+   body.replaceText("{phone}", submission.phone)
 
    doc.saveAndClose()
 
