@@ -9,6 +9,8 @@ const submission = {
    medium: "Oil",
    price: "1000",
    eventid: "176BD2A",
+   securitytoken: "testtoken",
+   phone: "804-555-1234",
 }
 const appSettings = JSON.parse(getAppSettings())
 
